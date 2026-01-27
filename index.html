@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam新品周报可视化看板 (2026-01 W4)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .card { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); padding: 20px; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .tag { display: inline-block; padding: 4px 12px; border-radius: 9999px; font-size: 0.875rem; font-weight: 600; margin-right: 8px; margin-bottom: 8px; }
+        .tag-pixel { background-color: #e0e7ff; color: #4338ca; }
+        .tag-stress { background-color: #dcfce7; color: #15803d; }
+        .tag-contrast { background-color: #fae8ff; color: #86198f; }
+        .tag-coop { background-color: #ffedd5; color: #c2410c; }
+        
+        /* Hover Card Styles */
+        .hover-card {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            width: 320px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+            border: 1px solid #e5e7eb;
+            pointer-events: none; /* Prevent flickering */
+            overflow: hidden;
+        }
+        .hover-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .hover-card-content {
+            padding: 12px;
+        }
+        tr:hover .game-title {
+            color: #4f46e5;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="p-6">
+
+    <!-- Header -->
+    <header class="mb-8 text-center">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Steam 新品周报可视化看板</h1>
+        <p class="text-gray-500">📅 周期：2026年1月第4周 | 📊 数据来源：Steam Analysis</p>
+    </header>
+
+    <!-- Section 1: Market Pulse -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="card md:col-span-2">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">🔥 赛道热力与关键词</h2>
+            <div class="flex flex-wrap mb-4">
+                <span class="tag tag-pixel">#像素风</span>
+                <span class="tag tag-stress">#极致解压</span>
+                <span class="tag tag-contrast">#反差萌</span>
+                <span class="tag tag-coop">#联机互坑</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <div class="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500">
+                    <strong class="block text-blue-700 mb-1">自走棋做减法</strong>
+                    <p class="text-gray-600">《矮人军团》证明简化博弈、强调数值对撞是泛大众化方向。</p>
+                </div>
+                <div class="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
+                    <strong class="block text-green-700 mb-1">模拟类追求ASMR</strong>
+                    <p class="text-gray-600">《Bladesong》放弃复杂数值，追求极致视听反馈。</p>
+                </div>
+                <div class="bg-purple-50 p-3 rounded-lg border-l-4 border-purple-500">
+                    <strong class="block text-purple-700 mb-1">题材反差缝合</strong>
+                    <p class="text-gray-600">“童话+社畜”的现实解构主义正在成为流量密码。</p>
+                </div>
+            </div>
+        </div>
+        <div class="card flex flex-col justify-center items-center bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
+            <h3 class="text-lg font-semibold opacity-90">本周热门赛道</h3>
+            <div class="text-3xl font-bold mt-2">动作/肉鸽</div>
+            <div class="text-xl opacity-75 mt-1">&</div>
+            <div class="text-3xl font-bold mt-1">模拟经营</div>
+        </div>
+    </div>
+
+    <!-- Section 2: Top 10 Charts -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Chart: Review Count Ranking -->
+        <div class="card">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">🏆 热门新品热度排行 (评论数)</h2>
+            <div id="chart-reviews" style="height: 350px;"></div>
+        </div>
+        <!-- Chart: Rating vs Reviews -->
+        <div class="card">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">💎 热度与口碑分布 (气泡图)</h2>
+            <div id="chart-scatter" style="height: 350px;"></div>
+        </div>
+    </div>
+
+    <!-- Section 3: Deep Dive Radar -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="card">
+            <h2 class="text-xl font-bold text-gray-800 mb-2">深度拆解: 矮人军团自走棋</h2>
+            <p class="text-sm text-gray-500 mb-4">现金牛级数值爽游，S级手游化潜力</p>
+            <div class="flex flex-col md:flex-row gap-4 items-center">
+                <div class="w-full md:w-1/3">
+                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2205850/header.jpg" alt="矮人军团" class="rounded-lg shadow-md w-full">
+                </div>
+                <div id="radar-dwarf" class="w-full md:w-2/3" style="height: 300px;"></div>
+            </div>
+            <div class="mt-4 text-sm bg-gray-50 p-3 rounded border-l-4 border-indigo-500">
+                <strong>核心洞察：</strong> 对自走棋玩法进行“空间降维”，将8x8棋盘压缩为1D横向战线，完美适配竖屏。
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="text-xl font-bold text-gray-800 mb-2">深度拆解: 逃出从此以后</h2>
+            <p class="text-sm text-gray-500 mb-4">题材创意的宝库，S+级题材设定</p>
+            <div class="flex flex-col md:flex-row gap-4 items-center">
+                <div class="w-full md:w-1/3">
+                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1996390/header.jpg" alt="逃出从此以后" class="rounded-lg shadow-md w-full">
+                </div>
+                <div id="radar-escape" class="w-full md:w-2/3" style="height: 300px;"></div>
+            </div>
+            <div class="mt-4 text-sm bg-gray-50 p-3 rounded border-l-4 border-pink-500">
+                <strong>核心洞察：</strong> “童话宇宙 x 现代职场”的反差设定极具病毒传播力，建议保留题材重构玩法。
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 4: Data Table -->
+    <div class="card mb-8 overflow-hidden">
+        <h2 class="text-xl font-bold text-gray-800 mb-4 px-2">📋 详细榜单数据 (Hover查看详情)</h2>
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-sm text-left text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3">封面</th>
+                        <th class="px-6 py-3">排名</th>
+                        <th class="px-6 py-3">游戏名称</th>
+                        <th class="px-6 py-3">类型</th>
+                        <th class="px-6 py-3">评论数</th>
+                        <th class="px-6 py-3">好评率</th>
+                        <th class="px-6 py-3">手游化潜力</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white border-b" id="game-table-body">
+                    <!-- Data Rows will be inserted by JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Hover Card Element -->
+    <div id="hover-card" class="hover-card">
+        <img id="hover-img" src="" alt="Game Preview">
+        <div class="hover-card-content">
+            <h4 id="hover-title" class="font-bold text-gray-800 text-lg"></h4>
+            <p id="hover-desc" class="text-sm text-gray-600 mt-1"></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-gray-400 text-sm pb-8">
+        <p>Generated by AI Assistant | Based on Steam Weekly Report</p>
+    </footer>
+
+    <script>
+        // Data Preparation
+        const games = [
+            { name: '饿狼传说：群狼之城', appId: '2492040', reviews: 2383, rating: 80, genre: '格斗/动作', potential: 'C', potentialDesc: '操作太硬核', potentialColor: 'gray' },
+            { name: '矮人军团自走棋', appId: '2205850', reviews: 1875, rating: 82, genre: '自走棋/肉鸽', potential: 'S', potentialDesc: '完美适配', potentialColor: 'red' },
+            { name: '落逃之地 LORT', appId: '2956680', reviews: 778, rating: 75, genre: '动作/肉鸽', potential: 'A-', potentialDesc: '技能设计可参考', potentialColor: 'orange' },
+            { name: '真・三国无双 起源', appId: '4038930', reviews: 597, rating: 56, genre: '动作/无双', potential: 'B', potentialDesc: '手机带不动', potentialColor: 'blue' },
+            { name: '万象群侠传', appId: '3039500', reviews: 443, rating: 86, genre: '武侠/RPG', potential: 'B+', potentialDesc: '适合做文字MUD', potentialColor: 'purple' },
+            { name: '咩咩启示录：羊绒仙境', appId: '3840050', reviews: 403, rating: 94, genre: '模拟/肉鸽', potential: 'S', potentialDesc: '题材参考', potentialColor: 'red' },
+            { name: 'MIO: Memories in Orbit', appId: '1672810', reviews: 348, rating: 80, genre: '银河恶魔城', potential: 'C', potentialDesc: '操作门槛高', potentialColor: 'gray' },
+            { name: 'Bladesong (铸剑吟)', appId: '2305640', reviews: 244, rating: 96, genre: '模拟/锻造', potential: 'A', potentialDesc: '副玩法/超休闲', potentialColor: 'orange' },
+            { name: '奇怪的RPG 2', appId: '2516470', reviews: 207, rating: 92, genre: '动作/RPG', potential: 'B', potentialDesc: '营销噱头参考', potentialColor: 'blue' },
+            { name: '逃出从此以后', appId: '1996390', reviews: 104, rating: 98, genre: '纸片马力欧Like', potential: 'A', potentialDesc: '题材S级', potentialColor: 'orange' }
+        ];
+
+        // Render Table
+        const tableBody = document.getElementById('game-table-body');
+        games.forEach((game, index) => {
+            const row = document.createElement('tr');
+            row.className = 'hover:bg-gray-50 transition-colors duration-150 cursor-pointer';
+            row.dataset.appid = game.appId;
+            row.dataset.title = game.name;
+            row.dataset.desc = `${game.genre} | ${game.reviews} 评论 | ${game.rating}% 好评`;
+            
+            // Color Mapping
+            let colorClass = 'bg-gray-100 text-gray-800';
+            if (game.potentialColor === 'red') colorClass = 'bg-red-100 text-red-800';
+            if (game.potentialColor === 'orange') colorClass = 'bg-orange-100 text-orange-800';
+            if (game.potentialColor === 'purple') colorClass = 'bg-purple-100 text-purple-800';
+            if (game.potentialColor === 'blue') colorClass = 'bg-blue-100 text-blue-800';
+
+            // Rating Color
+            let ratingColor = 'text-gray-600';
+            if (game.rating >= 90) ratingColor = 'text-green-600 font-bold';
+            else if (game.rating >= 80) ratingColor = 'text-blue-600';
+            else if (game.rating < 60) ratingColor = 'text-red-600';
+
+            row.innerHTML = `
+                <td class="px-6 py-3">
+                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.appId}/capsule_sm_120.jpg" class="rounded shadow-sm w-24" alt="${game.name}">
+                </td>
+                <td class="px-6 py-4 font-medium text-gray-900 text-lg">${index + 1}</td>
+                <td class="px-6 py-4">
+                    <a href="https://store.steampowered.com/app/${game.appId}/" target="_blank" class="game-title font-semibold text-gray-800 text-base block">${game.name}</a>
+                </td>
+                <td class="px-6 py-4 text-gray-600">${game.genre}</td>
+                <td class="px-6 py-4">${game.reviews}</td>
+                <td class="px-6 py-4 ${ratingColor}">${game.rating}%</td>
+                <td class="px-6 py-4">
+                    <div class="flex items-center">
+                        <span class="${colorClass} text-xs font-medium px-2.5 py-0.5 rounded w-8 text-center shrink-0 mr-2 border border-opacity-20 border-black">${game.potential}</span>
+                        <span class="text-xs text-gray-500">${game.potentialDesc}</span>
+                    </div>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        // Hover Logic
+        const hoverCard = document.getElementById('hover-card');
+        const hoverImg = document.getElementById('hover-img');
+        const hoverTitle = document.getElementById('hover-title');
+        const hoverDesc = document.getElementById('hover-desc');
+
+        tableBody.addEventListener('mousemove', (e) => {
+            const row = e.target.closest('tr');
+            if (row) {
+                const appId = row.dataset.appid;
+                const title = row.dataset.title;
+                const desc = row.dataset.desc;
+
+                hoverCard.style.display = 'block';
+                // Position card near cursor but not under it
+                let top = e.clientY + 20;
+                let left = e.clientX + 20;
+                
+                // Boundary check (simple)
+                if (left + 320 > window.innerWidth) left = e.clientX - 340;
+                if (top + 200 > window.innerHeight) top = e.clientY - 200;
+
+                hoverCard.style.top = `${top}px`;
+                hoverCard.style.left = `${left}px`;
+
+                // Only update if changed to avoid flickering
+                if (hoverTitle.textContent !== title) {
+                    hoverTitle.textContent = title;
+                    hoverDesc.textContent = desc;
+                    // Try to load header image
+                    hoverImg.src = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appId}/header.jpg`;
+                }
+            } else {
+                hoverCard.style.display = 'none';
+            }
+        });
+
+        tableBody.addEventListener('mouseleave', () => {
+            hoverCard.style.display = 'none';
+        });
+
+
+        // Chart 1: Reviews Bar Chart
+        const chartReviews = echarts.init(document.getElementById('chart-reviews'));
+        chartReviews.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { type: 'value', name: '评论数' },
+            yAxis: { type: 'category', data: games.map(g => g.name).reverse() },
+            series: [{
+                name: '评论数',
+                type: 'bar',
+                data: games.map(g => g.reviews).reverse(),
+                itemStyle: { color: '#6366f1' },
+                label: { show: true, position: 'right' }
+            }]
+        });
+
+        // Chart 2: Scatter Plot (Rating vs Reviews)
+        const chartScatter = echarts.init(document.getElementById('chart-scatter'));
+        chartScatter.setOption({
+            tooltip: {
+                formatter: function (param) {
+                    return `<b>${param.data[2]}</b><br/>评论数: ${param.data[0]}<br/>好评率: ${param.data[1]}%`;
+                }
+            },
+            xAxis: { type: 'value', name: '评论数', splitLine: { lineStyle: { type: 'dashed' } } },
+            yAxis: { type: 'value', name: '好评率 (%)', min: 50, max: 100, splitLine: { lineStyle: { type: 'dashed' } } },
+            series: [{
+                symbolSize: function (data) { return Math.sqrt(data[0]) * 1.5; }, // Size based on reviews
+                data: games.map(g => [g.reviews, g.rating, g.name, g.genre]),
+                type: 'scatter',
+                itemStyle: {
+                    color: function(param) {
+                        const r = param.data[1];
+                        return r >= 90 ? '#22c55e' : r >= 80 ? '#3b82f6' : r >= 70 ? '#eab308' : '#ef4444';
+                    },
+                    shadowBlur: 10,
+                    shadowColor: 'rgba(25, 100, 150, 0.5)',
+                    shadowOffsetY: 5
+                }
+            }]
+        });
+
+        // Chart 3: Radar Chart - Dwarf Legion
+        const chartRadarDwarf = echarts.init(document.getElementById('radar-dwarf'));
+        chartRadarDwarf.setOption({
+            radar: {
+                indicator: [
+                    { name: '商业化 (P1)', max: 5 },
+                    { name: '移动端适配 (P2)', max: 5 },
+                    { name: '题材吸引力 (P3)', max: 5 },
+                    { name: '社交潜力 (P4)', max: 5 }
+                ]
+            },
+            series: [{
+                name: '矮人军团自走棋',
+                type: 'radar',
+                data: [{
+                    value: [5, 5, 5, 4], // 极高=5, S=5, S=5, 必需=4
+                    name: '矮人军团自走棋',
+                    areaStyle: { color: 'rgba(99, 102, 241, 0.2)' },
+                    lineStyle: { color: '#6366f1' }
+                }]
+            }]
+        });
+
+        // Chart 4: Radar Chart - Escape from Ever After
+        const chartRadarEscape = echarts.init(document.getElementById('radar-escape'));
+        chartRadarEscape.setOption({
+            radar: {
+                indicator: [
+                    { name: '商业化 (P1)', max: 5 },
+                    { name: '移动端适配 (P2)', max: 5 },
+                    { name: '题材吸引力 (P3)', max: 5 },
+                    { name: '社交潜力 (P4)', max: 5 }
+                ]
+            },
+            series: [{
+                name: '逃出从此以后',
+                type: 'radar',
+                data: [{
+                    value: [3.5, 2, 5, 4], // 中高=3.5, 需重构=2, S+=5, 高=4
+                    name: '逃出从此以后',
+                    areaStyle: { color: 'rgba(236, 72, 153, 0.2)' },
+                    lineStyle: { color: '#ec4899' }
+                }]
+            }]
+        });
+
+        // Resize charts on window resize
+        window.addEventListener('resize', () => {
+            chartReviews.resize();
+            chartScatter.resize();
+            chartRadarDwarf.resize();
+            chartRadarEscape.resize();
+        });
+    </script>
+</body>
+</html>
