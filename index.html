@@ -357,7 +357,7 @@
         const tableBody = document.getElementById('game-table-body');
         games.forEach((game, index) => {
             const row = document.createElement('tr');
-            row.className = 'hover:bg-gray-50 transition-colors duration-150 cursor-pointer';
+            row.className = 'hover:bg-gray-50 transition-colors duration-150';
             row.dataset.appid = game.appId;
             row.dataset.title = game.name;
             row.dataset.desc = game.description || `${game.genre} | ${game.reviews} 评论 | ${game.rating}% 好评`;
@@ -388,7 +388,7 @@
                 </td>
                 <td class="px-6 py-4 font-medium text-gray-900 text-lg">${index + 1}</td>
                 <td class="px-6 py-4">
-                    <span class="game-title font-semibold text-gray-800 text-base block">${game.name}</span>
+                    <a href="https://store.steampowered.com/app/${game.appId}/" target="_blank" class="game-title font-semibold text-gray-800 text-base block hover:underline">${game.name}</a>
                 </td>
                 <td class="px-6 py-4 text-gray-600">${game.genre}</td>
                 <td class="px-6 py-4">${game.reviews}</td>
@@ -401,38 +401,7 @@
                 </td>
             `;
             
-            // Add click event for modal
-            row.addEventListener('click', () => {
-                openModal(game.appId, game.name);
-            });
-
             tableBody.appendChild(row);
-        });
-
-        // Modal Logic
-        const modal = document.getElementById('detail-modal');
-        const modalTitle = document.getElementById('modal-title');
-        const steamWidget = document.getElementById('steam-widget');
-
-        function openModal(appId, title) {
-            modalTitle.textContent = title;
-            // Use Steam Widget for rich content (screenshots, price, description)
-            steamWidget.src = `https://store.steampowered.com/widget/${appId}/`;
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Prevent scrolling background
-        }
-
-        function closeModal() {
-            modal.style.display = 'none';
-            steamWidget.src = ''; // Stop video playback
-            document.body.style.overflow = 'auto';
-        }
-
-        // Close modal when clicking outside
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
         });
 
         // Hover Logic
