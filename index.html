@@ -122,31 +122,68 @@
     </div>
 
     <!-- Section 3: Deep Dive Radar -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Deep Dive Card 1 -->
         <div class="card">
-            <h2 class="text-xl font-bold text-gray-800 mb-2">深度拆解: 矮人军团自走棋</h2>
-            <p class="text-sm text-gray-500 mb-4">现金牛级数值爽游，S级手游化潜力</p>
-            <div class="flex flex-col md:flex-row gap-4 items-center">
-                <div class="w-full md:w-1/3">
-                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2205850/header.jpg" alt="矮人军团" class="rounded-lg shadow-md w-full">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800">深度拆解: 矮人军团自走棋</h2>
+                    <p class="text-sm text-gray-500">现金牛级数值爽游，S级手游化潜力</p>
                 </div>
-                <div id="radar-dwarf" class="w-full md:w-2/3" style="height: 300px;"></div>
+                <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">S级推荐</span>
             </div>
-            <div class="mt-4 text-sm bg-gray-50 p-3 rounded border-l-4 border-indigo-500">
-                <strong>核心洞察：</strong> 对自走棋玩法进行“空间降维”，将8x8棋盘压缩为1D横向战线，完美适配竖屏。
+            
+            <!-- Analysis Content -->
+            <div class="grid grid-cols-1 gap-4">
+                <!-- Radar Chart -->
+                <div id="radar-dwarf" style="height: 250px;"></div>
+                
+                <!-- Insight Box -->
+                <div class="text-sm bg-indigo-50 p-3 rounded border-l-4 border-indigo-500">
+                    <strong>核心洞察：</strong> 对自走棋玩法进行“空间降维”，将8x8棋盘压缩为1D横向战线，完美适配竖屏。
+                </div>
+
+                <!-- Game Intro & Media -->
+                <div class="mt-2">
+                    <h3 class="font-semibold text-gray-700 mb-2">🎮 游戏简介 & 媒体展示</h3>
+                    <p class="text-sm text-gray-600 mb-3 leading-relaxed">
+                        这是一款将自走棋羁绊融入肉鸽割草的游戏，被玩家戏称为“带兵打仗版吸血鬼幸存者”。其核心爽点在于数值成长的即时反馈，非常适合移动端的碎片化体验。
+                    </p>
+                    <!-- Steam Widget (Includes Screenshots & Video) -->
+                    <iframe src="https://store.steampowered.com/widget/2205850/" width="100%" height="190" frameborder="0" class="rounded shadow-sm"></iframe>
+                </div>
             </div>
         </div>
+
+        <!-- Deep Dive Card 2 -->
         <div class="card">
-            <h2 class="text-xl font-bold text-gray-800 mb-2">深度拆解: 逃出从此以后</h2>
-            <p class="text-sm text-gray-500 mb-4">题材创意的宝库，S+级题材设定</p>
-            <div class="flex flex-col md:flex-row gap-4 items-center">
-                <div class="w-full md:w-1/3">
-                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1996390/header.jpg" alt="逃出从此以后" class="rounded-lg shadow-md w-full">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800">深度拆解: 逃出从此以后</h2>
+                    <p class="text-sm text-gray-500">题材创意的宝库，S+级题材设定</p>
                 </div>
-                <div id="radar-escape" class="w-full md:w-2/3" style="height: 300px;"></div>
+                <span class="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-0.5 rounded">题材S级</span>
             </div>
-            <div class="mt-4 text-sm bg-gray-50 p-3 rounded border-l-4 border-pink-500">
-                <strong>核心洞察：</strong> “童话宇宙 x 现代职场”的反差设定极具病毒传播力，建议保留题材重构玩法。
+
+            <!-- Analysis Content -->
+            <div class="grid grid-cols-1 gap-4">
+                <!-- Radar Chart -->
+                <div id="radar-escape" style="height: 250px;"></div>
+
+                <!-- Insight Box -->
+                <div class="text-sm bg-pink-50 p-3 rounded border-l-4 border-pink-500">
+                    <strong>核心洞察：</strong> “童话宇宙 x 现代职场”的反差设定极具病毒传播力，建议保留题材重构玩法。
+                </div>
+
+                <!-- Game Intro & Media -->
+                <div class="mt-2">
+                    <h3 class="font-semibold text-gray-700 mb-2">🎮 游戏简介 & 媒体展示</h3>
+                    <p class="text-sm text-gray-600 mb-3 leading-relaxed">
+                        童话角色进大厂打工？这款游戏用“纸片马力欧”式的RPG玩法，讲述了一个极其扎心的社畜故事。虽然玩法较重，但其世界观设定是放置类/模拟经营手游的绝佳素材。
+                    </p>
+                    <!-- Steam Widget (Includes Screenshots & Video) -->
+                    <iframe src="https://store.steampowered.com/widget/1996390/" width="100%" height="190" frameborder="0" class="rounded shadow-sm"></iframe>
+                </div>
             </div>
         </div>
     </div>
