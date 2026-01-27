@@ -17,53 +17,50 @@
         .tag-contrast { background-color: #fae8ff; color: #86198f; }
         .tag-coop { background-color: #ffedd5; color: #c2410c; }
         
-        /* Modal Styles */
-        .modal-overlay {
+        /* Hover Card Styles */
+        .hover-card {
             display: none;
-            position: fixed;
+            position: absolute;
+            z-index: 9999; /* Higher z-index */
+            width: 320px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+            border: 1px solid #e5e7eb;
+            pointer-events: none;
+            overflow: hidden;
+            transition: opacity 0.1s ease; /* Smooth appearance */
+        }
+        .hover-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .hover-card-content {
+            padding: 12px;
+        }
+        tr:hover .game-title {
+            color: #4f46e5;
+            text-decoration: underline;
+        }
+        /* Video Container for Deep Dive */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .video-container video {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(4px);
+            object-fit: cover;
         }
-        .modal-content {
-            background: white;
-            width: 90%;
-            max-width: 800px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            animation: modalPop 0.3s ease-out;
-        }
-        @keyframes modalPop {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        .modal-header {
-            padding: 16px 24px;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .modal-body {
-            padding: 0;
-            background: #1b2838; /* Steam Dark Blue */
-            min-height: 400px;
-        }
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #6b7280;
-        }
-        .close-btn:hover { color: #111827; }
     </style>
 </head>
 <body class="p-6">
@@ -135,22 +132,29 @@
             
             <!-- Analysis Content -->
             <div class="grid grid-cols-1 gap-4">
-                <!-- Radar Chart -->
-                <div id="radar-dwarf" style="height: 250px;"></div>
-                
-                <!-- Insight Box -->
-                <div class="text-sm bg-indigo-50 p-3 rounded border-l-4 border-indigo-500">
-                    <strong>核心洞察：</strong> 对自走棋玩法进行“空间降维”，将8x8棋盘压缩为1D横向战线，完美适配竖屏。
+                <div class="flex flex-col md:flex-row gap-4">
+                    <!-- Radar Chart -->
+                    <div id="radar-dwarf" class="w-full md:w-1/2" style="height: 250px;"></div>
+                    <!-- Intro Text -->
+                    <div class="w-full md:w-1/2 flex flex-col justify-center">
+                        <div class="text-sm bg-indigo-50 p-3 rounded border-l-4 border-indigo-500 mb-3">
+                            <strong>核心洞察：</strong> 对自走棋玩法进行“空间降维”，将8x8棋盘压缩为1D横向战线，完美适配竖屏。
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            这是一款将自走棋羁绊融入肉鸽割草的游戏，被玩家戏称为“带兵打仗版吸血鬼幸存者”。其核心爽点在于数值成长的即时反馈。
+                        </p>
+                    </div>
                 </div>
 
-                <!-- Game Intro & Media -->
+                <!-- Video Showcase -->
                 <div class="mt-2">
-                    <h3 class="font-semibold text-gray-700 mb-2">🎮 游戏简介 & 媒体展示</h3>
-                    <p class="text-sm text-gray-600 mb-3 leading-relaxed">
-                        这是一款将自走棋羁绊融入肉鸽割草的游戏，被玩家戏称为“带兵打仗版吸血鬼幸存者”。其核心爽点在于数值成长的即时反馈，非常适合移动端的碎片化体验。
-                    </p>
-                    <!-- Steam Widget (Includes Screenshots & Video) -->
-                    <iframe src="https://store.steampowered.com/widget/2205850/" width="100%" height="190" frameborder="0" class="rounded shadow-sm"></iframe>
+                    <h3 class="font-semibold text-gray-700 mb-2 text-sm">🎥 玩法实录 (Steam Microtrailer)</h3>
+                    <div class="video-container">
+                        <video autoplay muted loop playsinline poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2205850/header.jpg">
+                            <source src="https://cdn.akamai.steamstatic.com/steam/apps/2205850/microtrailer.mp4" type="video/mp4">
+                            您的浏览器不支持视频播放。
+                        </video>
+                    </div>
                 </div>
             </div>
         </div>
@@ -167,22 +171,29 @@
 
             <!-- Analysis Content -->
             <div class="grid grid-cols-1 gap-4">
-                <!-- Radar Chart -->
-                <div id="radar-escape" style="height: 250px;"></div>
-
-                <!-- Insight Box -->
-                <div class="text-sm bg-pink-50 p-3 rounded border-l-4 border-pink-500">
-                    <strong>核心洞察：</strong> “童话宇宙 x 现代职场”的反差设定极具病毒传播力，建议保留题材重构玩法。
+                <div class="flex flex-col md:flex-row gap-4">
+                    <!-- Radar Chart -->
+                    <div id="radar-escape" class="w-full md:w-1/2" style="height: 250px;"></div>
+                    <!-- Intro Text -->
+                    <div class="w-full md:w-1/2 flex flex-col justify-center">
+                        <div class="text-sm bg-pink-50 p-3 rounded border-l-4 border-pink-500 mb-3">
+                            <strong>核心洞察：</strong> “童话宇宙 x 现代职场”的反差设定极具病毒传播力，建议保留题材重构玩法。
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            童话角色进大厂打工？这款游戏用“纸片马力欧”式的RPG玩法，讲述了一个极其扎心的社畜故事。世界观设定是放置类手游的绝佳素材。
+                        </p>
+                    </div>
                 </div>
 
-                <!-- Game Intro & Media -->
+                <!-- Video Showcase -->
                 <div class="mt-2">
-                    <h3 class="font-semibold text-gray-700 mb-2">🎮 游戏简介 & 媒体展示</h3>
-                    <p class="text-sm text-gray-600 mb-3 leading-relaxed">
-                        童话角色进大厂打工？这款游戏用“纸片马力欧”式的RPG玩法，讲述了一个极其扎心的社畜故事。虽然玩法较重，但其世界观设定是放置类/模拟经营手游的绝佳素材。
-                    </p>
-                    <!-- Steam Widget (Includes Screenshots & Video) -->
-                    <iframe src="https://store.steampowered.com/widget/1996390/" width="100%" height="190" frameborder="0" class="rounded shadow-sm"></iframe>
+                    <h3 class="font-semibold text-gray-700 mb-2 text-sm">🎥 玩法实录 (Steam Microtrailer)</h3>
+                    <div class="video-container">
+                        <video autoplay muted loop playsinline poster="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1996390/header.jpg">
+                            <source src="https://cdn.akamai.steamstatic.com/steam/apps/1996390/microtrailer.mp4" type="video/mp4">
+                            您的浏览器不支持视频播放。
+                        </video>
+                    </div>
                 </div>
             </div>
         </div>
@@ -190,7 +201,7 @@
 
     <!-- Section 4: Data Table -->
     <div class="card mb-8 overflow-hidden">
-        <h2 class="text-xl font-bold text-gray-800 mb-4 px-2">📋 详细榜单数据 (点击查看详情)</h2>
+        <h2 class="text-xl font-bold text-gray-800 mb-4 px-2">📋 详细榜单数据 (Hover查看详情)</h2>
         <div class="overflow-x-auto">
             <table class="min-w-full text-sm text-left text-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -217,19 +228,6 @@
         <div class="hover-card-content">
             <h4 id="hover-title" class="font-bold text-gray-800 text-lg"></h4>
             <p id="hover-desc" class="text-sm text-gray-600 mt-1"></p>
-        </div>
-    </div>
-
-    <!-- Detail Modal -->
-    <div id="detail-modal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modal-title" class="text-xl font-bold text-gray-800">游戏详情</h3>
-                <button class="close-btn" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <iframe id="steam-widget" src="" width="100%" height="400" frameborder="0"></iframe>
-            </div>
         </div>
     </div>
 
@@ -418,13 +416,20 @@
                 const desc = row.dataset.desc;
 
                 hoverCard.style.display = 'block';
-                // Position card near cursor but not under it
-                let top = e.clientY + 20;
-                let left = e.clientX + 20;
                 
-                // Boundary check (simple)
-                if (left + 320 > window.innerWidth) left = e.clientX - 340;
-                if (top + 200 > window.innerHeight) top = e.clientY - 200;
+                // Position card near cursor (offset by 20px)
+                // Use pageX/Y to handle scrolling correctly
+                let top = e.pageY + 20; 
+                let left = e.pageX + 20;
+                
+                // Boundary check (simple) - if too close to right edge, flip to left
+                if (left + 340 > window.innerWidth + window.scrollX) {
+                    left = e.pageX - 340;
+                }
+                // If too close to bottom, flip up
+                if (top + 250 > window.innerHeight + window.scrollY) {
+                    top = e.pageY - 250;
+                }
 
                 hoverCard.style.top = `${top}px`;
                 hoverCard.style.left = `${left}px`;
