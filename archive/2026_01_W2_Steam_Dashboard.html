@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam新品周报可视化看板 (2026-01 W2)</title>
+    <link rel="icon" href="data:,">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .card { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); padding: 20px; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .tag { display: inline-block; padding: 4px 12px; border-radius: 9999px; font-size: 0.875rem; font-weight: 600; margin-right: 8px; margin-bottom: 8px; }
+        .tag-pixel { background-color: #e0e7ff; color: #4338ca; }
+        .tag-stress { background-color: #dcfce7; color: #15803d; }
+        .tag-contrast { background-color: #fae8ff; color: #86198f; }
+        .tag-coop { background-color: #ffedd5; color: #c2410c; }
+        .tag-sim { background-color: #fce7f3; color: #be185d; }
+        
+        /* Hover Card Styles */
+        .hover-card {
+            display: none;
+            position: absolute;
+            z-index: 9999; /* Higher z-index */
+            width: 320px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+            border: 1px solid #e5e7eb;
+            pointer-events: none;
+            overflow: hidden;
+            transition: opacity 0.1s ease; /* Smooth appearance */
+        }
+        .hover-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .hover-card-content {
+            padding: 12px;
+        }
+        tr:hover .game-title {
+            color: #4f46e5;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="p-6">
+
+    <!-- Version Nav -->
+    <div id="version-nav" class="max-w-7xl mx-auto mb-6">
+        <div class="flex flex-col md:flex-row gap-3 md:items-center md:justify-between bg-white/80 backdrop-blur border rounded-xl px-4 py-3 shadow-sm">
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="font-semibold text-gray-900">版本</span>
+                <span id="current-version-label" class="px-2 py-0.5 rounded bg-gray-100 text-gray-700">加载中…</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+                <a id="latest-link" href="#" class="inline-flex items-center px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700">最新版本</a>
+                <select id="version-select" class="px-3 py-1.5 rounded-lg border bg-white text-sm text-gray-700">
+                    <option value="">加载历史版本…</option>
+                </select>
+                <button id="open-version" type="button" class="inline-flex items-center px-3 py-1.5 rounded-lg border text-sm font-medium text-gray-700 hover:bg-gray-50">打开</button>
+            </div>
+        </div>
+        <p id="version-nav-hint" class="mt-2 text-xs text-gray-500"></p>
+    </div>
+
+    <!-- Header -->
+    <header class="mb-8 text-center">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Steam 新品周报可视化看板</h1>
+        <p class="text-gray-500">📅 周期：2026年1月第2周 | 📊 数据来源：Steam Analysis</p>
+    </header>
+
+    <!-- Section 1: Market Pulse -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="card md:col-span-2">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">🔥 赛道热力与关键词</h2>
+            <div class="flex flex-wrap mb-4">
+                <span class="tag tag-pixel">#现实题材</span>
+                <span class="tag tag-stress">#电诈园区</span>
+                <span class="tag tag-contrast">#战争模拟</span>
+                <span class="tag tag-coop">#治愈系</span>
+                <span class="tag tag-sim">#放置经营</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <div class="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500">
+                    <strong class="block text-blue-700 mb-1">题材的极端化</strong>
+                    <p class="text-gray-600">从《血薪记》到《检疫区》，挖掘极具社会话题度或高压环境的题材，利用张力吸量。</p>
+                </div>
+                <div class="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
+                    <strong class="block text-green-700 mb-1">模拟的轻量化</strong>
+                    <p class="text-gray-600">《Rising Front》简化战争为视觉奇观；《Cozy Caravan》将经营简化为治愈旅途。</p>
+                </div>
+                <div class="bg-purple-50 p-3 rounded-lg border-l-4 border-purple-500">
+                    <strong class="block text-purple-700 mb-1">放置经营变体</strong>
+                    <p class="text-gray-600">《Gamblers Table》证明物理反馈（抛硬币）结合数值升级，能构成极强成瘾性。</p>
+                </div>
+            </div>
+        </div>
+        <div class="card flex flex-col justify-center items-center bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
+            <h3 class="text-lg font-semibold opacity-90">本周热门赛道</h3>
+            <div class="text-3xl font-bold mt-2">模拟经营</div>
+            <div class="text-xl opacity-75 mt-1">&</div>
+            <div class="text-3xl font-bold mt-1">叙事题材</div>
+        </div>
+    </div>
+
+    <!-- Section 2: Top 10 Charts -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Chart: Review Count Ranking -->
+        <div class="card">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">🏆 热门新品热度排行 (评论数)</h2>
+            <div id="chart-reviews" style="height: 350px;"></div>
+        </div>
+        <!-- Chart: Rating vs Reviews -->
+        <div class="card">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">💎 热度与口碑分布 (气泡图)</h2>
+            <div id="chart-scatter" style="height: 350px;"></div>
+        </div>
+    </div>
+
+    <!-- Section 3: Deep Dive Radar -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Deep Dive Card 1 -->
+        <div class="card">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800">血薪记：罪恶园区</h2>
+                    <p class="text-sm text-gray-500">题材驱动的生存模拟，S级题材极佳</p>
+                </div>
+                <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">S级推荐</span>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-4">
+                <div id="radar-3850560" class="w-full" style="height: 200px;"></div>
+                <div class="text-sm bg-red-50 p-3 rounded border-l-4 border-red-500">
+                    <strong>核心洞察：</strong> “逃离园区”的紧迫感与人性博弈，具有极强的生理唤醒，建议提取其“绝境生存+人性抉择”的内核。
+                </div>
+                <div id="screenshots-3850560" class="grid grid-cols-2 gap-2" data-appid="3850560" data-limit="4"></div>
+            </div>
+        </div>
+
+        <!-- Deep Dive Card 2 -->
+        <div class="card">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800">Cozy Caravan</h2>
+                    <p class="text-sm text-gray-500">治愈系旅行经营，S级完美适配</p>
+                </div>
+                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">S级推荐</span>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-4">
+                <div id="radar-2788520" class="w-full" style="height: 200px;"></div>
+                <div class="text-sm bg-green-50 p-3 rounded border-l-4 border-green-500">
+                    <strong>核心洞察：</strong> 画风、玩法循环与移动端的“收菜”逻辑高度契合，是高质量副游的绝佳参考。
+                </div>
+                <div id="screenshots-2788520" class="grid grid-cols-2 gap-2" data-appid="2788520" data-limit="4"></div>
+            </div>
+        </div>
+
+        <!-- Deep Dive Card 3 -->
+        <div class="card">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800">检疫区：最后一站</h2>
+                    <p class="text-sm text-gray-500">Papers, Please 升级版，A级适合改编</p>
+                </div>
+                <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded">A级推荐</span>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-4">
+                <div id="radar-3419520" class="w-full" style="height: 200px;"></div>
+                <div class="text-sm bg-orange-50 p-3 rounded border-l-4 border-orange-500">
+                    <strong>核心洞察：</strong> “基地建设+外部探索（检查）”天然符合SLG结构，用“检查站”作为差异化的包装点。
+                </div>
+                <div id="screenshots-3419520" class="grid grid-cols-2 gap-2" data-appid="3419520" data-limit="4"></div>
+            </div>
+        </div>
+
+        <!-- Deep Dive Card 4 -->
+        <div class="card">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800">Rising Front</h2>
+                    <p class="text-sm text-gray-500">视觉系战争模拟，A+级视觉表现</p>
+                </div>
+                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">A+级推荐</span>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-4">
+                <div id="radar-1560250" class="w-full" style="height: 200px;"></div>
+                <div class="text-sm bg-blue-50 p-3 rounded border-l-4 border-blue-500">
+                    <strong>核心洞察：</strong> 核心爽点在于“看着成千上万的小人打仗”，这种视觉奇观是移动端买量素材的宠儿。
+                </div>
+                <div id="screenshots-1560250" class="grid grid-cols-2 gap-2" data-appid="1560250" data-limit="4"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 4: Data Table -->
+    <div class="card mb-8 overflow-hidden">
+        <h2 class="text-xl font-bold text-gray-800 mb-4 px-2">📋 详细榜单数据 (Hover查看详情)</h2>
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-sm text-left text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3">封面</th>
+                        <th class="px-6 py-3">排名</th>
+                        <th class="px-6 py-3">游戏名称</th>
+                        <th class="px-6 py-3">类型</th>
+                        <th class="px-6 py-3">评论数</th>
+                        <th class="px-6 py-3">好评率</th>
+                        <th class="px-6 py-3">手游化潜力</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white border-b" id="game-table-body">
+                    <!-- Data Rows will be inserted by JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Hover Card Element -->
+    <div id="hover-card" class="hover-card">
+        <img id="hover-img" src="" alt="Game Preview">
+        <div class="hover-card-content">
+            <h4 id="hover-title" class="font-bold text-gray-800 text-lg"></h4>
+            <p id="hover-desc" class="text-sm text-gray-600 mt-1"></p>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="detail-modal" class="fixed inset-0 hidden items-center justify-center" style="z-index: 10000;">
+        <div id="detail-backdrop" class="absolute inset-0 bg-black/50"></div>
+        <div class="relative bg-white rounded-xl shadow-2xl w-[min(960px,92vw)] max-h-[88vh] overflow-hidden">
+            <div class="flex items-start justify-between p-4 border-b">
+                <div class="pr-4">
+                    <h3 id="detail-title" class="text-lg font-bold text-gray-900"></h3>
+                    <p id="detail-sub" class="text-sm text-gray-500 mt-1"></p>
+                </div>
+                <button id="detail-close" class="text-gray-500 hover:text-gray-900 px-2 py-1">关闭</button>
+            </div>
+            <div class="p-4 overflow-auto" style="max-height: calc(88vh - 64px);">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="md:col-span-1">
+                        <img id="detail-header" class="w-full rounded-lg shadow-sm" alt="">
+                        <a id="detail-store-link" target="_blank" class="mt-3 inline-block text-sm text-indigo-600 hover:underline">打开 Steam 商店页</a>
+                    </div>
+                    <div class="md:col-span-2">
+                        <p id="detail-desc" class="text-sm text-gray-700 leading-relaxed"></p>
+                        <div class="mt-4">
+                            <h4 class="font-semibold text-gray-800 mb-2 text-sm">📷 官方截图/简介（Steam 小组件）</h4>
+                            <div class="rounded-lg overflow-hidden border bg-gray-50">
+                                <iframe id="detail-widget" title="Steam Widget" class="w-full" style="height: 220px;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">如果网络环境屏蔽 Steam，小组件可能无法加载。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-gray-400 text-sm pb-8">
+        <p>Generated by AI Assistant | Based on Steam Weekly Report</p>
+    </footer>
+
+    <script>
+        // ==============================
+        // Version switcher (Latest <-> Archive)
+        // ==============================
+        const VERSION_NAV_CONFIG = {
+            owner: 'PlumLit',
+            repo: 'steam-weekly-reports',
+            branch: 'main',
+            archiveDir: 'archive'
+        };
+
+        function getSiteBasePathname() {
+            // GitHub Pages: /steam-weekly-reports/...  => base = /steam-weekly-reports/
+            // Local server: /index.html               => base = /
+            const segs = window.location.pathname.replace(/^\/+/, '').split('/').filter(Boolean);
+            if (segs.length === 0) return '/';
+            const first = segs[0];
+            if (first.endsWith('.html') || first === VERSION_NAV_CONFIG.archiveDir) return '/';
+            return `/${first}/`;
+        }
+
+        function getLatestUrl() {
+            const base = getSiteBasePathname();
+            return `${window.location.origin}${base}`;
+        }
+
+        function normalizeUrl(u) {
+            try {
+                const x = new URL(u, window.location.href);
+                x.search = '';
+                x.hash = '';
+                return x.toString();
+            } catch {
+                return u;
+            }
+        }
+
+        function filenameToLabel(name) {
+            // 2026_01_W4_Steam_Dashboard.html -> 2026-01 W4
+            const m = String(name).match(/(\d{4})_(\d{2})_W(\d+)/);
+            if (m) return `${m[1]}-${m[2]} W${m[3]}`;
+            const t = String(name).replace(/\.html$/i, '').replace(/_/g, ' ');
+            return t;
+        }
+
+        async function fetchArchiveIndex() {
+            const cacheKey = 'steam_weekly_reports_archive_cache_v1';
+            const cacheTsKey = 'steam_weekly_reports_archive_cache_ts_v1';
+            const now = Date.now();
+            const cacheTtlMs = 10 * 60 * 1000;
+
+            const cached = window.localStorage.getItem(cacheKey);
+            const cachedTs = Number(window.localStorage.getItem(cacheTsKey) || '0');
+            if (cached && (now - cachedTs) < cacheTtlMs) {
+                return JSON.parse(cached);
+            }
+
+            const api = `https://api.github.com/repos/${VERSION_NAV_CONFIG.owner}/${VERSION_NAV_CONFIG.repo}/contents/${VERSION_NAV_CONFIG.archiveDir}?ref=${VERSION_NAV_CONFIG.branch}`;
+            const res = await fetch(api, { headers: { 'Accept': 'application/vnd.github+json' } });
+            if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+            const data = await res.json();
+            const items = (Array.isArray(data) ? data : [])
+                .filter(x => x && x.type === 'file' && typeof x.name === 'string' && x.name.toLowerCase().endsWith('.html'))
+                .map(x => ({ name: x.name }));
+
+            window.localStorage.setItem(cacheKey, JSON.stringify(items));
+            window.localStorage.setItem(cacheTsKey, String(now));
+            return items;
+        }
+
+        async function initVersionNav() {
+            const select = document.getElementById('version-select');
+            const openBtn = document.getElementById('open-version');
+            const latestLink = document.getElementById('latest-link');
+            const labelEl = document.getElementById('current-version-label');
+            const hintEl = document.getElementById('version-nav-hint');
+            if (!select || !openBtn || !latestLink || !labelEl) return;
+
+            const titleMatch = String(document.title).match(/\(([^)]+)\)/);
+            const titleLabel = titleMatch ? titleMatch[1] : '';
+
+            const latestUrl = getLatestUrl();
+            latestLink.href = latestUrl;
+
+            const current = normalizeUrl(window.location.href);
+            const base = normalizeUrl(latestUrl);
+            const isLatest = current === base || current === normalizeUrl(`${latestUrl}index.html`);
+
+            labelEl.textContent = titleLabel ? `${titleLabel}${isLatest ? '（最新）' : '（历史）'}` : (isLatest ? '最新版本' : '历史版本');
+            if (hintEl) {
+                hintEl.textContent = isLatest
+                    ? '你正在查看最新版本（index.html，默认应为最近一周）。可在右侧选择任意历史版本。'
+                    : '你正在查看历史版本，可随时返回最新版本（index.html）。';
+            }
+
+            select.innerHTML = '';
+            select.appendChild(new Option('选择历史版本…', ''));
+            select.appendChild(new Option('最新版本（index）', latestUrl));
+
+            let archives = [];
+            try {
+                archives = await fetchArchiveIndex();
+            } catch (e) {
+                console.warn('GitHub API failed, using fallback list:', e);
+                if (hintEl) hintEl.textContent = '（提示）历史版本列表加载失败，已切换至离线索引。';
+                archives = [
+                    { name: '2026_01_W4_Steam_Dashboard.html' },
+                    { name: '2026_01_W3_Steam_Dashboard.html' },
+                    { name: '2026_01_W2_Steam_Dashboard.html' }
+                ];
+            }
+
+            const basePath = getSiteBasePathname();
+            const archiveBase = `${window.location.origin}${basePath}${VERSION_NAV_CONFIG.archiveDir}/`;
+
+            archives
+                .sort((a, b) => String(b.name).localeCompare(String(a.name)))
+                .forEach((it) => {
+                    const url = `${archiveBase}${it.name}`;
+                    const text = filenameToLabel(it.name);
+                    select.appendChild(new Option(text, url));
+                });
+
+            // Preselect current page if possible
+            for (const opt of Array.from(select.options)) {
+                if (opt.value && normalizeUrl(opt.value) === current) {
+                    select.value = opt.value;
+                    break;
+                }
+            }
+
+            const go = () => {
+                const v = select.value;
+                if (v) window.location.href = v;
+            };
+            openBtn.addEventListener('click', go);
+            select.addEventListener('change', () => { if (select.value) go(); });
+        }
+
+        // Script is at bottom, DOM is ready; still guard for safety.
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initVersionNav);
+        else initVersionNav();
+
+        function steamStoreUrl(appId) { return `https://store.steampowered.com/app/${appId}/`; }
+        function steamWidgetUrl(appId) { return `https://store.steampowered.com/widget/${appId}/?l=schinese`; }
+        
+        function steamImageCandidates(appId) {
+            const baseA = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appId}`;
+            const baseB = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}`;
+            return [
+                `${baseA}/capsule_231x87.jpg`, `${baseA}/header.jpg`, `${baseB}/header.jpg`
+            ];
+        }
+
+        function steamGalleryCandidates(appId) {
+            const baseA = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appId}`;
+            return [
+                `${baseA}/header.jpg`, `${baseA}/library_600x900.jpg`, `${baseA}/library_hero.jpg`, `${baseA}/library_capsule.jpg`
+            ];
+        }
+
+        function setImgWithFallback(imgEl, urls, { alt } = {}) {
+            if (!imgEl || !Array.isArray(urls) || urls.length === 0) return;
+            if (alt) imgEl.alt = alt;
+            let i = 0;
+            const tryNext = () => {
+                if (i >= urls.length) { imgEl.onerror = null; return; }
+                imgEl.src = urls[i++];
+            };
+            imgEl.onerror = () => tryNext();
+            tryNext();
+        }
+
+        // Data
+        const games = [
+            { name: 'Rising Front', appId: '1560250', reviews: 3347, rating: 89, genre: '动作/模拟', potential: 'B+', potentialDesc: '性能压力大', potentialColor: 'blue', description: '一战背景的宏大战争模拟器，主打布娃娃物理与大规模战斗。' },
+            { name: '检疫区：最后一站', appId: '3419520', reviews: 1621, rating: 76, genre: '模拟/策略', potential: 'A', potentialDesc: '适合Papers, Please类', potentialColor: 'orange', description: '末日背景下的检查站模拟，资源管理与幸存者筛查。' },
+            { name: '血薪记：罪恶园区', appId: '3850560', reviews: 978, rating: 97, genre: '休闲/RPG', potential: 'S', potentialDesc: '题材极佳', potentialColor: 'red', description: '电诈园区题材，生存模拟与人性博弈。' },
+            { name: 'Cozy Caravan', appId: '2788520', reviews: 706, rating: 93, genre: '冒险/休闲', potential: 'S', potentialDesc: '完美适配', potentialColor: 'red', description: '开着大篷车旅行、烹饪、经营集市的治愈游戏。' },
+            { name: 'Gamblers Table', appId: '3618390', reviews: 471, rating: 70, genre: '休闲/模拟', potential: 'A-', potentialDesc: '适合超休闲', potentialColor: 'orange', description: '放置型硬币投掷游戏，通过升级硬币赚钱。' },
+            { name: '星际裂变', appId: '1631270', reviews: 398, rating: 51, genre: '动作/建造', potential: 'B', potentialDesc: '操作复杂', potentialColor: 'blue', description: '第一人称开放世界基地建设与战斗防守。' },
+            { name: '分头行动', appId: '4137570', reviews: 332, rating: 99, genre: '冒险/合作', potential: 'B+', potentialDesc: '适合派对游戏', potentialColor: 'blue', description: '物理模拟的合作平台跳跃游戏，主打联机互坑。' },
+            { name: 'DuneCrawl', appId: '1833200', reviews: 272, rating: 77, genre: '动作/肉鸽', potential: 'B', potentialDesc: '题材尚可', potentialColor: 'blue', description: '驾驶巨型机甲在沙漠中探险的合作游戏。' },
+            { name: '蜉蝣之国的囚徒', appId: '3880360', reviews: 233, rating: 81, genre: '冒险/独立', potential: 'B', potentialDesc: '适合买断制', potentialColor: 'blue', description: '悬疑解谜ADV，讲述被绑架者的生存故事。' },
+            { name: '尸姬之梦', appId: '2842800', reviews: 207, rating: 84, genre: '策略/卡牌', potential: 'A-', potentialDesc: '适合二次元卡牌', potentialColor: 'orange', description: '扮演尸姬进行卡牌战斗与构筑。' }
+        ];
+
+        // Render Table
+        const tableBody = document.getElementById('game-table-body');
+        games.forEach((game, index) => {
+            const row = document.createElement('tr');
+            row.className = 'hover:bg-gray-50 transition-colors duration-150 cursor-pointer';
+            row.dataset.appid = game.appId;
+            row.dataset.title = game.name;
+            row.dataset.desc = game.description;
+            
+            let colorClass = 'bg-gray-100 text-gray-800';
+            if (game.potentialColor === 'red') colorClass = 'bg-red-100 text-red-800';
+            if (game.potentialColor === 'orange') colorClass = 'bg-orange-100 text-orange-800';
+            if (game.potentialColor === 'blue') colorClass = 'bg-blue-100 text-blue-800';
+
+            let ratingColor = 'text-gray-600';
+            if (game.rating >= 90) ratingColor = 'text-green-600 font-bold';
+            else if (game.rating >= 80) ratingColor = 'text-blue-600';
+            else if (game.rating < 60) ratingColor = 'text-red-600';
+
+            row.innerHTML = `
+                <td class="px-6 py-3"><img class="table-cover rounded shadow-sm w-24 object-cover" alt="${game.name}"></td>
+                <td class="px-6 py-4 font-medium text-gray-900 text-lg">${index + 1}</td>
+                <td class="px-6 py-4"><a href="${steamStoreUrl(game.appId)}" target="_blank" class="game-title font-semibold text-gray-800 text-base block hover:underline">${game.name}</a></td>
+                <td class="px-6 py-4 text-gray-600">${game.genre}</td>
+                <td class="px-6 py-4">${game.reviews}</td>
+                <td class="px-6 py-4 ${ratingColor}">${game.rating}%</td>
+                <td class="px-6 py-4"><div class="flex items-center"><span class="${colorClass} text-xs font-medium px-2.5 py-0.5 rounded w-8 text-center shrink-0 mr-2 border border-opacity-20 border-black">${game.potential}</span><span class="text-xs text-gray-500">${game.potentialDesc}</span></div></td>
+            `;
+            tableBody.appendChild(row);
+            setImgWithFallback(row.querySelector('img.table-cover'), steamImageCandidates(game.appId), { alt: game.name });
+        });
+
+        // Hover & Modal Logic (Simplified)
+        const hoverCard = document.getElementById('hover-card');
+        const detailModal = document.getElementById('detail-modal');
+        
+        tableBody.addEventListener('mousemove', (e) => {
+            const row = e.target.closest('tr');
+            if (row) {
+                hoverCard.style.display = 'block';
+                let top = e.pageY + 20, left = e.pageX + 20;
+                if (left + 340 > window.innerWidth + window.scrollX) left = e.pageX - 340;
+                if (top + 250 > window.innerHeight + window.scrollY) top = e.pageY - 250;
+                hoverCard.style.top = `${top}px`; hoverCard.style.left = `${left}px`;
+                
+                const title = row.dataset.title;
+                if (document.getElementById('hover-title').textContent !== title) {
+                    document.getElementById('hover-title').textContent = title;
+                    document.getElementById('hover-desc').textContent = row.dataset.desc;
+                    setImgWithFallback(document.getElementById('hover-img'), steamImageCandidates(row.dataset.appid), { alt: title });
+                }
+            } else hoverCard.style.display = 'none';
+        });
+        tableBody.addEventListener('mouseleave', () => hoverCard.style.display = 'none');
+
+        tableBody.addEventListener('click', (e) => {
+            if (e.target.closest('a')) return;
+            const row = e.target.closest('tr');
+            if (!row) return;
+            const appId = row.dataset.appid;
+            const game = games.find(g => String(g.appId) === String(appId));
+            
+            document.getElementById('detail-title').textContent = game.name;
+            document.getElementById('detail-sub').textContent = `${game.genre} | ${game.reviews} 评论 | ${game.rating}% 好评 | 手游化：${game.potential}`;
+            document.getElementById('detail-desc').textContent = game.description;
+            document.getElementById('detail-store-link').href = steamStoreUrl(game.appId);
+            document.getElementById('detail-widget').src = steamWidgetUrl(game.appId);
+            setImgWithFallback(document.getElementById('detail-header'), steamImageCandidates(game.appId), { alt: game.name });
+            detailModal.classList.remove('hidden'); detailModal.classList.add('flex');
+        });
+
+        document.getElementById('detail-close').addEventListener('click', () => { detailModal.classList.add('hidden'); detailModal.classList.remove('flex'); });
+        document.getElementById('detail-backdrop').addEventListener('click', () => { detailModal.classList.add('hidden'); detailModal.classList.remove('flex'); });
+
+        // Screenshots Logic
+        (() => {
+            const storeScreenshotMap = {
+                "3850560": [
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3850560/35d978302c686a54b180626ae14d26a943699fb2/ss_35d978302c686a54b180626ae14d26a943699fb2.1920x1080.jpg?t=1769420485",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3850560/eb113552c398e198998d89e5d7b7c66fd1483012/ss_eb113552c398e198998d89e5d7b7c66fd1483012.1920x1080.jpg?t=1769420485",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3850560/0f0926fb126d961332958505fe12b2dc9df0d071/ss_0f0926fb126d961332958505fe12b2dc9df0d071.1920x1080.jpg?t=1769420485",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3850560/bc7395c717c1da2e063de59a6c9c67f2bd528d79/ss_bc7395c717c1da2e063de59a6c9c67f2bd528d79.1920x1080.jpg?t=1769420485"
+                ],
+                "3419520": [
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3419520/a6e1bd5ef23026f5f0e12abdf74015bde9edf184/ss_a6e1bd5ef23026f5f0e12abdf74015bde9edf184.1920x1080.jpg?t=1769264098",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3419520/4a9c7643b40398b9606c723fef62ff81c9a5e294/ss_4a9c7643b40398b9606c723fef62ff81c9a5e294.1920x1080.jpg?t=1769264098",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3419520/e623633d8f64997c5b9a268a80b81d7d150fe015/ss_e623633d8f64997c5b9a268a80b81d7d150fe015.1920x1080.jpg?t=1769264098",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3419520/ebfa385fb4b16f919647d73c2d6ce42beb4a6c42/ss_ebfa385fb4b16f919647d73c2d6ce42beb4a6c42.1920x1080.jpg?t=1769264098"
+                ],
+                "2788520": [
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2788520/776572d6719bd3dccee9152b0021cefbc8c29168/ss_776572d6719bd3dccee9152b0021cefbc8c29168.1920x1080.jpg?t=1767858782",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2788520/f34cb65285ddd29724f64cf01627d63f04901beb/ss_f34cb65285ddd29724f64cf01627d63f04901beb.1920x1080.jpg?t=1767858782",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2788520/8dfbcb2a2615b3b2d65cffa0a185f9acee46496b/ss_8dfbcb2a2615b3b2d65cffa0a185f9acee46496b.1920x1080.jpg?t=1767858782",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2788520/766cc718da6e6f46bd2d4617716eb84d254c952e/ss_766cc718da6e6f46bd2d4617716eb84d254c952e.1920x1080.jpg?t=1767858782"
+                ],
+                "1560250": [
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1560250/ss_81f18109a7703f3426b4d53b9ff6cd536e209842.1920x1080.jpg?t=1767985940",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1560250/ss_5e0a90d617d20ad305df08095eb5f40a02aeedd8.1920x1080.jpg?t=1767985940",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1560250/ss_dcf0d3a88026ccb7e2642f84eea61791cd9f257f.1920x1080.jpg?t=1767985940",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1560250/ss_bed92c9aab7be2de031f7f457461197cbecef625.1920x1080.jpg?t=1767985940"
+                ]
+            };
+            const containers = document.querySelectorAll('[data-appid][id^="screenshots-"]');
+            containers.forEach((el) => {
+                const appId = el.getAttribute('data-appid');
+                const limit = Number.parseInt(el.getAttribute('data-limit') || '4', 10) || 4;
+                const preferred = storeScreenshotMap[String(appId)];
+                const urls = (preferred && preferred.length ? preferred : steamGalleryCandidates(appId)).slice(0, limit);
+                el.innerHTML = '';
+                urls.forEach((u, idx) => {
+                    const img = document.createElement('img');
+                    img.loading = 'lazy';
+                    img.className = 'rounded shadow-sm hover:scale-105 transition-transform duration-200 cursor-pointer object-cover';
+                    setImgWithFallback(img, [u, ...steamImageCandidates(appId)]);
+                    el.appendChild(img);
+                });
+            });
+        })();
+
+        // Charts
+        const chartReviews = echarts.init(document.getElementById('chart-reviews'));
+        chartReviews.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { type: 'value' },
+            yAxis: { type: 'category', data: games.map(g => g.name).reverse() },
+            series: [{ type: 'bar', data: games.map(g => g.reviews).reverse(), itemStyle: { color: '#6366f1' }, label: { show: true, position: 'right' } }]
+        });
+
+        const chartScatter = echarts.init(document.getElementById('chart-scatter'));
+        chartScatter.setOption({
+            tooltip: { formatter: (p) => `<b>${p.data[2]}</b><br/>评论: ${p.data[0]}<br/>好评: ${p.data[1]}%` },
+            xAxis: { type: 'value', name: '评论数' },
+            yAxis: { type: 'value', name: '好评率 (%)', min: 50, max: 100 },
+            series: [{
+                symbolSize: (d) => Math.sqrt(d[0]) * 1.5,
+                data: games.map(g => [g.reviews, g.rating, g.name]),
+                type: 'scatter',
+                itemStyle: { color: (p) => p.data[1] >= 90 ? '#22c55e' : p.data[1] >= 80 ? '#3b82f6' : '#ef4444' }
+            }]
+        });
+
+        // Radar Charts
+        const createRadar = (id, name, data, color) => {
+            const chart = echarts.init(document.getElementById(id));
+            chart.setOption({
+                radar: { indicator: [{ name: '商业化', max: 5 }, { name: '移动端', max: 5 }, { name: '题材', max: 5 }, { name: '社交', max: 5 }] },
+                series: [{ type: 'radar', data: [{ value: data, name: name, areaStyle: { color: color + '33' }, lineStyle: { color: color } }] }]
+            });
+            return chart;
+        };
+
+        const r1 = createRadar('radar-3850560', '血薪记：罪恶园区', [4, 5, 5, 4], '#ef4444');
+        const r2 = createRadar('radar-2788520', 'Cozy Caravan', [4, 5, 4.5, 3.5], '#22c55e');
+        const r3 = createRadar('radar-3419520', '检疫区：最后一站', [4, 3, 4, 3], '#eab308');
+        const r4 = createRadar('radar-1560250', 'Rising Front', [5, 2, 3.5, 4], '#3b82f6');
+
+        window.addEventListener('resize', () => {
+            chartReviews.resize(); chartScatter.resize(); r1.resize(); r2.resize(); r3.resize(); r4.resize();
+        });
+    </script>
+</body>
+</html>
