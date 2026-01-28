@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steam新品周报可视化看板 (2026-01 W2)</title>
+    <title>Steam新品周报可视化看板 (2026-01 W3)</title>
     <link rel="icon" href="data:,">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
@@ -17,7 +17,6 @@
         .tag-stress { background-color: #dcfce7; color: #15803d; }
         .tag-contrast { background-color: #fae8ff; color: #86198f; }
         .tag-coop { background-color: #ffedd5; color: #c2410c; }
-        .tag-sim { background-color: #fce7f3; color: #be185d; }
         
         /* Hover Card Styles */
         .hover-card {
@@ -70,7 +69,7 @@
     <!-- Header -->
     <header class="mb-8 text-center">
         <h1 class="text-3xl font-bold text-gray-800 mb-2">Steam 新品周报可视化看板</h1>
-        <p class="text-gray-500">📅 周期：2026年1月第2周 | 📊 数据来源：Steam Analysis</p>
+        <p class="text-gray-500">📅 周期：2026年1月第3周 | 📊 数据来源：Steam Analysis</p>
     </header>
 
     <!-- Section 1: Market Pulse -->
@@ -78,24 +77,23 @@
         <div class="card md:col-span-2">
             <h2 class="text-xl font-bold text-gray-800 mb-4">🔥 赛道热力与关键词</h2>
             <div class="flex flex-wrap mb-4">
-                <span class="tag tag-pixel">#现实题材</span>
-                <span class="tag tag-stress">#电诈园区</span>
-                <span class="tag tag-contrast">#战争模拟</span>
-                <span class="tag tag-coop">#治愈系</span>
-                <span class="tag tag-sim">#放置经营</span>
+                <span class="tag tag-pixel">#模拟经营</span>
+                <span class="tag tag-stress">#极简策略</span>
+                <span class="tag tag-contrast">#云陪伴</span>
+                <span class="tag tag-coop">#二次元</span>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                 <div class="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500">
-                    <strong class="block text-blue-700 mb-1">题材的极端化</strong>
-                    <p class="text-gray-600">从《血薪记》到《检疫区》，挖掘极具社会话题度或高压环境的题材，利用张力吸量。</p>
+                    <strong class="block text-blue-700 mb-1">生产力游戏化</strong>
+                    <p class="text-gray-600">《On-Together》结合云自习与养成，切中孤独办公痛点。</p>
                 </div>
                 <div class="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
-                    <strong class="block text-green-700 mb-1">模拟的轻量化</strong>
-                    <p class="text-gray-600">《Rising Front》简化战争为视觉奇观；《Cozy Caravan》将经营简化为治愈旅途。</p>
+                    <strong class="block text-green-700 mb-1">卡牌做减法</strong>
+                    <p class="text-gray-600">《One Turn Kill》将战斗压缩至一回合，迎合碎片化爽感。</p>
                 </div>
                 <div class="bg-purple-50 p-3 rounded-lg border-l-4 border-purple-500">
-                    <strong class="block text-purple-700 mb-1">放置经营变体</strong>
-                    <p class="text-gray-600">《Gamblers Table》证明物理反馈（抛硬币）结合数值升级，能构成极强成瘾性。</p>
+                    <strong class="block text-purple-700 mb-1">题材生活化</strong>
+                    <p class="text-gray-600">从奶茶店到桃源村，模拟经营追求极致的治愈感。</p>
                 </div>
             </div>
         </div>
@@ -103,7 +101,7 @@
             <h3 class="text-lg font-semibold opacity-90">本周热门赛道</h3>
             <div class="text-3xl font-bold mt-2">模拟经营</div>
             <div class="text-xl opacity-75 mt-1">&</div>
-            <div class="text-3xl font-bold mt-1">叙事题材</div>
+            <div class="text-3xl font-bold mt-1">休闲</div>
         </div>
     </div>
 
@@ -122,23 +120,23 @@
     </div>
 
     <!-- Section 3: Deep Dive Radar -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         <!-- Deep Dive Card 1 -->
         <div class="card">
             <div class="flex justify-between items-start mb-4">
                 <div>
-                    <h2 class="text-xl font-bold text-gray-800">血薪记：罪恶园区</h2>
-                    <p class="text-sm text-gray-500">题材驱动的生存模拟，S级题材极佳</p>
+                    <h2 class="text-xl font-bold text-gray-800">One Turn Kill</h2>
+                    <p class="text-sm text-gray-500">极简卡牌解谜，竖屏神作</p>
                 </div>
                 <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">S级推荐</span>
             </div>
             
             <div class="grid grid-cols-1 gap-4">
-                <div id="radar-3850560" class="w-full" style="height: 200px;"></div>
-                <div class="text-sm bg-red-50 p-3 rounded border-l-4 border-red-500">
-                    <strong>核心洞察：</strong> “逃离园区”的紧迫感与人性博弈，具有极强的生理唤醒，建议提取其“绝境生存+人性抉择”的内核。
+                <div id="radar-3151270" class="w-full" style="height: 200px;"></div>
+                <div class="text-sm bg-indigo-50 p-3 rounded border-l-4 border-indigo-500">
+                    <strong>核心洞察：</strong> 剥离运营，只留“斩杀”。一回合定胜负的机制极适合移动端碎片化场景。
                 </div>
-                <div id="screenshots-3850560" class="grid grid-cols-2 gap-2" data-appid="3850560" data-limit="4"></div>
+                <div id="screenshots-3151270" class="grid grid-cols-2 gap-2" data-appid="3151270" data-limit="4"></div>
             </div>
         </div>
 
@@ -146,18 +144,18 @@
         <div class="card">
             <div class="flex justify-between items-start mb-4">
                 <div>
-                    <h2 class="text-xl font-bold text-gray-800">Cozy Caravan</h2>
-                    <p class="text-sm text-gray-500">治愈系旅行经营，S级完美适配</p>
+                    <h2 class="text-xl font-bold text-gray-800">奶茶店大亨</h2>
+                    <p class="text-sm text-gray-500">垂直模拟经营，强吸量题材</p>
                 </div>
-                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">S级推荐</span>
+                <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">S级推荐</span>
             </div>
             
             <div class="grid grid-cols-1 gap-4">
-                <div id="radar-2788520" class="w-full" style="height: 200px;"></div>
-                <div class="text-sm bg-green-50 p-3 rounded border-l-4 border-green-500">
-                    <strong>核心洞察：</strong> 画风、玩法循环与移动端的“收菜”逻辑高度契合，是高质量副游的绝佳参考。
+                <div id="radar-3334520" class="w-full" style="height: 200px;"></div>
+                <div class="text-sm bg-pink-50 p-3 rounded border-l-4 border-pink-500">
+                    <strong>核心洞察：</strong> 还原制作全流程，比放置类更有深度。题材在亚洲市场有天然巨大流量。
                 </div>
-                <div id="screenshots-2788520" class="grid grid-cols-2 gap-2" data-appid="2788520" data-limit="4"></div>
+                <div id="screenshots-3334520" class="grid grid-cols-2 gap-2" data-appid="3334520" data-limit="4"></div>
             </div>
         </div>
 
@@ -165,37 +163,18 @@
         <div class="card">
             <div class="flex justify-between items-start mb-4">
                 <div>
-                    <h2 class="text-xl font-bold text-gray-800">检疫区：最后一站</h2>
-                    <p class="text-sm text-gray-500">Papers, Please 升级版，A级适合改编</p>
+                    <h2 class="text-xl font-bold text-gray-800">桃源村日志</h2>
+                    <p class="text-sm text-gray-500">治愈系种田，完美适配</p>
                 </div>
-                <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded">A级推荐</span>
+                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">S级推荐</span>
             </div>
             
             <div class="grid grid-cols-1 gap-4">
-                <div id="radar-3419520" class="w-full" style="height: 200px;"></div>
-                <div class="text-sm bg-orange-50 p-3 rounded border-l-4 border-orange-500">
-                    <strong>核心洞察：</strong> “基地建设+外部探索（检查）”天然符合SLG结构，用“检查站”作为差异化的包装点。
+                <div id="radar-2678830" class="w-full" style="height: 200px;"></div>
+                <div class="text-sm bg-green-50 p-3 rounded border-l-4 border-green-500">
+                    <strong>核心洞察：</strong> 对标星露谷但更偏国风治愈。慢节奏体验精准命中“逃离城市”的用户心理。
                 </div>
-                <div id="screenshots-3419520" class="grid grid-cols-2 gap-2" data-appid="3419520" data-limit="4"></div>
-            </div>
-        </div>
-
-        <!-- Deep Dive Card 4 -->
-        <div class="card">
-            <div class="flex justify-between items-start mb-4">
-                <div>
-                    <h2 class="text-xl font-bold text-gray-800">Rising Front</h2>
-                    <p class="text-sm text-gray-500">视觉系战争模拟，A+级视觉表现</p>
-                </div>
-                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">A+级推荐</span>
-            </div>
-            
-            <div class="grid grid-cols-1 gap-4">
-                <div id="radar-1560250" class="w-full" style="height: 200px;"></div>
-                <div class="text-sm bg-blue-50 p-3 rounded border-l-4 border-blue-500">
-                    <strong>核心洞察：</strong> 核心爽点在于“看着成千上万的小人打仗”，这种视觉奇观是移动端买量素材的宠儿。
-                </div>
-                <div id="screenshots-1560250" class="grid grid-cols-2 gap-2" data-appid="1560250" data-limit="4"></div>
+                <div id="screenshots-2678830" class="grid grid-cols-2 gap-2" data-appid="2678830" data-limit="4"></div>
             </div>
         </div>
     </div>
@@ -439,16 +418,16 @@
 
         // Data
         const games = [
-            { name: 'Rising Front', appId: '1560250', reviews: 3347, rating: 89, genre: '动作/模拟', potential: 'B+', potentialDesc: '性能压力大', potentialColor: 'blue', description: '一战背景的宏大战争模拟器，主打布娃娃物理与大规模战斗。' },
-            { name: '检疫区：最后一站', appId: '3419520', reviews: 1621, rating: 76, genre: '模拟/策略', potential: 'A', potentialDesc: '适合Papers, Please类', potentialColor: 'orange', description: '末日背景下的检查站模拟，资源管理与幸存者筛查。' },
-            { name: '血薪记：罪恶园区', appId: '3850560', reviews: 978, rating: 97, genre: '休闲/RPG', potential: 'S', potentialDesc: '题材极佳', potentialColor: 'red', description: '电诈园区题材，生存模拟与人性博弈。' },
-            { name: 'Cozy Caravan', appId: '2788520', reviews: 706, rating: 93, genre: '冒险/休闲', potential: 'S', potentialDesc: '完美适配', potentialColor: 'red', description: '开着大篷车旅行、烹饪、经营集市的治愈游戏。' },
-            { name: 'Gamblers Table', appId: '3618390', reviews: 471, rating: 70, genre: '休闲/模拟', potential: 'A-', potentialDesc: '适合超休闲', potentialColor: 'orange', description: '放置型硬币投掷游戏，通过升级硬币赚钱。' },
-            { name: '星际裂变', appId: '1631270', reviews: 398, rating: 51, genre: '动作/建造', potential: 'B', potentialDesc: '操作复杂', potentialColor: 'blue', description: '第一人称开放世界基地建设与战斗防守。' },
-            { name: '分头行动', appId: '4137570', reviews: 332, rating: 99, genre: '冒险/合作', potential: 'B+', potentialDesc: '适合派对游戏', potentialColor: 'blue', description: '物理模拟的合作平台跳跃游戏，主打联机互坑。' },
-            { name: 'DuneCrawl', appId: '1833200', reviews: 272, rating: 77, genre: '动作/肉鸽', potential: 'B', potentialDesc: '题材尚可', potentialColor: 'blue', description: '驾驶巨型机甲在沙漠中探险的合作游戏。' },
-            { name: '蜉蝣之国的囚徒', appId: '3880360', reviews: 233, rating: 81, genre: '冒险/独立', potential: 'B', potentialDesc: '适合买断制', potentialColor: 'blue', description: '悬疑解谜ADV，讲述被绑架者的生存故事。' },
-            { name: '尸姬之梦', appId: '2842800', reviews: 207, rating: 84, genre: '策略/卡牌', potential: 'A-', potentialDesc: '适合二次元卡牌', potentialColor: 'orange', description: '扮演尸姬进行卡牌战斗与构筑。' }
+            { name: 'MIO: Memories in Orbit', appId: '1672810', reviews: 145, rating: 82, genre: '动作/冒险', potential: 'A', potentialDesc: '操作需简化', potentialColor: 'orange', description: '废弃飞船中的精美银河恶魔城冒险' },
+            { name: 'Solargene', appId: '1638300', reviews: 620, rating: 80, genre: '独立/模拟', potential: 'B+', potentialDesc: '界面太复杂', potentialColor: 'blue', description: '硬核科幻太空企业管理模拟' },
+            { name: '桃源村日志', appId: '2678830', reviews: 80, rating: 91, genre: '休闲/模拟', potential: 'S', potentialDesc: '完美适配', potentialColor: 'red', description: '治愈系古风种田与村庄建设' },
+            { name: 'Gah! 哀叹地牢', appId: '2471090', reviews: 41, rating: 90, genre: '动作/RPG', potential: 'A', potentialDesc: '适合双摇杆', potentialColor: 'orange', description: '多角色地牢肉鸽闯关' },
+            { name: 'On-Together | 随时在一起', appId: '3707400', reviews: 171, rating: 98, genre: '休闲/工具', potential: 'S', potentialDesc: '强社交潜力', potentialColor: 'red', description: '桌面宠物+云自习陪伴工具' },
+            { name: '不/存在的逐梦者：银葱之森', appId: '3942480', reviews: 633, rating: 81, genre: '冒险/RPG', potential: 'A-', potentialDesc: '需重交互', potentialColor: 'orange', description: '剧情向冒险RPG，独特的叙事体验' },
+            { name: '奶茶店大亨', appId: '3334520', reviews: 49, rating: 93, genre: '模拟/策略', potential: 'S', potentialDesc: '题材吸量', potentialColor: 'red', description: '全流程硬核奶茶制作与店铺经营' },
+            { name: 'One Turn Kill', appId: '3151270', reviews: 423, rating: 95, genre: '策略/卡牌', potential: 'S', potentialDesc: '竖屏神作', potentialColor: 'red', description: '必须在一回合内获胜的卡牌解谜' },
+            { name: '息风谷战略', appId: '2646320', reviews: 781, rating: 79, genre: '策略/RPG', potential: 'A-', potentialDesc: '适合平板', potentialColor: 'orange', description: '武侠题材的地域压制型战略游戏' },
+            { name: '少女与学院城', appId: '3639650', reviews: 1102, rating: 74, genre: '动作/冒险', potential: 'A', potentialDesc: '动作要求高', potentialColor: 'orange', description: '3D横版二次元银河恶魔城' }
         ];
 
         // Render Table
@@ -528,29 +507,23 @@
         // Screenshots Logic
         (() => {
             const storeScreenshotMap = {
-                "3850560": [
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3850560/35d978302c686a54b180626ae14d26a943699fb2/ss_35d978302c686a54b180626ae14d26a943699fb2.1920x1080.jpg?t=1769420485",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3850560/eb113552c398e198998d89e5d7b7c66fd1483012/ss_eb113552c398e198998d89e5d7b7c66fd1483012.1920x1080.jpg?t=1769420485",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3850560/0f0926fb126d961332958505fe12b2dc9df0d071/ss_0f0926fb126d961332958505fe12b2dc9df0d071.1920x1080.jpg?t=1769420485",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3850560/bc7395c717c1da2e063de59a6c9c67f2bd528d79/ss_bc7395c717c1da2e063de59a6c9c67f2bd528d79.1920x1080.jpg?t=1769420485"
+                "3151270": [
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3151270/2e3e42e0fbd3e21fb52c289327e5ebd88db08599/ss_2e3e42e0fbd3e21fb52c289327e5ebd88db08599.1920x1080.jpg?t=1768491573",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3151270/c9cfbd279c02619b6f6c7910722a7c4d9b216306/ss_c9cfbd279c02619b6f6c7910722a7c4d9b216306.1920x1080.jpg?t=1768491573",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3151270/bad9b9bacb38daffcb2d01678782b63fce96ff19/ss_bad9b9bacb38daffcb2d01678782b63fce96ff19.1920x1080.jpg?t=1768491573",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3151270/f444932e8802fde8d7fe643cd489553cc5f8dd7c/ss_f444932e8802fde8d7fe643cd489553cc5f8dd7c.1920x1080.jpg?t=1768491573"
                 ],
-                "3419520": [
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3419520/a6e1bd5ef23026f5f0e12abdf74015bde9edf184/ss_a6e1bd5ef23026f5f0e12abdf74015bde9edf184.1920x1080.jpg?t=1769264098",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3419520/4a9c7643b40398b9606c723fef62ff81c9a5e294/ss_4a9c7643b40398b9606c723fef62ff81c9a5e294.1920x1080.jpg?t=1769264098",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3419520/e623633d8f64997c5b9a268a80b81d7d150fe015/ss_e623633d8f64997c5b9a268a80b81d7d150fe015.1920x1080.jpg?t=1769264098",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3419520/ebfa385fb4b16f919647d73c2d6ce42beb4a6c42/ss_ebfa385fb4b16f919647d73c2d6ce42beb4a6c42.1920x1080.jpg?t=1769264098"
+                "3334520": [
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3334520/c08b6018ea024ab1ca18e37dfc5c62406587dd2d/ss_c08b6018ea024ab1ca18e37dfc5c62406587dd2d.1920x1080.jpg?t=1768631504",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3334520/e7c9f6e0802539707496d47be7c4a6bdb62e47b0/ss_e7c9f6e0802539707496d47be7c4a6bdb62e47b0.1920x1080.jpg?t=1768631504",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3334520/5c45b160a53d85df81f092b07b064501453f45f9/ss_5c45b160a53d85df81f092b07b064501453f45f9.1920x1080.jpg?t=1768631504",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3334520/2f3d84f6064066d9b5a639caffa2dc25ddfc55f1/ss_2f3d84f6064066d9b5a639caffa2dc25ddfc55f1.1920x1080.jpg?t=1768631504"
                 ],
-                "2788520": [
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2788520/776572d6719bd3dccee9152b0021cefbc8c29168/ss_776572d6719bd3dccee9152b0021cefbc8c29168.1920x1080.jpg?t=1767858782",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2788520/f34cb65285ddd29724f64cf01627d63f04901beb/ss_f34cb65285ddd29724f64cf01627d63f04901beb.1920x1080.jpg?t=1767858782",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2788520/8dfbcb2a2615b3b2d65cffa0a185f9acee46496b/ss_8dfbcb2a2615b3b2d65cffa0a185f9acee46496b.1920x1080.jpg?t=1767858782",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2788520/766cc718da6e6f46bd2d4617716eb84d254c952e/ss_766cc718da6e6f46bd2d4617716eb84d254c952e.1920x1080.jpg?t=1767858782"
-                ],
-                "1560250": [
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1560250/ss_81f18109a7703f3426b4d53b9ff6cd536e209842.1920x1080.jpg?t=1767985940",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1560250/ss_5e0a90d617d20ad305df08095eb5f40a02aeedd8.1920x1080.jpg?t=1767985940",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1560250/ss_dcf0d3a88026ccb7e2642f84eea61791cd9f257f.1920x1080.jpg?t=1767985940",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1560250/ss_bed92c9aab7be2de031f7f457461197cbecef625.1920x1080.jpg?t=1767985940"
+                "2678830": [
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2678830/332cb3e10d7a0696c1e1329be27313a0f5a3e45e/ss_332cb3e10d7a0696c1e1329be27313a0f5a3e45e.1920x1080.jpg?t=1769344579",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2678830/79d6ac19c93d17a60a9d3686590f7ada7b2878cb/ss_79d6ac19c93d17a60a9d3686590f7ada7b2878cb.1920x1080.jpg?t=1769344579",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2678830/70bef1daab8310ec2f0aa6f8a9d15920200c6671/ss_70bef1daab8310ec2f0aa6f8a9d15920200c6671.1920x1080.jpg?t=1769344579",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2678830/29999fb74bee6b9690acf7cbb26b56b4f3695751/ss_29999fb74bee6b9690acf7cbb26b56b4f3695751.1920x1080.jpg?t=1769344579"
                 ]
             };
             const containers = document.querySelectorAll('[data-appid][id^="screenshots-"]');
@@ -603,13 +576,12 @@
             return chart;
         };
 
-        const r1 = createRadar('radar-3850560', '血薪记：罪恶园区', [4, 5, 5, 4], '#ef4444');
-        const r2 = createRadar('radar-2788520', 'Cozy Caravan', [4, 5, 4.5, 3.5], '#22c55e');
-        const r3 = createRadar('radar-3419520', '检疫区：最后一站', [4, 3, 4, 3], '#eab308');
-        const r4 = createRadar('radar-1560250', 'Rising Front', [5, 2, 3.5, 4], '#3b82f6');
+        const r1 = createRadar('radar-3151270', 'One Turn Kill', [5, 5, 4.5, 4], '#ef4444');
+        const r2 = createRadar('radar-3334520', '奶茶店大亨', [5, 5, 5, 4], '#ec4899');
+        const r3 = createRadar('radar-2678830', '桃源村日志', [4, 5, 5, 5], '#22c55e');
 
         window.addEventListener('resize', () => {
-            chartReviews.resize(); chartScatter.resize(); r1.resize(); r2.resize(); r3.resize(); r4.resize();
+            chartReviews.resize(); chartScatter.resize(); r1.resize(); r2.resize(); r3.resize();
         });
     </script>
 </body>
