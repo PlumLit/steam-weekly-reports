@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steam新品周报可视化看板 (2026-01 W2)</title>
+    <title>Steam新品周报可视化看板 (2026-01 W4)</title>
     <link rel="icon" href="data:,">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
@@ -17,7 +17,6 @@
         .tag-stress { background-color: #dcfce7; color: #15803d; }
         .tag-contrast { background-color: #fae8ff; color: #86198f; }
         .tag-coop { background-color: #ffedd5; color: #c2410c; }
-        .tag-sim { background-color: #fce7f3; color: #be185d; }
         
         /* Hover Card Styles */
         .hover-card {
@@ -45,6 +44,24 @@
             color: #4f46e5;
             text-decoration: underline;
         }
+        /* Video Container for Deep Dive */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body class="p-6">
@@ -70,7 +87,7 @@
     <!-- Header -->
     <header class="mb-8 text-center">
         <h1 class="text-3xl font-bold text-gray-800 mb-2">Steam 新品周报可视化看板</h1>
-        <p class="text-gray-500">📅 周期：2026年1月第2周 | 📊 数据来源：Steam Analysis</p>
+        <p class="text-gray-500">📅 周期：2026年1月第4周 | 📊 数据来源：Steam Analysis</p>
     </header>
 
     <!-- Section 1: Market Pulse -->
@@ -78,32 +95,31 @@
         <div class="card md:col-span-2">
             <h2 class="text-xl font-bold text-gray-800 mb-4">🔥 赛道热力与关键词</h2>
             <div class="flex flex-wrap mb-4">
-                <span class="tag tag-pixel">#现实题材</span>
-                <span class="tag tag-stress">#电诈园区</span>
-                <span class="tag tag-contrast">#战争模拟</span>
-                <span class="tag tag-coop">#治愈系</span>
-                <span class="tag tag-sim">#放置经营</span>
+                <span class="tag tag-pixel">#像素风</span>
+                <span class="tag tag-stress">#极致解压</span>
+                <span class="tag tag-contrast">#反差萌</span>
+                <span class="tag tag-coop">#联机互坑</span>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                 <div class="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500">
-                    <strong class="block text-blue-700 mb-1">题材的极端化</strong>
-                    <p class="text-gray-600">从《血薪记》到《检疫区》，挖掘极具社会话题度或高压环境的题材，利用张力吸量。</p>
+                    <strong class="block text-blue-700 mb-1">自走棋做减法</strong>
+                    <p class="text-gray-600">《矮人军团》证明简化博弈、强调数值对撞是泛大众化方向。</p>
                 </div>
                 <div class="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
-                    <strong class="block text-green-700 mb-1">模拟的轻量化</strong>
-                    <p class="text-gray-600">《Rising Front》简化战争为视觉奇观；《Cozy Caravan》将经营简化为治愈旅途。</p>
+                    <strong class="block text-green-700 mb-1">模拟类追求ASMR</strong>
+                    <p class="text-gray-600">《Bladesong》放弃复杂数值，追求极致视听反馈。</p>
                 </div>
                 <div class="bg-purple-50 p-3 rounded-lg border-l-4 border-purple-500">
-                    <strong class="block text-purple-700 mb-1">放置经营变体</strong>
-                    <p class="text-gray-600">《Gamblers Table》证明物理反馈（抛硬币）结合数值升级，能构成极强成瘾性。</p>
+                    <strong class="block text-purple-700 mb-1">题材反差缝合</strong>
+                    <p class="text-gray-600">“童话+社畜”的现实解构主义正在成为流量密码。</p>
                 </div>
             </div>
         </div>
         <div class="card flex flex-col justify-center items-center bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
             <h3 class="text-lg font-semibold opacity-90">本周热门赛道</h3>
-            <div class="text-3xl font-bold mt-2">模拟经营</div>
+            <div class="text-3xl font-bold mt-2">动作/肉鸽</div>
             <div class="text-xl opacity-75 mt-1">&</div>
-            <div class="text-3xl font-bold mt-1">叙事题材</div>
+            <div class="text-3xl font-bold mt-1">模拟经营</div>
         </div>
     </div>
 
@@ -127,18 +143,35 @@
         <div class="card">
             <div class="flex justify-between items-start mb-4">
                 <div>
-                    <h2 class="text-xl font-bold text-gray-800">血薪记：罪恶园区</h2>
-                    <p class="text-sm text-gray-500">题材驱动的生存模拟，S级题材极佳</p>
+                    <h2 class="text-xl font-bold text-gray-800">深度拆解: 矮人军团自走棋</h2>
+                    <p class="text-sm text-gray-500">现金牛级数值爽游，S级手游化潜力</p>
                 </div>
                 <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">S级推荐</span>
             </div>
             
+            <!-- Analysis Content -->
             <div class="grid grid-cols-1 gap-4">
-                <div id="radar-3850560" class="w-full" style="height: 200px;"></div>
-                <div class="text-sm bg-red-50 p-3 rounded border-l-4 border-red-500">
-                    <strong>核心洞察：</strong> “逃离园区”的紧迫感与人性博弈，具有极强的生理唤醒，建议提取其“绝境生存+人性抉择”的内核。
+                <div class="flex flex-col md:flex-row gap-4">
+                    <!-- Radar Chart -->
+                    <div id="radar-dwarf" class="w-full md:w-1/2" style="height: 250px;"></div>
+                    <!-- Intro Text -->
+                    <div class="w-full md:w-1/2 flex flex-col justify-center">
+                        <div class="text-sm bg-indigo-50 p-3 rounded border-l-4 border-indigo-500 mb-3">
+                            <strong>核心洞察：</strong> 对自走棋玩法进行“空间降维”，将8x8棋盘压缩为1D横向战线，完美适配竖屏。
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            这是一款将自走棋羁绊融入肉鸽割草的游戏，被玩家戏称为“带兵打仗版吸血鬼幸存者”。其核心爽点在于数值成长的即时反馈。
+                        </p>
+                    </div>
                 </div>
-                <div id="screenshots-3850560" class="grid grid-cols-2 gap-2" data-appid="3850560" data-limit="4"></div>
+
+                <!-- Screenshot Showcase -->
+                <div class="mt-2">
+                    <h3 class="font-semibold text-gray-700 mb-2 text-sm">📷 游戏截图</h3>
+                    <div id="screenshots-2205850" class="grid grid-cols-2 gap-2" data-appid="2205850" data-limit="4">
+                        <!-- 由 JS 自动拉取并渲染（避免硬编码文件名导致 404） -->
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -146,56 +179,35 @@
         <div class="card">
             <div class="flex justify-between items-start mb-4">
                 <div>
-                    <h2 class="text-xl font-bold text-gray-800">Cozy Caravan</h2>
-                    <p class="text-sm text-gray-500">治愈系旅行经营，S级完美适配</p>
+                    <h2 class="text-xl font-bold text-gray-800">深度拆解: 逃出从此以后</h2>
+                    <p class="text-sm text-gray-500">题材创意的宝库，S+级题材设定</p>
                 </div>
-                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">S级推荐</span>
+                <span class="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-0.5 rounded">题材S级</span>
             </div>
-            
-            <div class="grid grid-cols-1 gap-4">
-                <div id="radar-2788520" class="w-full" style="height: 200px;"></div>
-                <div class="text-sm bg-green-50 p-3 rounded border-l-4 border-green-500">
-                    <strong>核心洞察：</strong> 画风、玩法循环与移动端的“收菜”逻辑高度契合，是高质量副游的绝佳参考。
-                </div>
-                <div id="screenshots-2788520" class="grid grid-cols-2 gap-2" data-appid="2788520" data-limit="4"></div>
-            </div>
-        </div>
 
-        <!-- Deep Dive Card 3 -->
-        <div class="card">
-            <div class="flex justify-between items-start mb-4">
-                <div>
-                    <h2 class="text-xl font-bold text-gray-800">检疫区：最后一站</h2>
-                    <p class="text-sm text-gray-500">Papers, Please 升级版，A级适合改编</p>
-                </div>
-                <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded">A级推荐</span>
-            </div>
-            
+            <!-- Analysis Content -->
             <div class="grid grid-cols-1 gap-4">
-                <div id="radar-3419520" class="w-full" style="height: 200px;"></div>
-                <div class="text-sm bg-orange-50 p-3 rounded border-l-4 border-orange-500">
-                    <strong>核心洞察：</strong> “基地建设+外部探索（检查）”天然符合SLG结构，用“检查站”作为差异化的包装点。
+                <div class="flex flex-col md:flex-row gap-4">
+                    <!-- Radar Chart -->
+                    <div id="radar-escape" class="w-full md:w-1/2" style="height: 250px;"></div>
+                    <!-- Intro Text -->
+                    <div class="w-full md:w-1/2 flex flex-col justify-center">
+                        <div class="text-sm bg-pink-50 p-3 rounded border-l-4 border-pink-500 mb-3">
+                            <strong>核心洞察：</strong> “童话宇宙 x 现代职场”的反差设定极具病毒传播力，建议保留题材重构玩法。
+                        </div>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            童话角色进大厂打工？这款游戏用“纸片马力欧”式的RPG玩法，讲述了一个极其扎心的社畜故事。世界观设定是放置类手游的绝佳素材。
+                        </p>
+                    </div>
                 </div>
-                <div id="screenshots-3419520" class="grid grid-cols-2 gap-2" data-appid="3419520" data-limit="4"></div>
-            </div>
-        </div>
 
-        <!-- Deep Dive Card 4 -->
-        <div class="card">
-            <div class="flex justify-between items-start mb-4">
-                <div>
-                    <h2 class="text-xl font-bold text-gray-800">Rising Front</h2>
-                    <p class="text-sm text-gray-500">视觉系战争模拟，A+级视觉表现</p>
+                <!-- Screenshot Showcase -->
+                <div class="mt-2">
+                    <h3 class="font-semibold text-gray-700 mb-2 text-sm">📷 游戏截图</h3>
+                    <div id="screenshots-1996390" class="grid grid-cols-2 gap-2" data-appid="1996390" data-limit="4">
+                        <!-- 由 JS 自动拉取并渲染（避免硬编码文件名导致 404） -->
+                    </div>
                 </div>
-                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">A+级推荐</span>
-            </div>
-            
-            <div class="grid grid-cols-1 gap-4">
-                <div id="radar-1560250" class="w-full" style="height: 200px;"></div>
-                <div class="text-sm bg-blue-50 p-3 rounded border-l-4 border-blue-500">
-                    <strong>核心洞察：</strong> 核心爽点在于“看着成千上万的小人打仗”，这种视觉奇观是移动端买量素材的宠儿。
-                </div>
-                <div id="screenshots-1560250" class="grid grid-cols-2 gap-2" data-appid="1560250" data-limit="4"></div>
             </div>
         </div>
     </div>
@@ -232,7 +244,7 @@
         </div>
     </div>
 
-    <!-- Detail Modal -->
+    <!-- Detail Modal (点击表格行查看简介 & 更多截图) -->
     <div id="detail-modal" class="fixed inset-0 hidden items-center justify-center" style="z-index: 10000;">
         <div id="detail-backdrop" class="absolute inset-0 bg-black/50"></div>
         <div class="relative bg-white rounded-xl shadow-2xl w-[min(960px,92vw)] max-h-[88vh] overflow-hidden">
@@ -254,9 +266,16 @@
                         <div class="mt-4">
                             <h4 class="font-semibold text-gray-800 mb-2 text-sm">📷 官方截图/简介（Steam 小组件）</h4>
                             <div class="rounded-lg overflow-hidden border bg-gray-50">
-                                <iframe id="detail-widget" title="Steam Widget" class="w-full" style="height: 220px;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                <iframe
+                                    id="detail-widget"
+                                    title="Steam Widget"
+                                    class="w-full"
+                                    style="height: 220px;"
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                ></iframe>
                             </div>
-                            <p class="text-xs text-gray-500 mt-2">如果网络环境屏蔽 Steam，小组件可能无法加载。</p>
+                            <p class="text-xs text-gray-500 mt-2">如果网络环境屏蔽 Steam，小组件可能无法加载；此时请用上方“打开 Steam 商店页”。</p>
                         </div>
                     </div>
                 </div>
@@ -281,8 +300,6 @@
         };
 
         function getSiteBasePathname() {
-            // GitHub Pages: /steam-weekly-reports/...  => base = /steam-weekly-reports/
-            // Local server: /index.html               => base = /
             const segs = window.location.pathname.replace(/^\/+/, '').split('/').filter(Boolean);
             if (segs.length === 0) return '/';
             const first = segs[0];
@@ -307,7 +324,6 @@
         }
 
         function filenameToLabel(name) {
-            // 2026_01_W4_Steam_Dashboard.html -> 2026-01 W4
             const m = String(name).match(/(\d{4})_(\d{2})_W(\d+)/);
             if (m) return `${m[1]}-${m[2]} W${m[3]}`;
             const t = String(name).replace(/\.html$/i, '').replace(/_/g, ' ');
@@ -376,7 +392,8 @@
                 if (hintEl) hintEl.textContent = '（提示）历史版本列表加载失败，已切换至离线索引。';
                 archives = [
                     { name: '2026_01_W4_Steam_Dashboard.html' },
-                    { name: '2026_01_W3_Steam_Dashboard.html' }
+                    { name: '2026_01_W3_Steam_Dashboard.html' },
+                    { name: '2026_01_W2_Steam_Dashboard.html' }
                 ];
             }
 
@@ -407,52 +424,175 @@
             select.addEventListener('change', () => { if (select.value) go(); });
         }
 
-        // Script is at bottom, DOM is ready; still guard for safety.
         if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initVersionNav);
         else initVersionNav();
 
-        function steamStoreUrl(appId) { return `https://store.steampowered.com/app/${appId}/`; }
-        function steamWidgetUrl(appId) { return `https://store.steampowered.com/widget/${appId}/?l=schinese`; }
-        
+        // ==============
+        // Steam 数据与图片兜底
+        // ==============
+        function steamStoreUrl(appId) {
+            return `https://store.steampowered.com/app/${appId}/`;
+        }
+
+        function steamWidgetUrl(appId) {
+            // 该小组件是官方提供的嵌入方式（无需 JS fetch，规避 CORS 限制）
+            return `https://store.steampowered.com/widget/${appId}/?l=schinese`;
+        }
+
         function steamImageCandidates(appId) {
             const baseA = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appId}`;
             const baseB = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}`;
+            const baseC = `https://cdn.akamai.steamstatic.com/steam/apps/${appId}`;
+
             return [
-                `${baseA}/capsule_231x87.jpg`, `${baseA}/header.jpg`, `${baseB}/header.jpg`
+                `${baseA}/capsule_231x87.jpg`,
+                `${baseA}/capsule_184x69.jpg`,
+                `${baseA}/capsule_sm_120.jpg`,
+                `${baseA}/header.jpg`,
+                `${baseB}/header.jpg`,
+                `${baseC}/header.jpg`
             ];
         }
 
         function steamGalleryCandidates(appId) {
             const baseA = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appId}`;
             return [
-                `${baseA}/header.jpg`, `${baseA}/library_600x900.jpg`, `${baseA}/library_hero.jpg`, `${baseA}/library_capsule.jpg`
+                `${baseA}/header.jpg`,
+                `${baseA}/library_600x900.jpg`,
+                `${baseA}/library_hero.jpg`,
+                `${baseA}/library_capsule.jpg`
             ];
         }
 
         function setImgWithFallback(imgEl, urls, { alt } = {}) {
             if (!imgEl || !Array.isArray(urls) || urls.length === 0) return;
             if (alt) imgEl.alt = alt;
+
             let i = 0;
             const tryNext = () => {
-                if (i >= urls.length) { imgEl.onerror = null; return; }
+                if (i >= urls.length) {
+                    imgEl.onerror = null;
+                    return;
+                }
                 imgEl.src = urls[i++];
             };
+
             imgEl.onerror = () => tryNext();
             tryNext();
         }
 
-        // Data
+        // Data Preparation
         const games = [
-            { name: 'Rising Front', appId: '1560250', reviews: 3347, rating: 89, genre: '动作/模拟', potential: 'B+', potentialDesc: '性能压力大', potentialColor: 'blue', description: '一战背景的宏大战争模拟器，主打布娃娃物理与大规模战斗。' },
-            { name: '检疫区：最后一站', appId: '3419520', reviews: 1621, rating: 76, genre: '模拟/策略', potential: 'A', potentialDesc: '适合Papers, Please类', potentialColor: 'orange', description: '末日背景下的检查站模拟，资源管理与幸存者筛查。' },
-            { name: '血薪记：罪恶园区', appId: '3850560', reviews: 978, rating: 97, genre: '休闲/RPG', potential: 'S', potentialDesc: '题材极佳', potentialColor: 'red', description: '电诈园区题材，生存模拟与人性博弈。' },
-            { name: 'Cozy Caravan', appId: '2788520', reviews: 706, rating: 93, genre: '冒险/休闲', potential: 'S', potentialDesc: '完美适配', potentialColor: 'red', description: '开着大篷车旅行、烹饪、经营集市的治愈游戏。' },
-            { name: 'Gamblers Table', appId: '3618390', reviews: 471, rating: 70, genre: '休闲/模拟', potential: 'A-', potentialDesc: '适合超休闲', potentialColor: 'orange', description: '放置型硬币投掷游戏，通过升级硬币赚钱。' },
-            { name: '星际裂变', appId: '1631270', reviews: 398, rating: 51, genre: '动作/建造', potential: 'B', potentialDesc: '操作复杂', potentialColor: 'blue', description: '第一人称开放世界基地建设与战斗防守。' },
-            { name: '分头行动', appId: '4137570', reviews: 332, rating: 99, genre: '冒险/合作', potential: 'B+', potentialDesc: '适合派对游戏', potentialColor: 'blue', description: '物理模拟的合作平台跳跃游戏，主打联机互坑。' },
-            { name: 'DuneCrawl', appId: '1833200', reviews: 272, rating: 77, genre: '动作/肉鸽', potential: 'B', potentialDesc: '题材尚可', potentialColor: 'blue', description: '驾驶巨型机甲在沙漠中探险的合作游戏。' },
-            { name: '蜉蝣之国的囚徒', appId: '3880360', reviews: 233, rating: 81, genre: '冒险/独立', potential: 'B', potentialDesc: '适合买断制', potentialColor: 'blue', description: '悬疑解谜ADV，讲述被绑架者的生存故事。' },
-            { name: '尸姬之梦', appId: '2842800', reviews: 207, rating: 84, genre: '策略/卡牌', potential: 'A-', potentialDesc: '适合二次元卡牌', potentialColor: 'orange', description: '扮演尸姬进行卡牌战斗与构筑。' }
+            { 
+                name: '饿狼传说：群狼之城', 
+                appId: '2492040', 
+                reviews: 2383, 
+                rating: 80, 
+                genre: '格斗/动作', 
+                potential: 'C', 
+                potentialDesc: '操作太硬核', 
+                potentialColor: 'gray',
+                description: 'SNK经典格斗IP回归，强调“REV系统”加速战斗节奏，美术风格焕新，但操作门槛依然较高。'
+            },
+            { 
+                name: '矮人军团自走棋', 
+                appId: '2205850', 
+                reviews: 1875, 
+                rating: 82, 
+                genre: '自走棋/肉鸽', 
+                potential: 'S', 
+                potentialDesc: '完美适配', 
+                potentialColor: 'red',
+                description: '将自走棋羁绊融入肉鸽割草，带兵打仗版吸血鬼幸存者，数值爽感极强，完美适配移动端竖屏操作。'
+            },
+            { 
+                name: '落逃之地 LORT', 
+                appId: '2956680', 
+                reviews: 778, 
+                rating: 75, 
+                genre: '动作/肉鸽', 
+                potential: 'A-', 
+                potentialDesc: '技能设计可参考', 
+                potentialColor: 'orange',
+                description: '多人联机肉鸽，主打技能无限堆叠的视觉混乱感，角色头顶叠罗汉式的道具展示非常有创意。'
+            },
+            { 
+                name: '真・三国无双 起源', 
+                appId: '2384580', 
+                reviews: 597, 
+                rating: 56, 
+                genre: '动作/无双', 
+                potential: 'B', 
+                potentialDesc: '手机带不动', 
+                potentialColor: 'blue',
+                description: '无双割草新作，回归战场临场感，但优化问题和玩法创新不足导致口碑一般，移动端移植难度大。'
+            },
+            { 
+                name: '万象群侠传', 
+                appId: '3039500', 
+                reviews: 443, 
+                rating: 86, 
+                genre: '武侠/RPG', 
+                potential: 'B+', 
+                potentialDesc: '适合做文字MUD', 
+                potentialColor: 'purple',
+                description: '轻量化单机武侠，主打纯粹江湖体验，剧情自由度高，适合改编为文字MUD或放置类武侠手游。'
+            },
+            { 
+                name: '咩咩启示录：Pilgrim Pack', 
+                appId: '2890190', 
+                reviews: 403, 
+                rating: 94, 
+                genre: '模拟/肉鸽', 
+                potential: 'S', 
+                potentialDesc: '题材参考', 
+                potentialColor: 'red',
+                description: '顶级IP的新DLC，延续了邪典萌系画风，增加了新剧情和任务，其美术风格和题材反差极具参考价值。'
+            },
+            { 
+                name: 'MIO: Memories in Orbit', 
+                appId: '1672810', 
+                reviews: 348, 
+                rating: 80, 
+                genre: '银河恶魔城', 
+                potential: 'C', 
+                potentialDesc: '操作门槛高', 
+                potentialColor: 'gray',
+                description: '唯美画风的横版跳跃游戏，美术表现力极强，但银河恶魔城类型在移动端操作体验难以完美还原。'
+            },
+            { 
+                name: 'Bladesong (铸剑吟)', 
+                appId: '2305640', 
+                reviews: 244, 
+                rating: 96, 
+                genre: '模拟/锻造', 
+                potential: 'A', 
+                potentialDesc: '副玩法/超休闲', 
+                potentialColor: 'orange',
+                description: 'ASMR打铁模拟器，极致的音效与自定义锻造体验，非常适合作为重度游戏的副玩法或独立的超休闲游戏。'
+            },
+            { 
+                name: '奇怪的RPG 2', 
+                appId: '2516470', 
+                reviews: 207, 
+                rating: 92, 
+                genre: '动作/RPG', 
+                potential: 'B', 
+                potentialDesc: '营销噱头参考', 
+                potentialColor: 'blue',
+                description: '声控输出RPG，喊出技能名释放技能，直播效果拉满，可作为营销噱头参考，但实际玩法深度有限。'
+            },
+            { 
+                name: '逃出从此以后', 
+                appId: '1996390', 
+                reviews: 104, 
+                rating: 98, 
+                genre: '纸片马力欧Like', 
+                potential: 'A', 
+                potentialDesc: '题材S级', 
+                potentialColor: 'orange',
+                description: '童话x社畜的反差设定，童话角色进大厂打工，题材极具病毒传播潜力，适合改编为模拟经营或放置类手游。'
+            }
         ];
 
         // Render Table
@@ -462,158 +602,296 @@
             row.className = 'hover:bg-gray-50 transition-colors duration-150 cursor-pointer';
             row.dataset.appid = game.appId;
             row.dataset.title = game.name;
-            row.dataset.desc = game.description;
+            row.dataset.desc = game.description || `${game.genre} | ${game.reviews} 评论 | ${game.rating}% 好评`;
             
+            // Color Mapping
             let colorClass = 'bg-gray-100 text-gray-800';
             if (game.potentialColor === 'red') colorClass = 'bg-red-100 text-red-800';
             if (game.potentialColor === 'orange') colorClass = 'bg-orange-100 text-orange-800';
+            if (game.potentialColor === 'purple') colorClass = 'bg-purple-100 text-purple-800';
             if (game.potentialColor === 'blue') colorClass = 'bg-blue-100 text-blue-800';
+            if (game.potentialColor === 'gray') colorClass = 'bg-gray-100 text-gray-800';
 
+            // Rating Color
             let ratingColor = 'text-gray-600';
             if (game.rating >= 90) ratingColor = 'text-green-600 font-bold';
             else if (game.rating >= 80) ratingColor = 'text-blue-600';
             else if (game.rating < 60) ratingColor = 'text-red-600';
 
             row.innerHTML = `
-                <td class="px-6 py-3"><img class="table-cover rounded shadow-sm w-24 object-cover" alt="${game.name}"></td>
+                <td class="px-6 py-3">
+                    <img class="table-cover rounded shadow-sm w-24 object-cover"
+                         alt="${game.name}">
+                </td>
                 <td class="px-6 py-4 font-medium text-gray-900 text-lg">${index + 1}</td>
-                <td class="px-6 py-4"><a href="${steamStoreUrl(game.appId)}" target="_blank" class="game-title font-semibold text-gray-800 text-base block hover:underline">${game.name}</a></td>
+                <td class="px-6 py-4">
+                    <a href="${steamStoreUrl(game.appId)}" target="_blank" class="game-title font-semibold text-gray-800 text-base block hover:underline">${game.name}</a>
+                </td>
                 <td class="px-6 py-4 text-gray-600">${game.genre}</td>
                 <td class="px-6 py-4">${game.reviews}</td>
                 <td class="px-6 py-4 ${ratingColor}">${game.rating}%</td>
-                <td class="px-6 py-4"><div class="flex items-center"><span class="${colorClass} text-xs font-medium px-2.5 py-0.5 rounded w-8 text-center shrink-0 mr-2 border border-opacity-20 border-black">${game.potential}</span><span class="text-xs text-gray-500">${game.potentialDesc}</span></div></td>
+                <td class="px-6 py-4">
+                    <div class="flex items-center">
+                        <span class="${colorClass} text-xs font-medium px-2.5 py-0.5 rounded w-8 text-center shrink-0 mr-2 border border-opacity-20 border-black">${game.potential}</span>
+                        <span class="text-xs text-gray-500">${game.potentialDesc}</span>
+                    </div>
+                </td>
             `;
+            
             tableBody.appendChild(row);
-            setImgWithFallback(row.querySelector('img.table-cover'), steamImageCandidates(game.appId), { alt: game.name });
+
+            // 多级兜底加载封面图（避免部分 app 缺失 capsule_231x87）
+            const coverImg = row.querySelector('img.table-cover');
+            setImgWithFallback(coverImg, steamImageCandidates(game.appId), { alt: game.name });
         });
 
-        // Hover & Modal Logic (Simplified)
+        // Hover Logic
         const hoverCard = document.getElementById('hover-card');
-        const detailModal = document.getElementById('detail-modal');
-        
+        const hoverImg = document.getElementById('hover-img');
+        const hoverTitle = document.getElementById('hover-title');
+        const hoverDesc = document.getElementById('hover-desc');
+
         tableBody.addEventListener('mousemove', (e) => {
             const row = e.target.closest('tr');
             if (row) {
-                hoverCard.style.display = 'block';
-                let top = e.pageY + 20, left = e.pageX + 20;
-                if (left + 340 > window.innerWidth + window.scrollX) left = e.pageX - 340;
-                if (top + 250 > window.innerHeight + window.scrollY) top = e.pageY - 250;
-                hoverCard.style.top = `${top}px`; hoverCard.style.left = `${left}px`;
-                
+                const appId = row.dataset.appid;
                 const title = row.dataset.title;
-                if (document.getElementById('hover-title').textContent !== title) {
-                    document.getElementById('hover-title').textContent = title;
-                    document.getElementById('hover-desc').textContent = row.dataset.desc;
-                    setImgWithFallback(document.getElementById('hover-img'), steamImageCandidates(row.dataset.appid), { alt: title });
-                }
-            } else hoverCard.style.display = 'none';
-        });
-        tableBody.addEventListener('mouseleave', () => hoverCard.style.display = 'none');
+                const desc = row.dataset.desc;
 
-        tableBody.addEventListener('click', (e) => {
+                hoverCard.style.display = 'block';
+                
+                // Position card near cursor (offset by 20px)
+                // Use pageX/Y to handle scrolling correctly
+                let top = e.pageY + 20; 
+                let left = e.pageX + 20;
+                
+                // Boundary check (simple) - if too close to right edge, flip to left
+                if (left + 340 > window.innerWidth + window.scrollX) {
+                    left = e.pageX - 340;
+                }
+                // If too close to bottom, flip up
+                if (top + 250 > window.innerHeight + window.scrollY) {
+                    top = e.pageY - 250;
+                }
+
+                hoverCard.style.top = `${top}px`;
+                hoverCard.style.left = `${left}px`;
+
+                // Only update if changed to avoid flickering
+                if (hoverTitle.textContent !== title) {
+                    hoverTitle.textContent = title;
+                    hoverDesc.textContent = desc;
+
+                    // 封面兜底
+                    setImgWithFallback(hoverImg, steamImageCandidates(appId), { alt: title });
+                }
+            } else {
+                hoverCard.style.display = 'none';
+            }
+        });
+
+        tableBody.addEventListener('mouseleave', () => {
+            hoverCard.style.display = 'none';
+        });
+
+        // ==============
+        // 点击行：弹窗展示简介 + 更多截图
+        // ==============
+        const detailModal = document.getElementById('detail-modal');
+        const detailBackdrop = document.getElementById('detail-backdrop');
+        const detailClose = document.getElementById('detail-close');
+        const detailTitle = document.getElementById('detail-title');
+        const detailSub = document.getElementById('detail-sub');
+        const detailHeader = document.getElementById('detail-header');
+        const detailDesc = document.getElementById('detail-desc');
+        const detailStoreLink = document.getElementById('detail-store-link');
+        const detailWidget = document.getElementById('detail-widget');
+
+        function openDetailModal() {
+            detailModal.classList.remove('hidden');
+            detailModal.classList.add('flex');
+        }
+
+        function closeDetailModal() {
+            detailModal.classList.add('hidden');
+            detailModal.classList.remove('flex');
+        }
+
+        detailBackdrop.addEventListener('click', closeDetailModal);
+        detailClose.addEventListener('click', closeDetailModal);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeDetailModal();
+        });
+
+        tableBody.addEventListener('click', async (e) => {
+            // 点击标题链接时保持原行为
             if (e.target.closest('a')) return;
+
             const row = e.target.closest('tr');
             if (!row) return;
+
             const appId = row.dataset.appid;
             const game = games.find(g => String(g.appId) === String(appId));
-            
-            document.getElementById('detail-title').textContent = game.name;
-            document.getElementById('detail-sub').textContent = `${game.genre} | ${game.reviews} 评论 | ${game.rating}% 好评 | 手游化：${game.potential}`;
-            document.getElementById('detail-desc').textContent = game.description;
-            document.getElementById('detail-store-link').href = steamStoreUrl(game.appId);
-            document.getElementById('detail-widget').src = steamWidgetUrl(game.appId);
-            setImgWithFallback(document.getElementById('detail-header'), steamImageCandidates(game.appId), { alt: game.name });
-            detailModal.classList.remove('hidden'); detailModal.classList.add('flex');
+            if (!game) return;
+
+            detailTitle.textContent = game.name;
+            detailSub.textContent = `${game.genre} | ${game.reviews} 评论 | ${game.rating}% 好评 | 手游化：${game.potential}（${game.potentialDesc}）`;
+            detailDesc.textContent = game.description || row.dataset.desc || '';
+            detailStoreLink.href = steamStoreUrl(game.appId);
+            detailWidget.src = steamWidgetUrl(game.appId);
+
+            // 先用兜底图片快速出内容，再异步用 API 的 header 覆盖
+            setImgWithFallback(detailHeader, steamImageCandidates(game.appId), { alt: game.name });
+
+            openDetailModal();
         });
 
-        document.getElementById('detail-close').addEventListener('click', () => { detailModal.classList.add('hidden'); detailModal.classList.remove('flex'); });
-        document.getElementById('detail-backdrop').addEventListener('click', () => { detailModal.classList.add('hidden'); detailModal.classList.remove('flex'); });
-
-        // Screenshots Logic
+        // ==============
+        // 深度拆解区：使用指定的商店截图（用户提供的 ss_*.jpg）
+        // ==============
         (() => {
             const storeScreenshotMap = {
-                "3850560": [
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3850560/35d978302c686a54b180626ae14d26a943699fb2/ss_35d978302c686a54b180626ae14d26a943699fb2.1920x1080.jpg?t=1769420485",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3850560/eb113552c398e198998d89e5d7b7c66fd1483012/ss_eb113552c398e198998d89e5d7b7c66fd1483012.1920x1080.jpg?t=1769420485",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3850560/0f0926fb126d961332958505fe12b2dc9df0d071/ss_0f0926fb126d961332958505fe12b2dc9df0d071.1920x1080.jpg?t=1769420485",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3850560/bc7395c717c1da2e063de59a6c9c67f2bd528d79/ss_bc7395c717c1da2e063de59a6c9c67f2bd528d79.1920x1080.jpg?t=1769420485"
+                '2205850': [
+                    'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2205850/ss_2914b44d2912b500e1f06c3414104e4b6cb1da3d.1920x1080.jpg?t=1769352100',
+                    'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2205850/ss_d06ce1b7d8e3bb849ceed61b742dd36e5ab726a4.1920x1080.jpg?t=1769352100',
+                    'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2205850/ss_6e08aa6e4fcb88e546cebacf788e25cd84790cc1.1920x1080.jpg?t=1769352100',
+                    'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2205850/ss_9bc261c4c545b0856b80bc82eb36f5d5365cb8cb.1920x1080.jpg'
                 ],
-                "3419520": [
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3419520/a6e1bd5ef23026f5f0e12abdf74015bde9edf184/ss_a6e1bd5ef23026f5f0e12abdf74015bde9edf184.1920x1080.jpg?t=1769264098",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3419520/4a9c7643b40398b9606c723fef62ff81c9a5e294/ss_4a9c7643b40398b9606c723fef62ff81c9a5e294.1920x1080.jpg?t=1769264098",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3419520/e623633d8f64997c5b9a268a80b81d7d150fe015/ss_e623633d8f64997c5b9a268a80b81d7d150fe015.1920x1080.jpg?t=1769264098",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3419520/ebfa385fb4b16f919647d73c2d6ce42beb4a6c42/ss_ebfa385fb4b16f919647d73c2d6ce42beb4a6c42.1920x1080.jpg?t=1769264098"
-                ],
-                "2788520": [
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2788520/776572d6719bd3dccee9152b0021cefbc8c29168/ss_776572d6719bd3dccee9152b0021cefbc8c29168.1920x1080.jpg?t=1767858782",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2788520/f34cb65285ddd29724f64cf01627d63f04901beb/ss_f34cb65285ddd29724f64cf01627d63f04901beb.1920x1080.jpg?t=1767858782",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2788520/8dfbcb2a2615b3b2d65cffa0a185f9acee46496b/ss_8dfbcb2a2615b3b2d65cffa0a185f9acee46496b.1920x1080.jpg?t=1767858782",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2788520/766cc718da6e6f46bd2d4617716eb84d254c952e/ss_766cc718da6e6f46bd2d4617716eb84d254c952e.1920x1080.jpg?t=1767858782"
-                ],
-                "1560250": [
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1560250/ss_81f18109a7703f3426b4d53b9ff6cd536e209842.1920x1080.jpg?t=1767985940",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1560250/ss_5e0a90d617d20ad305df08095eb5f40a02aeedd8.1920x1080.jpg?t=1767985940",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1560250/ss_dcf0d3a88026ccb7e2642f84eea61791cd9f257f.1920x1080.jpg?t=1767985940",
-                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1560250/ss_bed92c9aab7be2de031f7f457461197cbecef625.1920x1080.jpg?t=1767985940"
+                '1996390': [
+                    'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1996390/9530a3ab392c359295c16c34859999164b5379c6/ss_9530a3ab392c359295c16c34859999164b5379c6.1920x1080.jpg?t=1769428213',
+                    'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1996390/d18263cc0f2aef91f3aef3e7c9d438bac5b6479b/ss_d18263cc0f2aef91f3aef3e7c9d438bac5b6479b.1920x1080.jpg?t=1769428213',
+                    'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1996390/a633d9fe7e75fe65d38c5f3cfbdbe196ce33a313/ss_a633d9fe7e75fe65d38c5f3cfbdbe196ce33a313.1920x1080.jpg?t=1769428213',
+                    'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1996390/ss_a35c525c0517c6bd0db63fb465e58d9b34a6f6c6.1920x1080.jpg?t=1769428213'
                 ]
             };
+
             const containers = document.querySelectorAll('[data-appid][id^="screenshots-"]');
             containers.forEach((el) => {
                 const appId = el.getAttribute('data-appid');
-                const limit = Number.parseInt(el.getAttribute('data-limit') || '4', 10) || 4;
-                const preferred = storeScreenshotMap[String(appId)];
-                const urls = (preferred && preferred.length ? preferred : steamGalleryCandidates(appId)).slice(0, limit);
+                const limit = parseInt(el.getAttribute('data-limit') || '4', 10);
+                const urls = (storeScreenshotMap[String(appId)] || steamGalleryCandidates(appId)).slice(0, limit);
+
                 el.innerHTML = '';
                 urls.forEach((u, idx) => {
                     const img = document.createElement('img');
                     img.loading = 'lazy';
                     img.className = 'rounded shadow-sm hover:scale-105 transition-transform duration-200 cursor-pointer object-cover';
+                    img.alt = `Screenshot ${idx + 1}`;
                     setImgWithFallback(img, [u, ...steamImageCandidates(appId)]);
+                    // 点击时打开弹窗（展示 widget）
+                    img.addEventListener('click', () => {
+                        // 复用表格弹窗组件：只更新 widget 与基础信息
+                        const game = games.find(g => String(g.appId) === String(appId));
+                        detailTitle.textContent = game?.name || 'Steam 详情';
+                        detailSub.textContent = game
+                            ? `${game.genre} | ${game.reviews} 评论 | ${game.rating}% 好评 | 手游化：${game.potential}（${game.potentialDesc}）`
+                            : `AppID: ${appId}`;
+                        detailDesc.textContent = game?.description || '（以下为 Steam 官方小组件内容）';
+                        detailStoreLink.href = steamStoreUrl(appId);
+                        detailWidget.src = steamWidgetUrl(appId);
+                        setImgWithFallback(detailHeader, steamImageCandidates(appId), { alt: detailTitle.textContent });
+                        openDetailModal();
+                    });
                     el.appendChild(img);
                 });
             });
         })();
 
-        // Charts
+
+        // Chart 1: Reviews Bar Chart
         const chartReviews = echarts.init(document.getElementById('chart-reviews'));
         chartReviews.setOption({
             tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
             grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
-            xAxis: { type: 'value' },
-            yAxis: { type: 'category', data: games.map(g => g.name).reverse() },
-            series: [{ type: 'bar', data: games.map(g => g.reviews).reverse(), itemStyle: { color: '#6366f1' }, label: { show: true, position: 'right' } }]
-        });
-
-        const chartScatter = echarts.init(document.getElementById('chart-scatter'));
-        chartScatter.setOption({
-            tooltip: { formatter: (p) => `<b>${p.data[2]}</b><br/>评论: ${p.data[0]}<br/>好评: ${p.data[1]}%` },
             xAxis: { type: 'value', name: '评论数' },
-            yAxis: { type: 'value', name: '好评率 (%)', min: 50, max: 100 },
+            yAxis: { type: 'category', data: games.map(g => g.name).reverse() },
             series: [{
-                symbolSize: (d) => Math.sqrt(d[0]) * 1.5,
-                data: games.map(g => [g.reviews, g.rating, g.name]),
-                type: 'scatter',
-                itemStyle: { color: (p) => p.data[1] >= 90 ? '#22c55e' : p.data[1] >= 80 ? '#3b82f6' : '#ef4444' }
+                name: '评论数',
+                type: 'bar',
+                data: games.map(g => g.reviews).reverse(),
+                itemStyle: { color: '#6366f1' },
+                label: { show: true, position: 'right' }
             }]
         });
 
-        // Radar Charts
-        const createRadar = (id, name, data, color) => {
-            const chart = echarts.init(document.getElementById(id));
-            chart.setOption({
-                radar: { indicator: [{ name: '商业化', max: 5 }, { name: '移动端', max: 5 }, { name: '题材', max: 5 }, { name: '社交', max: 5 }] },
-                series: [{ type: 'radar', data: [{ value: data, name: name, areaStyle: { color: color + '33' }, lineStyle: { color: color } }] }]
-            });
-            return chart;
-        };
+        // Chart 2: Scatter Plot (Rating vs Reviews)
+        const chartScatter = echarts.init(document.getElementById('chart-scatter'));
+        chartScatter.setOption({
+            tooltip: {
+                formatter: function (param) {
+                    return `<b>${param.data[2]}</b><br/>评论数: ${param.data[0]}<br/>好评率: ${param.data[1]}%`;
+                }
+            },
+            xAxis: { type: 'value', name: '评论数', splitLine: { lineStyle: { type: 'dashed' } } },
+            yAxis: { type: 'value', name: '好评率 (%)', min: 50, max: 100, splitLine: { lineStyle: { type: 'dashed' } } },
+            series: [{
+                symbolSize: function (data) { return Math.sqrt(data[0]) * 1.5; }, // Size based on reviews
+                data: games.map(g => [g.reviews, g.rating, g.name, g.genre]),
+                type: 'scatter',
+                itemStyle: {
+                    color: function(param) {
+                        const r = param.data[1];
+                        return r >= 90 ? '#22c55e' : r >= 80 ? '#3b82f6' : r >= 70 ? '#eab308' : '#ef4444';
+                    },
+                    shadowBlur: 10,
+                    shadowColor: 'rgba(25, 100, 150, 0.5)',
+                    shadowOffsetY: 5
+                }
+            }]
+        });
 
-        const r1 = createRadar('radar-3850560', '血薪记：罪恶园区', [4, 5, 5, 4], '#ef4444');
-        const r2 = createRadar('radar-2788520', 'Cozy Caravan', [4, 5, 4.5, 3.5], '#22c55e');
-        const r3 = createRadar('radar-3419520', '检疫区：最后一站', [4, 3, 4, 3], '#eab308');
-        const r4 = createRadar('radar-1560250', 'Rising Front', [5, 2, 3.5, 4], '#3b82f6');
+        // Chart 3: Radar Chart - Dwarf Legion
+        const chartRadarDwarf = echarts.init(document.getElementById('radar-dwarf'));
+        chartRadarDwarf.setOption({
+            radar: {
+                indicator: [
+                    { name: '商业化 (P1)', max: 5 },
+                    { name: '移动端适配 (P2)', max: 5 },
+                    { name: '题材吸引力 (P3)', max: 5 },
+                    { name: '社交潜力 (P4)', max: 5 }
+                ]
+            },
+            series: [{
+                name: '矮人军团自走棋',
+                type: 'radar',
+                data: [{
+                    value: [5, 5, 5, 4], // 极高=5, S=5, S=5, 必需=4
+                    name: '矮人军团自走棋',
+                    areaStyle: { color: 'rgba(99, 102, 241, 0.2)' },
+                    lineStyle: { color: '#6366f1' }
+                }]
+            }]
+        });
 
+        // Chart 4: Radar Chart - Escape from Ever After
+        const chartRadarEscape = echarts.init(document.getElementById('radar-escape'));
+        chartRadarEscape.setOption({
+            radar: {
+                indicator: [
+                    { name: '商业化 (P1)', max: 5 },
+                    { name: '移动端适配 (P2)', max: 5 },
+                    { name: '题材吸引力 (P3)', max: 5 },
+                    { name: '社交潜力 (P4)', max: 5 }
+                ]
+            },
+            series: [{
+                name: '逃出从此以后',
+                type: 'radar',
+                data: [{
+                    value: [3.5, 2, 5, 4], // 中高=3.5, 需重构=2, S+=5, 高=4
+                    name: '逃出从此以后',
+                    areaStyle: { color: 'rgba(236, 72, 153, 0.2)' },
+                    lineStyle: { color: '#ec4899' }
+                }]
+            }]
+        });
+
+        // Resize charts on window resize
         window.addEventListener('resize', () => {
-            chartReviews.resize(); chartScatter.resize(); r1.resize(); r2.resize(); r3.resize(); r4.resize();
+            chartReviews.resize();
+            chartScatter.resize();
+            chartRadarDwarf.resize();
+            chartRadarEscape.resize();
         });
     </script>
 </body>
