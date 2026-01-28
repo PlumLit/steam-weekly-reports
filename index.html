@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steam新品周报可视化看板 (2026-01 W4)</title>
+    <title>Steam新品周报可视化看板 (2026-01 W3)</title>
+    <link rel="icon" href="data:,">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -43,32 +44,32 @@
             color: #4f46e5;
             text-decoration: underline;
         }
-        /* Video Container for Deep Dive */
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            background: #000;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .video-container video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
     </style>
 </head>
 <body class="p-6">
 
+    <!-- Version Nav -->
+    <div id="version-nav" class="max-w-7xl mx-auto mb-6">
+        <div class="flex flex-col md:flex-row gap-3 md:items-center md:justify-between bg-white/80 backdrop-blur border rounded-xl px-4 py-3 shadow-sm">
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+                <span class="font-semibold text-gray-900">版本</span>
+                <span id="current-version-label" class="px-2 py-0.5 rounded bg-gray-100 text-gray-700">加载中…</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+                <a id="latest-link" href="#" class="inline-flex items-center px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700">最新版本</a>
+                <select id="version-select" class="px-3 py-1.5 rounded-lg border bg-white text-sm text-gray-700">
+                    <option value="">加载历史版本…</option>
+                </select>
+                <button id="open-version" type="button" class="inline-flex items-center px-3 py-1.5 rounded-lg border text-sm font-medium text-gray-700 hover:bg-gray-50">打开</button>
+            </div>
+        </div>
+        <p id="version-nav-hint" class="mt-2 text-xs text-gray-500"></p>
+    </div>
+
     <!-- Header -->
     <header class="mb-8 text-center">
         <h1 class="text-3xl font-bold text-gray-800 mb-2">Steam 新品周报可视化看板</h1>
-        <p class="text-gray-500">📅 周期：2026年1月第4周 | 📊 数据来源：Steam Analysis</p>
+        <p class="text-gray-500">📅 周期：2026年1月第3周 | 📊 数据来源：Steam Analysis</p>
     </header>
 
     <!-- Section 1: Market Pulse -->
@@ -76,31 +77,31 @@
         <div class="card md:col-span-2">
             <h2 class="text-xl font-bold text-gray-800 mb-4">🔥 赛道热力与关键词</h2>
             <div class="flex flex-wrap mb-4">
-                <span class="tag tag-pixel">#像素风</span>
-                <span class="tag tag-stress">#极致解压</span>
-                <span class="tag tag-contrast">#反差萌</span>
-                <span class="tag tag-coop">#联机互坑</span>
+                <span class="tag tag-pixel">#模拟经营</span>
+                <span class="tag tag-stress">#极简策略</span>
+                <span class="tag tag-contrast">#云陪伴</span>
+                <span class="tag tag-coop">#二次元</span>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                 <div class="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500">
-                    <strong class="block text-blue-700 mb-1">自走棋做减法</strong>
-                    <p class="text-gray-600">《矮人军团》证明简化博弈、强调数值对撞是泛大众化方向。</p>
+                    <strong class="block text-blue-700 mb-1">生产力游戏化</strong>
+                    <p class="text-gray-600">《On-Together》结合云自习与养成，切中孤独办公痛点。</p>
                 </div>
                 <div class="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
-                    <strong class="block text-green-700 mb-1">模拟类追求ASMR</strong>
-                    <p class="text-gray-600">《Bladesong》放弃复杂数值，追求极致视听反馈。</p>
+                    <strong class="block text-green-700 mb-1">卡牌做减法</strong>
+                    <p class="text-gray-600">《One Turn Kill》将战斗压缩至一回合，迎合碎片化爽感。</p>
                 </div>
                 <div class="bg-purple-50 p-3 rounded-lg border-l-4 border-purple-500">
-                    <strong class="block text-purple-700 mb-1">题材反差缝合</strong>
-                    <p class="text-gray-600">“童话+社畜”的现实解构主义正在成为流量密码。</p>
+                    <strong class="block text-purple-700 mb-1">题材生活化</strong>
+                    <p class="text-gray-600">从奶茶店到桃源村，模拟经营追求极致的治愈感。</p>
                 </div>
             </div>
         </div>
         <div class="card flex flex-col justify-center items-center bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
             <h3 class="text-lg font-semibold opacity-90">本周热门赛道</h3>
-            <div class="text-3xl font-bold mt-2">动作/肉鸽</div>
+            <div class="text-3xl font-bold mt-2">模拟经营</div>
             <div class="text-xl opacity-75 mt-1">&</div>
-            <div class="text-3xl font-bold mt-1">模拟经营</div>
+            <div class="text-3xl font-bold mt-1">休闲</div>
         </div>
     </div>
 
@@ -119,44 +120,23 @@
     </div>
 
     <!-- Section 3: Deep Dive Radar -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         <!-- Deep Dive Card 1 -->
         <div class="card">
             <div class="flex justify-between items-start mb-4">
                 <div>
-                    <h2 class="text-xl font-bold text-gray-800">深度拆解: 矮人军团自走棋</h2>
-                    <p class="text-sm text-gray-500">现金牛级数值爽游，S级手游化潜力</p>
+                    <h2 class="text-xl font-bold text-gray-800">One Turn Kill</h2>
+                    <p class="text-sm text-gray-500">极简卡牌解谜，竖屏神作</p>
                 </div>
                 <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">S级推荐</span>
             </div>
             
-            <!-- Analysis Content -->
             <div class="grid grid-cols-1 gap-4">
-                <div class="flex flex-col md:flex-row gap-4">
-                    <!-- Radar Chart -->
-                    <div id="radar-dwarf" class="w-full md:w-1/2" style="height: 250px;"></div>
-                    <!-- Intro Text -->
-                    <div class="w-full md:w-1/2 flex flex-col justify-center">
-                        <div class="text-sm bg-indigo-50 p-3 rounded border-l-4 border-indigo-500 mb-3">
-                            <strong>核心洞察：</strong> 对自走棋玩法进行“空间降维”，将8x8棋盘压缩为1D横向战线，完美适配竖屏。
-                        </div>
-                        <p class="text-sm text-gray-600 leading-relaxed">
-                            这是一款将自走棋羁绊融入肉鸽割草的游戏，被玩家戏称为“带兵打仗版吸血鬼幸存者”。其核心爽点在于数值成长的即时反馈。
-                        </p>
-                    </div>
+                <div id="radar-3151270" class="w-full" style="height: 200px;"></div>
+                <div class="text-sm bg-indigo-50 p-3 rounded border-l-4 border-indigo-500">
+                    <strong>核心洞察：</strong> 剥离运营，只留“斩杀”。一回合定胜负的机制极适合移动端碎片化场景。
                 </div>
-
-                <!-- Screenshot Showcase -->
-                <div class="mt-2">
-                    <h3 class="font-semibold text-gray-700 mb-2 text-sm">📷 游戏截图</h3>
-                    <div class="grid grid-cols-2 gap-2">
-                        <!-- Corrected screenshot URLs with specific filenames found via search -->
-                        <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2205850/ss_9bc261c4c545b0856b80bc82eb36f5d5365cb8cb.600x338.jpg" class="rounded shadow-sm hover:scale-105 transition-transform duration-200 cursor-pointer" alt="Dwarves Screenshot 1" onclick="window.open(this.src.replace('600x338','1920x1080'), '_blank')">
-                        <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2205850/ss_402264672e38c4ab73a7776bc402324e277732e7.600x338.jpg" class="rounded shadow-sm hover:scale-105 transition-transform duration-200 cursor-pointer" alt="Dwarves Screenshot 2" onclick="window.open(this.src.replace('600x338','1920x1080'), '_blank')">
-                        <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2205850/ss_827d06232d04a62c527747764f9828274f88e6a3.600x338.jpg" class="rounded shadow-sm hover:scale-105 transition-transform duration-200 cursor-pointer" alt="Dwarves Screenshot 3" onclick="window.open(this.src.replace('600x338','1920x1080'), '_blank')">
-                        <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2205850/ss_78b022224dfd68a242048f074427244222a07c4c.600x338.jpg" class="rounded shadow-sm hover:scale-105 transition-transform duration-200 cursor-pointer" alt="Dwarves Screenshot 4" onclick="window.open(this.src.replace('600x338','1920x1080'), '_blank')">
-                    </div>
-                </div>
+                <div id="screenshots-3151270" class="grid grid-cols-2 gap-2" data-appid="3151270" data-limit="4"></div>
             </div>
         </div>
 
@@ -164,39 +144,37 @@
         <div class="card">
             <div class="flex justify-between items-start mb-4">
                 <div>
-                    <h2 class="text-xl font-bold text-gray-800">深度拆解: 逃出从此以后</h2>
-                    <p class="text-sm text-gray-500">题材创意的宝库，S+级题材设定</p>
+                    <h2 class="text-xl font-bold text-gray-800">奶茶店大亨</h2>
+                    <p class="text-sm text-gray-500">垂直模拟经营，强吸量题材</p>
                 </div>
-                <span class="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-0.5 rounded">题材S级</span>
+                <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">S级推荐</span>
             </div>
-
-            <!-- Analysis Content -->
+            
             <div class="grid grid-cols-1 gap-4">
-                <div class="flex flex-col md:flex-row gap-4">
-                    <!-- Radar Chart -->
-                    <div id="radar-escape" class="w-full md:w-1/2" style="height: 250px;"></div>
-                    <!-- Intro Text -->
-                    <div class="w-full md:w-1/2 flex flex-col justify-center">
-                        <div class="text-sm bg-pink-50 p-3 rounded border-l-4 border-pink-500 mb-3">
-                            <strong>核心洞察：</strong> “童话宇宙 x 现代职场”的反差设定极具病毒传播力，建议保留题材重构玩法。
-                        </div>
-                        <p class="text-sm text-gray-600 leading-relaxed">
-                            童话角色进大厂打工？这款游戏用“纸片马力欧”式的RPG玩法，讲述了一个极其扎心的社畜故事。世界观设定是放置类手游的绝佳素材。
-                        </p>
-                    </div>
+                <div id="radar-3334520" class="w-full" style="height: 200px;"></div>
+                <div class="text-sm bg-pink-50 p-3 rounded border-l-4 border-pink-500">
+                    <strong>核心洞察：</strong> 还原制作全流程，比放置类更有深度。题材在亚洲市场有天然巨大流量。
                 </div>
+                <div id="screenshots-3334520" class="grid grid-cols-2 gap-2" data-appid="3334520" data-limit="4"></div>
+            </div>
+        </div>
 
-                <!-- Screenshot Showcase -->
-                <div class="mt-2">
-                    <h3 class="font-semibold text-gray-700 mb-2 text-sm">📷 游戏截图</h3>
-                    <div class="grid grid-cols-2 gap-2">
-                        <!-- Using corrected filenames for Escape from Ever After -->
-                        <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1996390/ss_e172647672642777264772644264646777264772.600x338.jpg" class="rounded shadow-sm hover:scale-105 transition-transform duration-200 cursor-pointer" alt="Escape Screenshot 1" onclick="window.open(this.src.replace('600x338','1920x1080'), '_blank')">
-                        <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1996390/ss_0a8d764672642777264772644264646777264772.600x338.jpg" class="rounded shadow-sm hover:scale-105 transition-transform duration-200 cursor-pointer" alt="Escape Screenshot 2" onclick="window.open(this.src.replace('600x338','1920x1080'), '_blank')">
-                        <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1996390/ss_1b9d864672642777264772644264646777264772.600x338.jpg" class="rounded shadow-sm hover:scale-105 transition-transform duration-200 cursor-pointer" alt="Escape Screenshot 3" onclick="window.open(this.src.replace('600x338','1920x1080'), '_blank')">
-                        <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1996390/ss_2c0d964672642777264772644264646777264772.600x338.jpg" class="rounded shadow-sm hover:scale-105 transition-transform duration-200 cursor-pointer" alt="Escape Screenshot 4" onclick="window.open(this.src.replace('600x338','1920x1080'), '_blank')">
-                    </div>
+        <!-- Deep Dive Card 3 -->
+        <div class="card">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800">桃源村日志</h2>
+                    <p class="text-sm text-gray-500">治愈系种田，完美适配</p>
                 </div>
+                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">S级推荐</span>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-4">
+                <div id="radar-2678830" class="w-full" style="height: 200px;"></div>
+                <div class="text-sm bg-green-50 p-3 rounded border-l-4 border-green-500">
+                    <strong>核心洞察：</strong> 对标星露谷但更偏国风治愈。慢节奏体验精准命中“逃离城市”的用户心理。
+                </div>
+                <div id="screenshots-2678830" class="grid grid-cols-2 gap-2" data-appid="2678830" data-limit="4"></div>
             </div>
         </div>
     </div>
@@ -233,320 +211,376 @@
         </div>
     </div>
 
+    <!-- Detail Modal -->
+    <div id="detail-modal" class="fixed inset-0 hidden items-center justify-center" style="z-index: 10000;">
+        <div id="detail-backdrop" class="absolute inset-0 bg-black/50"></div>
+        <div class="relative bg-white rounded-xl shadow-2xl w-[min(960px,92vw)] max-h-[88vh] overflow-hidden">
+            <div class="flex items-start justify-between p-4 border-b">
+                <div class="pr-4">
+                    <h3 id="detail-title" class="text-lg font-bold text-gray-900"></h3>
+                    <p id="detail-sub" class="text-sm text-gray-500 mt-1"></p>
+                </div>
+                <button id="detail-close" class="text-gray-500 hover:text-gray-900 px-2 py-1">关闭</button>
+            </div>
+            <div class="p-4 overflow-auto" style="max-height: calc(88vh - 64px);">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="md:col-span-1">
+                        <img id="detail-header" class="w-full rounded-lg shadow-sm" alt="">
+                        <a id="detail-store-link" target="_blank" class="mt-3 inline-block text-sm text-indigo-600 hover:underline">打开 Steam 商店页</a>
+                    </div>
+                    <div class="md:col-span-2">
+                        <p id="detail-desc" class="text-sm text-gray-700 leading-relaxed"></p>
+                        <div class="mt-4">
+                            <h4 class="font-semibold text-gray-800 mb-2 text-sm">📷 官方截图/简介（Steam 小组件）</h4>
+                            <div class="rounded-lg overflow-hidden border bg-gray-50">
+                                <iframe id="detail-widget" title="Steam Widget" class="w-full" style="height: 220px;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">如果网络环境屏蔽 Steam，小组件可能无法加载。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="text-center text-gray-400 text-sm pb-8">
         <p>Generated by AI Assistant | Based on Steam Weekly Report</p>
     </footer>
 
     <script>
-        // Data Preparation
-        const games = [
-            { 
-                name: '饿狼传说：群狼之城', 
-                appId: '2492040', 
-                reviews: 2383, 
-                rating: 80, 
-                genre: '格斗/动作', 
-                potential: 'C', 
-                potentialDesc: '操作太硬核', 
-                potentialColor: 'gray',
-                description: 'SNK经典格斗IP回归，强调“REV系统”加速战斗节奏，美术风格焕新，但操作门槛依然较高。'
-            },
-            { 
-                name: '矮人军团自走棋', 
-                appId: '2205850', 
-                reviews: 1875, 
-                rating: 82, 
-                genre: '自走棋/肉鸽', 
-                potential: 'S', 
-                potentialDesc: '完美适配', 
-                potentialColor: 'red',
-                description: '将自走棋羁绊融入肉鸽割草，带兵打仗版吸血鬼幸存者，数值爽感极强，完美适配移动端竖屏操作。'
-            },
-            { 
-                name: '落逃之地 LORT', 
-                appId: '2956680', 
-                reviews: 778, 
-                rating: 75, 
-                genre: '动作/肉鸽', 
-                potential: 'A-', 
-                potentialDesc: '技能设计可参考', 
-                potentialColor: 'orange',
-                description: '多人联机肉鸽，主打技能无限堆叠的视觉混乱感，角色头顶叠罗汉式的道具展示非常有创意。'
-            },
-            { 
-                name: '真・三国无双 起源', 
-                appId: '2384580', 
-                reviews: 597, 
-                rating: 56, 
-                genre: '动作/无双', 
-                potential: 'B', 
-                potentialDesc: '手机带不动', 
-                potentialColor: 'blue',
-                description: '无双割草新作，回归战场临场感，但优化问题和玩法创新不足导致口碑一般，移动端移植难度大。'
-            },
-            { 
-                name: '万象群侠传', 
-                appId: '3039500', 
-                reviews: 443, 
-                rating: 86, 
-                genre: '武侠/RPG', 
-                potential: 'B+', 
-                potentialDesc: '适合做文字MUD', 
-                potentialColor: 'purple',
-                description: '轻量化单机武侠，主打纯粹江湖体验，剧情自由度高，适合改编为文字MUD或放置类武侠手游。'
-            },
-            { 
-                name: '咩咩启示录：Pilgrim Pack', 
-                appId: '2890190', 
-                reviews: 403, 
-                rating: 94, 
-                genre: '模拟/肉鸽', 
-                potential: 'S', 
-                potentialDesc: '题材参考', 
-                potentialColor: 'red',
-                description: '顶级IP的新DLC，延续了邪典萌系画风，增加了新剧情和任务，其美术风格和题材反差极具参考价值。'
-            },
-            { 
-                name: 'MIO: Memories in Orbit', 
-                appId: '1672810', 
-                reviews: 348, 
-                rating: 80, 
-                genre: '银河恶魔城', 
-                potential: 'C', 
-                potentialDesc: '操作门槛高', 
-                potentialColor: 'gray',
-                description: '唯美画风的横版跳跃游戏，美术表现力极强，但银河恶魔城类型在移动端操作体验难以完美还原。'
-            },
-            { 
-                name: 'Bladesong (铸剑吟)', 
-                appId: '2305640', 
-                reviews: 244, 
-                rating: 96, 
-                genre: '模拟/锻造', 
-                potential: 'A', 
-                potentialDesc: '副玩法/超休闲', 
-                potentialColor: 'orange',
-                description: 'ASMR打铁模拟器，极致的音效与自定义锻造体验，非常适合作为重度游戏的副玩法或独立的超休闲游戏。'
-            },
-            { 
-                name: '奇怪的RPG 2', 
-                appId: '2516470', 
-                reviews: 207, 
-                rating: 92, 
-                genre: '动作/RPG', 
-                potential: 'B', 
-                potentialDesc: '营销噱头参考', 
-                potentialColor: 'blue',
-                description: '声控输出RPG，喊出技能名释放技能，直播效果拉满，可作为营销噱头参考，但实际玩法深度有限。'
-            },
-            { 
-                name: '逃出从此以后', 
-                appId: '1996390', 
-                reviews: 104, 
-                rating: 98, 
-                genre: '纸片马力欧Like', 
-                potential: 'A', 
-                potentialDesc: '题材S级', 
-                potentialColor: 'orange',
-                description: '童话x社畜的反差设定，童话角色进大厂打工，题材极具病毒传播潜力，适合改编为模拟经营或放置类手游。'
+        // ==============================
+        // Version switcher (Latest <-> Archive)
+        // ==============================
+        const VERSION_NAV_CONFIG = {
+            owner: 'PlumLit',
+            repo: 'steam-weekly-reports',
+            branch: 'main',
+            archiveDir: 'archive'
+        };
+
+        function getSiteBasePathname() {
+            // GitHub Pages: /steam-weekly-reports/...  => base = /steam-weekly-reports/
+            // Local server: /index.html               => base = /
+            const segs = window.location.pathname.replace(/^\/+/, '').split('/').filter(Boolean);
+            if (segs.length === 0) return '/';
+            const first = segs[0];
+            if (first.endsWith('.html') || first === VERSION_NAV_CONFIG.archiveDir) return '/';
+            return `/${first}/`;
+        }
+
+        function getLatestUrl() {
+            const base = getSiteBasePathname();
+            return `${window.location.origin}${base}`;
+        }
+
+        function normalizeUrl(u) {
+            try {
+                const x = new URL(u, window.location.href);
+                x.hash = '';
+                return x.toString();
+            } catch {
+                return u;
             }
+        }
+
+        function filenameToLabel(name) {
+            // 2026_01_W4_Steam_Dashboard.html -> 2026-01 W4
+            const m = String(name).match(/(\d{4})_(\d{2})_W(\d+)/);
+            if (m) return `${m[1]}-${m[2]} W${m[3]}`;
+            const t = String(name).replace(/\.html$/i, '').replace(/_/g, ' ');
+            return t;
+        }
+
+        async function fetchArchiveIndex() {
+            const cacheKey = 'steam_weekly_reports_archive_cache_v1';
+            const cacheTsKey = 'steam_weekly_reports_archive_cache_ts_v1';
+            const now = Date.now();
+            const cacheTtlMs = 10 * 60 * 1000;
+
+            const cached = window.localStorage.getItem(cacheKey);
+            const cachedTs = Number(window.localStorage.getItem(cacheTsKey) || '0');
+            if (cached && (now - cachedTs) < cacheTtlMs) {
+                return JSON.parse(cached);
+            }
+
+            const api = `https://api.github.com/repos/${VERSION_NAV_CONFIG.owner}/${VERSION_NAV_CONFIG.repo}/contents/${VERSION_NAV_CONFIG.archiveDir}?ref=${VERSION_NAV_CONFIG.branch}`;
+            const res = await fetch(api, { headers: { 'Accept': 'application/vnd.github+json' } });
+            if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+            const data = await res.json();
+            const items = (Array.isArray(data) ? data : [])
+                .filter(x => x && x.type === 'file' && typeof x.name === 'string' && x.name.toLowerCase().endsWith('.html'))
+                .map(x => ({ name: x.name }));
+
+            window.localStorage.setItem(cacheKey, JSON.stringify(items));
+            window.localStorage.setItem(cacheTsKey, String(now));
+            return items;
+        }
+
+        async function initVersionNav() {
+            const select = document.getElementById('version-select');
+            const openBtn = document.getElementById('open-version');
+            const latestLink = document.getElementById('latest-link');
+            const labelEl = document.getElementById('current-version-label');
+            const hintEl = document.getElementById('version-nav-hint');
+            if (!select || !openBtn || !latestLink || !labelEl) return;
+
+            const titleMatch = String(document.title).match(/\(([^)]+)\)/);
+            const titleLabel = titleMatch ? titleMatch[1] : '';
+
+            const latestUrl = getLatestUrl();
+            latestLink.href = latestUrl;
+
+            const current = normalizeUrl(window.location.href);
+            const base = normalizeUrl(latestUrl);
+            const isLatest = current === base || current === normalizeUrl(`${latestUrl}index.html`);
+
+            labelEl.textContent = titleLabel ? `${titleLabel}${isLatest ? '（最新）' : '（历史）'}` : (isLatest ? '最新版本' : '历史版本');
+            if (hintEl) {
+                hintEl.textContent = isLatest
+                    ? '你正在查看最新版本（index.html，默认应为最近一周）。可在右侧选择任意历史版本。'
+                    : '你正在查看历史版本，可随时返回最新版本（index.html）。';
+            }
+
+            select.innerHTML = '';
+            select.appendChild(new Option('选择历史版本…', ''));
+            select.appendChild(new Option('最新版本（index）', latestUrl));
+
+            let archives = [];
+            try {
+                archives = await fetchArchiveIndex();
+            } catch (e) {
+                // If API fails, keep dropdown usable for "latest"
+                if (hintEl) hintEl.textContent = '（提示）历史版本列表加载失败，但“最新版本”仍可用。';
+            }
+
+            const basePath = getSiteBasePathname();
+            const archiveBase = `${window.location.origin}${basePath}${VERSION_NAV_CONFIG.archiveDir}/`;
+
+            archives
+                .sort((a, b) => String(b.name).localeCompare(String(a.name)))
+                .forEach((it) => {
+                    const url = `${archiveBase}${it.name}`;
+                    const text = filenameToLabel(it.name);
+                    select.appendChild(new Option(text, url));
+                });
+
+            // Preselect current page if possible
+            for (const opt of Array.from(select.options)) {
+                if (opt.value && normalizeUrl(opt.value) === current) {
+                    select.value = opt.value;
+                    break;
+                }
+            }
+
+            const go = () => {
+                const v = select.value;
+                if (v) window.location.href = v;
+            };
+            openBtn.addEventListener('click', go);
+            select.addEventListener('change', () => { if (select.value) go(); });
+        }
+
+        // Script is at bottom, DOM is ready; still guard for safety.
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initVersionNav);
+        else initVersionNav();
+
+        function steamStoreUrl(appId) { return `https://store.steampowered.com/app/${appId}/`; }
+        function steamWidgetUrl(appId) { return `https://store.steampowered.com/widget/${appId}/?l=schinese`; }
+        
+        function steamImageCandidates(appId) {
+            const baseA = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appId}`;
+            const baseB = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}`;
+            return [
+                `${baseA}/capsule_231x87.jpg`, `${baseA}/header.jpg`, `${baseB}/header.jpg`
+            ];
+        }
+
+        function steamGalleryCandidates(appId) {
+            const baseA = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appId}`;
+            return [
+                `${baseA}/header.jpg`, `${baseA}/library_600x900.jpg`, `${baseA}/library_hero.jpg`, `${baseA}/library_capsule.jpg`
+            ];
+        }
+
+        function setImgWithFallback(imgEl, urls, { alt } = {}) {
+            if (!imgEl || !Array.isArray(urls) || urls.length === 0) return;
+            if (alt) imgEl.alt = alt;
+            let i = 0;
+            const tryNext = () => {
+                if (i >= urls.length) { imgEl.onerror = null; return; }
+                imgEl.src = urls[i++];
+            };
+            imgEl.onerror = () => tryNext();
+            tryNext();
+        }
+
+        // Data
+        const games = [
+            { name: 'MIO: Memories in Orbit', appId: '1672810', reviews: 145, rating: 82, genre: '动作/冒险', potential: 'A', potentialDesc: '操作需简化', potentialColor: 'orange', description: '废弃飞船中的精美银河恶魔城冒险' },
+            { name: 'Solargene', appId: '1638300', reviews: 620, rating: 80, genre: '独立/模拟', potential: 'B+', potentialDesc: '界面太复杂', potentialColor: 'blue', description: '硬核科幻太空企业管理模拟' },
+            { name: '桃源村日志', appId: '2678830', reviews: 80, rating: 91, genre: '休闲/模拟', potential: 'S', potentialDesc: '完美适配', potentialColor: 'red', description: '治愈系古风种田与村庄建设' },
+            { name: 'Gah! 哀叹地牢', appId: '2471090', reviews: 41, rating: 90, genre: '动作/RPG', potential: 'A', potentialDesc: '适合双摇杆', potentialColor: 'orange', description: '多角色地牢肉鸽闯关' },
+            { name: 'On-Together | 随时在一起', appId: '3707400', reviews: 171, rating: 98, genre: '休闲/工具', potential: 'S', potentialDesc: '强社交潜力', potentialColor: 'red', description: '桌面宠物+云自习陪伴工具' },
+            { name: '不/存在的逐梦者：银葱之森', appId: '3942480', reviews: 633, rating: 81, genre: '冒险/RPG', potential: 'A-', potentialDesc: '需重交互', potentialColor: 'orange', description: '剧情向冒险RPG，独特的叙事体验' },
+            { name: '奶茶店大亨', appId: '3334520', reviews: 49, rating: 93, genre: '模拟/策略', potential: 'S', potentialDesc: '题材吸量', potentialColor: 'red', description: '全流程硬核奶茶制作与店铺经营' },
+            { name: 'One Turn Kill', appId: '3151270', reviews: 423, rating: 95, genre: '策略/卡牌', potential: 'S', potentialDesc: '竖屏神作', potentialColor: 'red', description: '必须在一回合内获胜的卡牌解谜' },
+            { name: '息风谷战略', appId: '2646320', reviews: 781, rating: 79, genre: '策略/RPG', potential: 'A-', potentialDesc: '适合平板', potentialColor: 'orange', description: '武侠题材的地域压制型战略游戏' },
+            { name: '少女与学院城', appId: '3639650', reviews: 1102, rating: 74, genre: '动作/冒险', potential: 'A', potentialDesc: '动作要求高', potentialColor: 'orange', description: '3D横版二次元银河恶魔城' }
         ];
 
         // Render Table
         const tableBody = document.getElementById('game-table-body');
         games.forEach((game, index) => {
             const row = document.createElement('tr');
-            row.className = 'hover:bg-gray-50 transition-colors duration-150';
+            row.className = 'hover:bg-gray-50 transition-colors duration-150 cursor-pointer';
             row.dataset.appid = game.appId;
             row.dataset.title = game.name;
-            row.dataset.desc = game.description || `${game.genre} | ${game.reviews} 评论 | ${game.rating}% 好评`;
+            row.dataset.desc = game.description;
             
-            // Color Mapping
             let colorClass = 'bg-gray-100 text-gray-800';
             if (game.potentialColor === 'red') colorClass = 'bg-red-100 text-red-800';
             if (game.potentialColor === 'orange') colorClass = 'bg-orange-100 text-orange-800';
-            if (game.potentialColor === 'purple') colorClass = 'bg-purple-100 text-purple-800';
             if (game.potentialColor === 'blue') colorClass = 'bg-blue-100 text-blue-800';
 
-            // Rating Color
             let ratingColor = 'text-gray-600';
             if (game.rating >= 90) ratingColor = 'text-green-600 font-bold';
             else if (game.rating >= 80) ratingColor = 'text-blue-600';
             else if (game.rating < 60) ratingColor = 'text-red-600';
 
-            // Image fallback logic
-            const imgUrl = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.appId}/capsule_231x87.jpg`;
-            const headerUrl = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.appId}/header.jpg`;
-
             row.innerHTML = `
-                <td class="px-6 py-3">
-                    <img src="${imgUrl}" 
-                         class="rounded shadow-sm w-24 object-cover" 
-                         alt="${game.name}"
-                         onerror="this.onerror=null;this.src='${headerUrl}';">
-                </td>
+                <td class="px-6 py-3"><img class="table-cover rounded shadow-sm w-24 object-cover" alt="${game.name}"></td>
                 <td class="px-6 py-4 font-medium text-gray-900 text-lg">${index + 1}</td>
-                <td class="px-6 py-4">
-                    <a href="https://store.steampowered.com/app/${game.appId}/" target="_blank" class="game-title font-semibold text-gray-800 text-base block hover:underline">${game.name}</a>
-                </td>
+                <td class="px-6 py-4"><a href="${steamStoreUrl(game.appId)}" target="_blank" class="game-title font-semibold text-gray-800 text-base block hover:underline">${game.name}</a></td>
                 <td class="px-6 py-4 text-gray-600">${game.genre}</td>
                 <td class="px-6 py-4">${game.reviews}</td>
                 <td class="px-6 py-4 ${ratingColor}">${game.rating}%</td>
-                <td class="px-6 py-4">
-                    <div class="flex items-center">
-                        <span class="${colorClass} text-xs font-medium px-2.5 py-0.5 rounded w-8 text-center shrink-0 mr-2 border border-opacity-20 border-black">${game.potential}</span>
-                        <span class="text-xs text-gray-500">${game.potentialDesc}</span>
-                    </div>
-                </td>
+                <td class="px-6 py-4"><div class="flex items-center"><span class="${colorClass} text-xs font-medium px-2.5 py-0.5 rounded w-8 text-center shrink-0 mr-2 border border-opacity-20 border-black">${game.potential}</span><span class="text-xs text-gray-500">${game.potentialDesc}</span></div></td>
             `;
-            
             tableBody.appendChild(row);
+            setImgWithFallback(row.querySelector('img.table-cover'), steamImageCandidates(game.appId), { alt: game.name });
         });
 
-        // Hover Logic
+        // Hover & Modal Logic (Simplified)
         const hoverCard = document.getElementById('hover-card');
-        const hoverImg = document.getElementById('hover-img');
-        const hoverTitle = document.getElementById('hover-title');
-        const hoverDesc = document.getElementById('hover-desc');
-
+        const detailModal = document.getElementById('detail-modal');
+        
         tableBody.addEventListener('mousemove', (e) => {
             const row = e.target.closest('tr');
             if (row) {
-                const appId = row.dataset.appid;
-                const title = row.dataset.title;
-                const desc = row.dataset.desc;
-
                 hoverCard.style.display = 'block';
+                let top = e.pageY + 20, left = e.pageX + 20;
+                if (left + 340 > window.innerWidth + window.scrollX) left = e.pageX - 340;
+                if (top + 250 > window.innerHeight + window.scrollY) top = e.pageY - 250;
+                hoverCard.style.top = `${top}px`; hoverCard.style.left = `${left}px`;
                 
-                // Position card near cursor (offset by 20px)
-                // Use pageX/Y to handle scrolling correctly
-                let top = e.pageY + 20; 
-                let left = e.pageX + 20;
-                
-                // Boundary check (simple) - if too close to right edge, flip to left
-                if (left + 340 > window.innerWidth + window.scrollX) {
-                    left = e.pageX - 340;
+                const title = row.dataset.title;
+                if (document.getElementById('hover-title').textContent !== title) {
+                    document.getElementById('hover-title').textContent = title;
+                    document.getElementById('hover-desc').textContent = row.dataset.desc;
+                    setImgWithFallback(document.getElementById('hover-img'), steamImageCandidates(row.dataset.appid), { alt: title });
                 }
-                // If too close to bottom, flip up
-                if (top + 250 > window.innerHeight + window.scrollY) {
-                    top = e.pageY - 250;
-                }
+            } else hoverCard.style.display = 'none';
+        });
+        tableBody.addEventListener('mouseleave', () => hoverCard.style.display = 'none');
 
-                hoverCard.style.top = `${top}px`;
-                hoverCard.style.left = `${left}px`;
-
-                // Only update if changed to avoid flickering
-                if (hoverTitle.textContent !== title) {
-                    hoverTitle.textContent = title;
-                    hoverDesc.textContent = desc;
-                    // Try to load header image
-                    hoverImg.src = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appId}/header.jpg`;
-                }
-            } else {
-                hoverCard.style.display = 'none';
-            }
+        tableBody.addEventListener('click', (e) => {
+            if (e.target.closest('a')) return;
+            const row = e.target.closest('tr');
+            if (!row) return;
+            const appId = row.dataset.appid;
+            const game = games.find(g => String(g.appId) === String(appId));
+            
+            document.getElementById('detail-title').textContent = game.name;
+            document.getElementById('detail-sub').textContent = `${game.genre} | ${game.reviews} 评论 | ${game.rating}% 好评 | 手游化：${game.potential}`;
+            document.getElementById('detail-desc').textContent = game.description;
+            document.getElementById('detail-store-link').href = steamStoreUrl(game.appId);
+            document.getElementById('detail-widget').src = steamWidgetUrl(game.appId);
+            setImgWithFallback(document.getElementById('detail-header'), steamImageCandidates(game.appId), { alt: game.name });
+            detailModal.classList.remove('hidden'); detailModal.classList.add('flex');
         });
 
-        tableBody.addEventListener('mouseleave', () => {
-            hoverCard.style.display = 'none';
-        });
+        document.getElementById('detail-close').addEventListener('click', () => { detailModal.classList.add('hidden'); detailModal.classList.remove('flex'); });
+        document.getElementById('detail-backdrop').addEventListener('click', () => { detailModal.classList.add('hidden'); detailModal.classList.remove('flex'); });
 
+        // Screenshots Logic
+        (() => {
+            const storeScreenshotMap = {
+                "3151270": [
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3151270/2e3e42e0fbd3e21fb52c289327e5ebd88db08599/ss_2e3e42e0fbd3e21fb52c289327e5ebd88db08599.1920x1080.jpg?t=1768491573",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3151270/c9cfbd279c02619b6f6c7910722a7c4d9b216306/ss_c9cfbd279c02619b6f6c7910722a7c4d9b216306.1920x1080.jpg?t=1768491573",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3151270/bad9b9bacb38daffcb2d01678782b63fce96ff19/ss_bad9b9bacb38daffcb2d01678782b63fce96ff19.1920x1080.jpg?t=1768491573",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3151270/f444932e8802fde8d7fe643cd489553cc5f8dd7c/ss_f444932e8802fde8d7fe643cd489553cc5f8dd7c.1920x1080.jpg?t=1768491573"
+                ],
+                "3334520": [
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3334520/c08b6018ea024ab1ca18e37dfc5c62406587dd2d/ss_c08b6018ea024ab1ca18e37dfc5c62406587dd2d.1920x1080.jpg?t=1768631504",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3334520/e7c9f6e0802539707496d47be7c4a6bdb62e47b0/ss_e7c9f6e0802539707496d47be7c4a6bdb62e47b0.1920x1080.jpg?t=1768631504",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3334520/5c45b160a53d85df81f092b07b064501453f45f9/ss_5c45b160a53d85df81f092b07b064501453f45f9.1920x1080.jpg?t=1768631504",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3334520/2f3d84f6064066d9b5a639caffa2dc25ddfc55f1/ss_2f3d84f6064066d9b5a639caffa2dc25ddfc55f1.1920x1080.jpg?t=1768631504"
+                ],
+                "2678830": [
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2678830/332cb3e10d7a0696c1e1329be27313a0f5a3e45e/ss_332cb3e10d7a0696c1e1329be27313a0f5a3e45e.1920x1080.jpg?t=1769344579",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2678830/79d6ac19c93d17a60a9d3686590f7ada7b2878cb/ss_79d6ac19c93d17a60a9d3686590f7ada7b2878cb.1920x1080.jpg?t=1769344579",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2678830/70bef1daab8310ec2f0aa6f8a9d15920200c6671/ss_70bef1daab8310ec2f0aa6f8a9d15920200c6671.1920x1080.jpg?t=1769344579",
+                    "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2678830/29999fb74bee6b9690acf7cbb26b56b4f3695751/ss_29999fb74bee6b9690acf7cbb26b56b4f3695751.1920x1080.jpg?t=1769344579"
+                ]
+            };
+            const containers = document.querySelectorAll('[data-appid][id^="screenshots-"]');
+            containers.forEach((el) => {
+                const appId = el.getAttribute('data-appid');
+                const limit = Number.parseInt(el.getAttribute('data-limit') || '4', 10) || 4;
+                const preferred = storeScreenshotMap[String(appId)];
+                const urls = (preferred && preferred.length ? preferred : steamGalleryCandidates(appId)).slice(0, limit);
+                el.innerHTML = '';
+                urls.forEach((u, idx) => {
+                    const img = document.createElement('img');
+                    img.loading = 'lazy';
+                    img.className = 'rounded shadow-sm hover:scale-105 transition-transform duration-200 cursor-pointer object-cover';
+                    setImgWithFallback(img, [u, ...steamImageCandidates(appId)]);
+                    el.appendChild(img);
+                });
+            });
+        })();
 
-        // Chart 1: Reviews Bar Chart
+        // Charts
         const chartReviews = echarts.init(document.getElementById('chart-reviews'));
         chartReviews.setOption({
             tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
             grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
-            xAxis: { type: 'value', name: '评论数' },
+            xAxis: { type: 'value' },
             yAxis: { type: 'category', data: games.map(g => g.name).reverse() },
-            series: [{
-                name: '评论数',
-                type: 'bar',
-                data: games.map(g => g.reviews).reverse(),
-                itemStyle: { color: '#6366f1' },
-                label: { show: true, position: 'right' }
-            }]
+            series: [{ type: 'bar', data: games.map(g => g.reviews).reverse(), itemStyle: { color: '#6366f1' }, label: { show: true, position: 'right' } }]
         });
 
-        // Chart 2: Scatter Plot (Rating vs Reviews)
         const chartScatter = echarts.init(document.getElementById('chart-scatter'));
         chartScatter.setOption({
-            tooltip: {
-                formatter: function (param) {
-                    return `<b>${param.data[2]}</b><br/>评论数: ${param.data[0]}<br/>好评率: ${param.data[1]}%`;
-                }
-            },
-            xAxis: { type: 'value', name: '评论数', splitLine: { lineStyle: { type: 'dashed' } } },
-            yAxis: { type: 'value', name: '好评率 (%)', min: 50, max: 100, splitLine: { lineStyle: { type: 'dashed' } } },
+            tooltip: { formatter: (p) => `<b>${p.data[2]}</b><br/>评论: ${p.data[0]}<br/>好评: ${p.data[1]}%` },
+            xAxis: { type: 'value', name: '评论数' },
+            yAxis: { type: 'value', name: '好评率 (%)', min: 50, max: 100 },
             series: [{
-                symbolSize: function (data) { return Math.sqrt(data[0]) * 1.5; }, // Size based on reviews
-                data: games.map(g => [g.reviews, g.rating, g.name, g.genre]),
+                symbolSize: (d) => Math.sqrt(d[0]) * 1.5,
+                data: games.map(g => [g.reviews, g.rating, g.name]),
                 type: 'scatter',
-                itemStyle: {
-                    color: function(param) {
-                        const r = param.data[1];
-                        return r >= 90 ? '#22c55e' : r >= 80 ? '#3b82f6' : r >= 70 ? '#eab308' : '#ef4444';
-                    },
-                    shadowBlur: 10,
-                    shadowColor: 'rgba(25, 100, 150, 0.5)',
-                    shadowOffsetY: 5
-                }
+                itemStyle: { color: (p) => p.data[1] >= 90 ? '#22c55e' : p.data[1] >= 80 ? '#3b82f6' : '#ef4444' }
             }]
         });
 
-        // Chart 3: Radar Chart - Dwarf Legion
-        const chartRadarDwarf = echarts.init(document.getElementById('radar-dwarf'));
-        chartRadarDwarf.setOption({
-            radar: {
-                indicator: [
-                    { name: '商业化 (P1)', max: 5 },
-                    { name: '移动端适配 (P2)', max: 5 },
-                    { name: '题材吸引力 (P3)', max: 5 },
-                    { name: '社交潜力 (P4)', max: 5 }
-                ]
-            },
-            series: [{
-                name: '矮人军团自走棋',
-                type: 'radar',
-                data: [{
-                    value: [5, 5, 5, 4], // 极高=5, S=5, S=5, 必需=4
-                    name: '矮人军团自走棋',
-                    areaStyle: { color: 'rgba(99, 102, 241, 0.2)' },
-                    lineStyle: { color: '#6366f1' }
-                }]
-            }]
-        });
+        // Radar Charts
+        const createRadar = (id, name, data, color) => {
+            const chart = echarts.init(document.getElementById(id));
+            chart.setOption({
+                radar: { indicator: [{ name: '商业化', max: 5 }, { name: '移动端', max: 5 }, { name: '题材', max: 5 }, { name: '社交', max: 5 }] },
+                series: [{ type: 'radar', data: [{ value: data, name: name, areaStyle: { color: color + '33' }, lineStyle: { color: color } }] }]
+            });
+            return chart;
+        };
 
-        // Chart 4: Radar Chart - Escape from Ever After
-        const chartRadarEscape = echarts.init(document.getElementById('radar-escape'));
-        chartRadarEscape.setOption({
-            radar: {
-                indicator: [
-                    { name: '商业化 (P1)', max: 5 },
-                    { name: '移动端适配 (P2)', max: 5 },
-                    { name: '题材吸引力 (P3)', max: 5 },
-                    { name: '社交潜力 (P4)', max: 5 }
-                ]
-            },
-            series: [{
-                name: '逃出从此以后',
-                type: 'radar',
-                data: [{
-                    value: [3.5, 2, 5, 4], // 中高=3.5, 需重构=2, S+=5, 高=4
-                    name: '逃出从此以后',
-                    areaStyle: { color: 'rgba(236, 72, 153, 0.2)' },
-                    lineStyle: { color: '#ec4899' }
-                }]
-            }]
-        });
+        const r1 = createRadar('radar-3151270', 'One Turn Kill', [5, 5, 4.5, 4], '#ef4444');
+        const r2 = createRadar('radar-3334520', '奶茶店大亨', [5, 5, 5, 4], '#ec4899');
+        const r3 = createRadar('radar-2678830', '桃源村日志', [4, 5, 5, 5], '#22c55e');
 
-        // Resize charts on window resize
         window.addEventListener('resize', () => {
-            chartReviews.resize();
-            chartScatter.resize();
-            chartRadarDwarf.resize();
-            chartRadarEscape.resize();
+            chartReviews.resize(); chartScatter.resize(); r1.resize(); r2.resize(); r3.resize();
         });
     </script>
 </body>
