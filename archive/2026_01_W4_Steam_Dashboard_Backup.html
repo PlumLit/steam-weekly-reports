@@ -315,6 +315,7 @@
         function normalizeUrl(u) {
             try {
                 const x = new URL(u, window.location.href);
+                x.search = '';
                 x.hash = '';
                 return x.toString();
             } catch {
