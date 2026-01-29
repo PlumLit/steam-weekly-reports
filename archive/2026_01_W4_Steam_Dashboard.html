@@ -751,28 +751,6 @@
             ];
         }
 
-            // 1. Local Asset Path (Fallback)
-            const isArchive = window.location.pathname.includes('/archive/');
-            const prefix = isArchive ? '../assets/' : 'assets/';
-            const period = (typeof reportData !== 'undefined' && reportData.periodCode) ? reportData.periodCode : '2026_01_W4';
-            const localPath = `${prefix}${period}/${appId}.jpg`;
-
-            // 2. Remote Fallbacks
-            const cdn1 = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appId}`;
-            const cdn2 = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appId}`;
-            const cdn4 = `https://steamcdn-a.akamaihd.net/steam/apps/${appId}`;
-            const ts = `?t=${new Date().getTime()}`;
-
-            return [
-                localPath,
-                `${cdn1}/header.jpg${ts}`, 
-                `${cdn1}/header_schinese.jpg${ts}`,
-                `${cdn2}/header.jpg${ts}`,
-                `${cdn1}/library_600x900.jpg${ts}`,
-                `${cdn1}/capsule_184x69.jpg${ts}`
-            ];
-        }
-
         function steamGalleryCandidates(appId) {
             const baseA = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appId}`;
             // Placeholder: Use header multiple times if real screenshots aren't available, to prevent broken UI
