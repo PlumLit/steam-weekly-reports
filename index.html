@@ -53,6 +53,26 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             pointer-events: none; /* Prevent flickering */
         }
+
+        /* Radar Dimension Tooltip */
+        .radar-tooltip {
+            display: none;
+            position: absolute;
+            z-index: 10002;
+            max-width: 380px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+            padding: 12px 14px;
+            pointer-events: none;
+        }
+        .radar-tooltip .rt-title { font-weight: 700; color: #111827; font-size: 13px; margin-bottom: 6px; }
+        .radar-tooltip .rt-meta { font-size: 12px; color: #374151; display: flex; flex-wrap: wrap; gap: 8px 10px; margin-bottom: 8px; }
+        .radar-tooltip .rt-badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 9999px; font-weight: 700; font-size: 11px; background: #eef2ff; color: #4338ca; }
+        .radar-tooltip .rt-badge.red { background: #fee2e2; color: #991b1b; }
+        .radar-tooltip .rt-content { font-size: 12px; color: #374151; line-height: 1.55; }
+        .radar-tooltip .rt-content b { color: #111827; }
     </style>
 </head>
 <body class="p-6">
@@ -219,6 +239,9 @@
         <!-- iframe will be injected here -->
     </div>
 
+    <!-- Radar Tooltip -->
+    <div id="radar-tooltip" class="radar-tooltip"></div>
+
     <!-- Detail Modal (点击表格行查看简介 & 更多截图) -->
     <div id="detail-modal" class="fixed inset-0 hidden items-center justify-center" style="z-index: 10000;">
         <div id="detail-backdrop" class="absolute inset-0 bg-black/50"></div>
@@ -327,6 +350,24 @@
                         appId: "2205850",
                         diagnosis: "天生的“军团战”SLG胚子，只需把关卡推图改为大地图行军。",
                         scores: [25, 28, 22, 12],
+                        dimensionDetails: {
+                            traffic: {
+                                title: "🧬 流量骨架",
+                                content: "<b>得分点</b>：矮人重甲与兽人狂潮的对撞，视觉冲击力强（13分）；题材直观，无需教育成本（12分）。<br/><b>素材建议</b>：大量兽人冲锋，矮人盾墙死守，通过合成/升级瞬间反推。"
+                            },
+                            gameplay: {
+                                title: "🎮 玩法骨架",
+                                content: "<b>得分点</b>：全自动战斗 + 战前布阵策略，天然契合 SLG 战报模式（14分）；角色养成线（装备、技能）可直接复用（14分）。<br/><b>改造建议</b>：将 Roguelike 的随机获取改为 SLG 的科技树/兵营训练；将单局重置改为赛季制。"
+                            },
+                            numerical: {
+                                title: "📈 数值骨架",
+                                content: "<b>得分点</b>：战斗结果高度依赖数值（兵种等级、装备数值），具备极强的“伪技巧”欺骗性。"
+                            },
+                            logic: {
+                                title: "🔗 逻辑骨架",
+                                content: "<b>得分点</b>：为了对抗更强的兽人部落，必须去野外掠夺资源升级军团，逻辑自洽。<br/><b>转化建议</b>：将“下一关”包装成“攻打邻国”。"
+                            }
+                        },
                         skeleton: {
                             soul: "多兵种同屏混战的爽快感、装备合成的随机惊喜。",
                             flesh: "Roguelike的单局死亡重置机制（改为损兵/治疗）。",
@@ -338,6 +379,24 @@
                         appId: "3543120",
                         diagnosis: "标准的COK-like生存题材，但昼夜机制可作为微创新点。",
                         scores: [28, 20, 20, 15],
+                        dimensionDetails: {
+                            traffic: {
+                                title: "🧬 流量骨架",
+                                content: "<b>得分点</b>：丧尸围城是 SLG 最吸量的题材之一，绝境感拉满（15分）；昼夜交替带来的安全感/恐惧感反差极大（13分）。<br/><b>素材建议</b>：夜晚尸潮来袭，玩家在最后时刻修好电网/机枪塔。"
+                            },
+                            gameplay: {
+                                title: "🎮 玩法骨架",
+                                content: "<b>得分点</b>：采集、建造、防御的核心循环天然就是 SLG（15分）。<br/><b>改造建议</b>：简化单兵操作，强化“据点防御”的整体性。"
+                            },
+                            numerical: {
+                                title: "📈 数值骨架",
+                                content: "<b>得分点</b>：资源积累与战力提升呈正相关，数值坑深（20分）。"
+                            },
+                            logic: {
+                                title: "🔗 逻辑骨架",
+                                content: "<b>得分点</b>：资源匮乏是去野外（大地图）探索的唯一且刚需的理由（15分）。<br/><b>转化建议</b>：白天外出采集，夜晚回城防守。"
+                            }
+                        },
                         skeleton: {
                             soul: "昼夜交替的生存压力、尸潮围城的压迫感。",
                             flesh: "单人RPG式的剧情探索（改为任务引导）。",
@@ -355,6 +414,12 @@
                     tag: "S级推荐",
                     tagColor: "red",
                     radar: { commercial: 5, mobile: 5, theme: 4.5, social: 4 },
+                    radarDetails: {
+                        commercial: { label: "混合变现", rating: "S", content: "核心循环适合“免费抽卡 + 广告加速”。英雄碎片、装备抽取是天然的内购点。" },
+                        mobile: { label: "完美适配", rating: "S", content: "自动战斗机制天然适合触屏，竖屏操作毫无压力；UI 布局只需微调即可。" },
+                        theme: { label: "经典西幻", rating: "A+", content: "矮人 vs 兽人是全球通用题材，接受度高；画风偏卡通，受众面广。" },
+                        social: { label: "公会战", rating: "A", content: "可增加公会 BOSS 战、军团 PVP 等社交玩法，弥补单机短板。" }
+                    },
                     insight: "对自走棋玩法进行“空间降维”，将8x8棋盘压缩为1D横向战线，完美适配竖屏。",
                     desc: "天生的放置RPG手游胚子。将复杂的羁绊计算简化为满屏的数值爽感，核心循环天然契合“免费抽卡+广告加速”的混合变现模式。"
                 },
@@ -365,6 +430,12 @@
                     tag: "S级推荐",
                     tagColor: "red",
                     radar: { commercial: 4, mobile: 5, theme: 4, social: 3.5 },
+                    radarDetails: {
+                        commercial: { label: "外观付费", rating: "A", content: "稀有金属材质、剑柄装饰、特效贴图等是绝佳付费点。" },
+                        mobile: { label: "触屏交互", rating: "S", content: "手指滑动屏幕进行敲打、塑形，比鼠标操作更具沉浸感。" },
+                        theme: { label: "解压神器", rating: "A", content: "强调 ASMR 体验，符合年轻人“解压/放松”的市场需求。" },
+                        social: { label: "交易行", rating: "B+", content: "玩家打造的武器可挂牌出售，或做武器选美大赛等轻社交。" }
+                    },
                     insight: "在模拟经营赛道中找到了“锻造”这个极具表现力的切入点，视觉和听觉反馈极佳。",
                     desc: "模拟经营赛道的垂直切入点。自定义锻造系统既可作为重度SLG的装备打造副玩法，也具备独立发展为高品质解压模拟手游的潜力。"
                 }
@@ -499,6 +570,7 @@
                     <!-- Radar -->
                     <div class="w-full md:w-1/2">
                         <div id="radar-gen-${item.appId}" class="w-full" style="height: 250px;"></div>
+                        <div class="mt-1 text-xs text-gray-400">提示：悬浮维度标签查看明细</div>
                     </div>
                     <!-- Text -->
                     <div class="w-full md:w-1/2 flex flex-col justify-center">
@@ -525,7 +597,66 @@
             setTimeout(() => {
                 const radar = echarts.init(document.getElementById(`radar-gen-${item.appId}`));
                 radar.setOption({
+                    tooltip: { show: false },
                     radar: { 
+                        triggerEvent: true,
+                        nameGap: 10,
+                        name: {
+                            formatter: (value) => `{pill|${value}}`,
+                            textStyle: {
+                                rich: {
+                                    pill: {
+                                        color: '#111827',
+                                        backgroundColor: 'rgba(99, 102, 241, 0.10)',
+                                        borderColor: 'rgba(99, 102, 241, 0.35)',
+                                        borderWidth: 1,
+                                        borderRadius: 999,
+                                        padding: [4, 10],
+                                        fontWeight: 700,
+                                        fontSize: 12
+                                    },
+                                    pillActive: {
+                                        color: '#111827',
+                                        backgroundColor: 'rgba(99, 102, 241, 0.18)',
+                                        borderColor: 'rgba(99, 102, 241, 0.70)',
+                                        borderWidth: 1,
+                                        borderRadius: 999,
+                                        padding: [4, 10],
+                                        fontWeight: 800,
+                                        fontSize: 12,
+                                        shadowBlur: 10,
+                                        shadowColor: 'rgba(99, 102, 241, 0.25)'
+                                    }
+                                }
+                            }
+                        },
+                        // 兼容不同 ECharts 版本的字段命名
+                        nameTextStyle: {
+                            rich: {
+                                pill: {
+                                    color: '#111827',
+                                    backgroundColor: 'rgba(99, 102, 241, 0.10)',
+                                    borderColor: 'rgba(99, 102, 241, 0.35)',
+                                    borderWidth: 1,
+                                    borderRadius: 999,
+                                    padding: [4, 10],
+                                    fontWeight: 700,
+                                    fontSize: 12
+                                },
+                                pillActive: {
+                                    color: '#111827',
+                                    backgroundColor: 'rgba(99, 102, 241, 0.18)',
+                                    borderColor: 'rgba(99, 102, 241, 0.70)',
+                                    borderWidth: 1,
+                                    borderRadius: 999,
+                                    padding: [4, 10],
+                                    fontWeight: 800,
+                                    fontSize: 12,
+                                    shadowBlur: 10,
+                                    shadowColor: 'rgba(99, 102, 241, 0.25)'
+                                }
+                            }
+                        },
                         indicator: [
                             { name: '商业化', max: 5 }, 
                             { name: '移动端', max: 5 }, 
@@ -546,6 +677,25 @@
                             symbolSize: 6
                         }] 
                     }]
+                });
+
+                attachRadarDimensionTooltip(radar, {
+                    chartTitle: item.name,
+                    badgeColor: 'indigo',
+                    dimMap: { '商业化': 'commercial', '移动端': 'mobile', '题材': 'theme', '社交': 'social' },
+                    axisNames: ['商业化', '移动端', '题材', '社交'],
+                    getDetail: (dimKey) => {
+                        const scoreMap = { commercial: item.radar.commercial, mobile: item.radar.mobile, theme: item.radar.theme, social: item.radar.social };
+                        const d = item.radarDetails && item.radarDetails[dimKey] ? item.radarDetails[dimKey] : null;
+                        return {
+                            dimTitle: '',
+                            label: d && d.label ? d.label : '',
+                            rating: d && d.rating ? d.rating : '',
+                            score: scoreMap[dimKey],
+                            max: 5,
+                            content: d && d.content ? d.content : '暂无该维度的明细评估内容。'
+                        };
+                    }
                 });
             }, 0);
         });
@@ -590,6 +740,7 @@
                     <!-- Radar -->
                     <div class="w-full md:w-1/2">
                         <div id="radar-${item.appId}" class="w-full" style="height: 250px;"></div>
+                        <div class="mt-1 text-xs text-gray-400">提示：悬浮维度标签查看明细</div>
                     </div>
                     <!-- Text -->
                     <div class="w-full md:w-1/2 flex flex-col justify-center gap-3 text-sm">
@@ -622,7 +773,66 @@
             setTimeout(() => {
                 const radar = echarts.init(document.getElementById(`radar-${item.appId}`));
                 radar.setOption({
+                    tooltip: { show: false },
                     radar: { 
+                        triggerEvent: true,
+                        nameGap: 10,
+                        name: {
+                            formatter: (value) => `{pill|${value}}`,
+                            textStyle: {
+                                rich: {
+                                    pill: {
+                                        color: '#111827',
+                                        backgroundColor: 'rgba(239, 68, 68, 0.10)',
+                                        borderColor: 'rgba(239, 68, 68, 0.35)',
+                                        borderWidth: 1,
+                                        borderRadius: 999,
+                                        padding: [4, 10],
+                                        fontWeight: 700,
+                                        fontSize: 12
+                                    },
+                                    pillActive: {
+                                        color: '#111827',
+                                        backgroundColor: 'rgba(239, 68, 68, 0.18)',
+                                        borderColor: 'rgba(239, 68, 68, 0.70)',
+                                        borderWidth: 1,
+                                        borderRadius: 999,
+                                        padding: [4, 10],
+                                        fontWeight: 800,
+                                        fontSize: 12,
+                                        shadowBlur: 10,
+                                        shadowColor: 'rgba(239, 68, 68, 0.20)'
+                                    }
+                                }
+                            }
+                        },
+                        // 兼容不同 ECharts 版本的字段命名
+                        nameTextStyle: {
+                            rich: {
+                                pill: {
+                                    color: '#111827',
+                                    backgroundColor: 'rgba(239, 68, 68, 0.10)',
+                                    borderColor: 'rgba(239, 68, 68, 0.35)',
+                                    borderWidth: 1,
+                                    borderRadius: 999,
+                                    padding: [4, 10],
+                                    fontWeight: 700,
+                                    fontSize: 12
+                                },
+                                pillActive: {
+                                    color: '#111827',
+                                    backgroundColor: 'rgba(239, 68, 68, 0.18)',
+                                    borderColor: 'rgba(239, 68, 68, 0.70)',
+                                    borderWidth: 1,
+                                    borderRadius: 999,
+                                    padding: [4, 10],
+                                    fontWeight: 800,
+                                    fontSize: 12,
+                                    shadowBlur: 10,
+                                    shadowColor: 'rgba(239, 68, 68, 0.20)'
+                                }
+                            }
+                        },
                         indicator: [
                             { name: '流量', max: 30 }, 
                             { name: '玩法', max: 30 }, 
@@ -643,6 +853,26 @@
                             symbolSize: 6
                         }] 
                     }]
+                });
+
+                attachRadarDimensionTooltip(radar, {
+                    chartTitle: item.name,
+                    badgeColor: 'red',
+                    dimMap: { '流量': 'traffic', '玩法': 'gameplay', '数值': 'numerical', '逻辑': 'logic' },
+                    axisNames: ['流量', '玩法', '数值', '逻辑'],
+                    getDetail: (dimKey) => {
+                        const idxMap = { traffic: 0, gameplay: 1, numerical: 2, logic: 3 };
+                        const maxMap = { traffic: 30, gameplay: 30, numerical: 25, logic: 15 };
+                        const d = item.dimensionDetails && item.dimensionDetails[dimKey] ? item.dimensionDetails[dimKey] : null;
+                        return {
+                            dimTitle: d && d.title ? d.title : '',
+                            label: '',
+                            rating: '',
+                            score: item.scores[idxMap[dimKey]],
+                            max: maxMap[dimKey],
+                            content: d && d.content ? d.content : '暂无该维度的明细评估内容。'
+                        };
+                    }
                 });
             }, 0);
         });
@@ -715,6 +945,144 @@
                 widgetTooltip.innerHTML = ''; // Clear iframe to stop resources
             });
         });
+
+        // ==============================
+        // Radar Dimension Tooltip Logic
+        // ==============================
+        const radarTooltip = document.getElementById('radar-tooltip');
+        const RADAR_TOOLTIP_MARGIN = 12;
+
+        function escapeHtml(s) {
+            return String(s ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function positionRadarTooltip(pageX, pageY) {
+            if (!radarTooltip || radarTooltip.style.display === 'none') return;
+            const w = radarTooltip.offsetWidth || 360;
+            const h = radarTooltip.offsetHeight || 140;
+            const vw = window.innerWidth + window.scrollX;
+            const vh = window.innerHeight + window.scrollY;
+
+            let left = pageX + RADAR_TOOLTIP_MARGIN;
+            let top = pageY + RADAR_TOOLTIP_MARGIN;
+
+            if (left + w + RADAR_TOOLTIP_MARGIN > vw) left = pageX - w - RADAR_TOOLTIP_MARGIN;
+            if (top + h + RADAR_TOOLTIP_MARGIN > vh) top = pageY - h - RADAR_TOOLTIP_MARGIN;
+
+            radarTooltip.style.left = `${Math.max(window.scrollX + 8, left)}px`;
+            radarTooltip.style.top = `${Math.max(window.scrollY + 8, top)}px`;
+        }
+
+        function showRadarTooltip(html, pageX, pageY) {
+            if (!radarTooltip) return;
+            radarTooltip.innerHTML = html;
+            radarTooltip.style.display = 'block';
+            positionRadarTooltip(pageX, pageY);
+        }
+
+        function hideRadarTooltip() {
+            if (!radarTooltip) return;
+            radarTooltip.style.display = 'none';
+            radarTooltip.innerHTML = '';
+        }
+
+        function attachRadarDimensionTooltip(chart, { chartTitle, dimMap, getDetail, badgeColor, axisNames = [] }) {
+            if (!chart || typeof chart.on !== 'function') return;
+
+            const colorClass = badgeColor === 'red' ? 'red' : '';
+            const zr = chart.getZr && chart.getZr();
+            let hoveredAxisLabel = null;
+
+            function normalizeAxisName(name) {
+                const s = String(name ?? '');
+                // e.g. "{pill|商业化}" -> "商业化"
+                const m = s.match(/^\{[^|}]+\|(.+)\}$/);
+                return m ? m[1] : s;
+            }
+
+            function applyAxisHover(label) {
+                // 通过 formatter 强化“hover 态”，让轴名更像按钮
+                if (!axisNames || axisNames.length === 0) return;
+                chart.setOption({
+                    radar: {
+                        name: {
+                            formatter: (value) => {
+                                const key = (label && value === label) ? 'pillActive' : 'pill';
+                                return `{${key}|${value}}`;
+                            }
+                        }
+                    }
+                });
+            }
+
+            chart.on('mouseover', (params) => {
+                const axisLabel = normalizeAxisName(params && params.name);
+                const dimKey = dimMap && axisLabel ? dimMap[axisLabel] : null;
+                if (!dimKey) return;
+                if (zr && zr.setCursorStyle) zr.setCursorStyle('pointer');
+                hoveredAxisLabel = axisLabel;
+                applyAxisHover(hoveredAxisLabel);
+
+                const detail = getDetail ? getDetail(dimKey) : null;
+                const evt = params && params.event ? (params.event.event || params.event) : null;
+                const pageX = evt && typeof evt.pageX === 'number' ? evt.pageX : 0;
+                const pageY = evt && typeof evt.pageY === 'number' ? evt.pageY : 0;
+
+                const dimName = escapeHtml(axisLabel);
+                const title = escapeHtml(chartTitle || '');
+                const label = detail && detail.label ? ` · ${escapeHtml(detail.label)}` : '';
+                const dimTitle = detail && detail.dimTitle ? escapeHtml(detail.dimTitle) : '';
+
+                const score = (detail && typeof detail.score === 'number') ? detail.score : '';
+                const max = (detail && typeof detail.max === 'number') ? detail.max : '';
+                const rating = detail && detail.rating ? escapeHtml(detail.rating) : '';
+
+                const metaParts = [];
+                if (max !== '' && score !== '') metaParts.push(`<span class="rt-badge ${colorClass}">打分：${score}/${max}</span>`);
+                if (rating) metaParts.push(`<span class="rt-badge ${colorClass}">评级：${rating}</span>`);
+
+                const html = `
+                    <div class="rt-title">${title} · ${dimName}${label}</div>
+                    ${(dimTitle || metaParts.length)
+                        ? `<div class="rt-meta">${
+                            dimTitle ? `<span class="rt-badge ${colorClass}">${dimTitle}</span>` : ''
+                        }${metaParts.join('')}</div>`
+                        : ''
+                    }
+                    <div class="rt-content">${detail && detail.content ? detail.content : '暂无该维度的明细评估内容。'}</div>
+                `;
+
+                showRadarTooltip(html, pageX, pageY);
+            });
+
+            chart.on('mouseout', () => {
+                if (zr && zr.setCursorStyle) zr.setCursorStyle('default');
+                if (hoveredAxisLabel) {
+                    hoveredAxisLabel = null;
+                    applyAxisHover(null);
+                }
+                hideRadarTooltip();
+            });
+            zr && zr.on('mousemove', (evt) => {
+                if (!radarTooltip || radarTooltip.style.display === 'none') return;
+                const e = evt && evt.event ? evt.event : null;
+                if (!e) return;
+                positionRadarTooltip(e.pageX, e.pageY);
+            });
+            zr && zr.on('globalout', () => {
+                if (zr && zr.setCursorStyle) zr.setCursorStyle('default');
+                if (hoveredAxisLabel) {
+                    hoveredAxisLabel = null;
+                    applyAxisHover(null);
+                }
+                hideRadarTooltip();
+            });
+        }
 
         // ==============================
         // 3. Utilities & Navigation

@@ -53,6 +53,26 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             pointer-events: none; /* Prevent flickering */
         }
+
+        /* Radar Dimension Tooltip */
+        .radar-tooltip {
+            display: none;
+            position: absolute;
+            z-index: 10002;
+            max-width: 380px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+            padding: 12px 14px;
+            pointer-events: none;
+        }
+        .radar-tooltip .rt-title { font-weight: 700; color: #111827; font-size: 13px; margin-bottom: 6px; }
+        .radar-tooltip .rt-meta { font-size: 12px; color: #374151; display: flex; flex-wrap: wrap; gap: 8px 10px; margin-bottom: 8px; }
+        .radar-tooltip .rt-badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 9999px; font-weight: 700; font-size: 11px; background: #eef2ff; color: #4338ca; }
+        .radar-tooltip .rt-badge.red { background: #fee2e2; color: #991b1b; }
+        .radar-tooltip .rt-content { font-size: 12px; color: #374151; line-height: 1.55; }
+        .radar-tooltip .rt-content b { color: #111827; }
     </style>
 </head>
 <body class="p-6">
@@ -219,6 +239,9 @@
         <!-- iframe will be injected here -->
     </div>
 
+    <!-- Radar Tooltip -->
+    <div id="radar-tooltip" class="radar-tooltip"></div>
+
     <!-- Detail Modal (点击表格行查看简介 & 更多截图) -->
     <div id="detail-modal" class="fixed inset-0 hidden items-center justify-center" style="z-index: 10000;">
         <div id="detail-backdrop" class="absolute inset-0 bg-black/50"></div>
@@ -287,13 +310,10 @@
             trends: {
                 keywords: ["#电诈题材", "#一战模拟", "#卡牌肉鸽", "#中式恐怖"],
                 summary: `<ul class="list-disc list-inside space-y-1">
-                    <li><b>现实题材爆发</b>：《血薪记：罪恶园区》凭借“电诈园区”这一极具社会话题度的题材，迅速引爆市场，证明了强代入感的现实题材在独立游戏中的巨大潜力。</li>
-                    <li><b>策略卡牌微创新</b>：《One Turn Kill》将卡牌战斗限制在“一回合内”，极大地加快了游戏节奏，这种“爽快感”设计非常符合手游碎片化的趋势。</li>
-                    <li><b>大规模战争模拟</b>：《Rising Front》虽然画面简陋，但凭借千人同屏的宏大场面和极高的自由度，在军事模拟赛道杀出重围。</li>
+                    <li><b>现实题材爆发</b>：《血薪记：罪恶园区》凭借“电诈园区”这一极具社会话题度的题材，迅速引爆市场，证明了强代入感的现实题材在独立游戏中的巨大潜力。    *   **策略卡牌微创新**：《One Turn Kill》将卡牌战斗限制在“一回合内”，极大地加快了游戏节奏，这种“爽快感”设计非常符合手游碎片化的趋势。    *   **大规模战争模拟**：《Rising Front》虽然画面简陋，但凭借千人同屏的宏大场面和极高的自由度，在军事模拟赛道杀出重围。</li>
                 </ul>`,
                 microInnovations: `<ul class="list-disc list-inside space-y-1">
-                    <li><b>“规则怪谈”的泛化</b>：《机密谋杀案中案》和《谁是中之人》都采用了非传统的叙事和推理方式，玩家不再是全知全能的侦探，而是规则的探索者。</li>
-                    <li><b>“修仙+X”的持续尝试</b>：《息风谷战略》尝试将修仙题材与地域压制战略（SLG/大战略）结合，虽然评价两极分化，但方向值得关注。</li>
+                    <li><b>“规则怪谈”的泛化</b>：《机密谋杀案中案》和《谁是中之人》都采用了非传统的叙事和推理方式，玩家不再是全知全能的侦探，而是规则的探索者。    *   **“修仙+X”的持续尝试**：《息风谷战略》尝试将修仙题材与地域压制战略（SLG/大战略）结合，虽然评价两极分化，但方向值得关注。</li>
                 </ul>`
             },
             topGames: [
@@ -306,7 +326,7 @@
                 { rank: 7, name: '少女与学院城', appId: '3639650', reviews: 1102, rating: 74, genre: '动作/冒险', potential: 'B', potentialDesc: '操作要求高', potentialColor: 'blue', description: '3D横版类银河恶魔城，校园题材' },
                 { rank: 8, name: '机密谋杀案中案', appId: '2797960', reviews: 280, rating: 74, genre: '冒险/解谜', potential: 'B+', potentialDesc: '适合剧本杀', potentialColor: 'blue', description: '好莱坞背景的硬核本格推理侦探游戏' },
                 { rank: 9, name: 'Cozy Caravan', appId: '2788520', reviews: 706, rating: 93, genre: '休闲/模拟', potential: 'A', potentialDesc: '适合模拟经营', potentialColor: 'orange', description: '驾驶大篷车旅行经商，画风治愈' },
-                { rank: 10, name: '蜉蝣之国的囚徒', appId: '3880360', reviews: 265, rating: 81, genre: '冒险/RPG', potential: 'B', potentialDesc: '适合单机RPG', potentialColor: 'blue', description: '只有7天寿命的异世界冒险，设定新颖' }
+                { rank: 10, name: '蜉蝣之国的囚徒', appId: '3880360', reviews: 265, rating: 81, genre: '冒险/RPG', potential: 'B', potentialDesc: '适合单机RPG', potentialColor: 'blue', description: '只有7天寿命的异世界冒险，设定新颖' },
             ],
             slgAnalysis: {
                 overview: [
@@ -319,7 +339,7 @@
                     { name: "谁是中之人", traffic: 15, gameplay: 5, numerical: 5, logic: 5, total: 30, tier: "C" },
                     { name: "少女与学院城", traffic: 15, gameplay: 10, numerical: 10, logic: 5, total: 40, tier: "C" },
                     { name: "机密谋杀案中案", traffic: 10, gameplay: 5, numerical: 5, logic: 5, total: 25, tier: "C" },
-                    { name: "蜉蝣之国的囚徒", traffic: 15, gameplay: 10, numerical: 10, logic: 5, total: 40, tier: "C" }
+                    { name: "蜉蝣之国的囚徒", traffic: 15, gameplay: 10, numerical: 10, logic: 5, total: 40, tier: "C" },
                 ],
                 details: [
                     {
@@ -327,6 +347,24 @@
                         appId: "3850560",
                         diagnosis: "黑道/监狱题材SLG的变种，将“监狱管理”改为“园区管理”，绝境感更强。",
                         scores: [28, 25, 20, 15],
+                        dimensionDetails: {
+                            traffic: {
+                                title: "🧬 流量骨架",
+                                content: "<b>得分点</b>：题材具有极强的生理唤醒（恐惧、求生欲），无需教育成本（15分）；绝境可视化程度高，高墙、电网、守卫天然构成SLG的城防要素（13分）。    <br/><b>素材建议</b>：被抓捕的第一视角、园区内的残酷惩罚、成功逃脱的瞬间。"
+                            },
+                            gameplay: {
+                                title: "🎮 玩法骨架",
+                                content: "<b>得分点</b>：资源管理（业绩、食物、体力）是核心，天然契合SLG的内政系统（13分）；人员分配（打手、狗推、技术员）对应SLG的兵种/英雄（12分）。    <br/><b>改造建议</b>：玩家扮演“卧底警察”或“觉醒的管理者”，在园区内秘密建立反抗势力，最终推翻头目。"
+                            },
+                            numerical: {
+                                title: "📈 数值骨架",
+                                content: "<b>得分点</b>：业绩指标是悬在头顶的达摩克利斯之剑，数值压力巨大，逼迫玩家不断提升效率。"
+                            },
+                            logic: {
+                                title: "🔗 逻辑骨架",
+                                content: "<b>得分点</b>：为了生存（不被惩罚/被杀），必须去掠夺资源、扩张势力，逻辑完美自洽。    <br/><b>转化建议</b>：将“完成业绩”转化为“缴纳贡品”，将“逃跑”转化为“攻占园区”。"
+                            },
+                        },
                         skeleton: {
                             soul: "高压的生存环境、残酷的末位淘汰机制。",
                             flesh: "过于线性的剧情流程（改为开放式经营）。",
@@ -338,39 +376,67 @@
                         appId: "2646320",
                         diagnosis: "修仙版的《三国志》，天生的SLG胚子，只需强化社交和长线养成。",
                         scores: [20, 25, 22, 15],
+                        dimensionDetails: {
+                            traffic: {
+                                title: "🧬 流量骨架",
+                                content: "<b>得分点</b>：修仙题材在亚洲市场吸量能力强（10分）；门派争斗、灭门惨案具备一定的冲突张力（10分）。    <br/><b>素材建议</b>：万剑归宗的特效、护山大阵的开启、千人修仙大战。"
+                            },
+                            gameplay: {
+                                title: "🎮 玩法骨架",
+                                content: "<b>得分点</b>：核心就是占领据点、招募弟子、资源运营，与COK-like高度重合（15分）。    <br/><b>改造建议</b>：将单机回合制战斗改为即时行军或战报模式；增加“宗门联盟”玩法。"
+                            },
+                            numerical: {
+                                title: "📈 数值骨架",
+                                content: "<b>得分点</b>：境界压制（筑基打金丹必败）是天然的数值坑，付费点极深。"
+                            },
+                            logic: {
+                                title: "🔗 逻辑骨架",
+                                content: "<b>得分点</b>：修仙需要“财侣法地”，抢夺灵脉（地）是修仙界永恒的主题。    <br/><b>转化建议</b>：大地图上分布着不同等级的灵脉和秘境，玩家需要派兵（弟子）占领。"
+                            },
+                        },
                         skeleton: {
                             soul: "境界提升带来的战力质变、宗门经营的成就感。",
                             flesh: "复杂的单机剧情分支、过于繁琐的弟子人际关系（简化为羁绊）。",
                             implant: "宗门建设为内政，大地图争夺灵脉为PVP/GVE。"
                         }
-                    }
+                    },
                 ]
             },
             deepDives: [
                 {
                     name: "血薪记：罪恶园区",
                     appId: "3850560",
-                    subtitle: "现实题材模拟",
+                    subtitle: "题材即流量入口，“绝境经营+人性抉择”具备强商业化兼容性",
                     tag: "S级推荐",
                     tagColor: "red",
-                    radar: { commercial: 5, mobile: 5, theme: 5, social: 3 },
-                    insight: "题材本身就是巨大的流量入口。游戏将“生存压力”与“人性抉择”结合得非常好。",
-                    desc: "游戏中充满了死亡陷阱，复活、购买关键道具（如手机、食物）是天然的内购点。核心玩法是文字冒险+简单的模拟经营，完全不需要复杂操作，单手即可游玩。"
+                    radar: {"commercial": 5, "mobile": 5, "theme": 5, "social": 3},
+                    radarDetails: {
+                        commercial: { label: "买活/赎身", rating: "S", content: "游戏中充满了死亡陷阱，复活、购买关键道具（如手机、食物）是天然的内购点。" },
+                        mobile: { label: "点击交互", rating: "S", content: "核心玩法是文字冒险+简单的模拟经营，完全不需要复杂操作，单手即可游玩。" },
+                        theme: { label: "社会热点", rating: "S+", content: "“反诈”是全民关注的话题，自带传播属性，买量成本极低。" },
+                        social: { label: "排行榜/互助", rating: "B", content: "可以设计“逃出排行榜”，或者好友之间互相赠送物资（模拟外界救援）。" },
+                    },
+                    insight: "把“电诈园区”这种高唤醒题材做成可运营的资源系统（业绩/食物/体力/纪律），天然对应手游的内政与数值压力。",
+                    desc: "题材本身就是巨大的流量入口。游戏将“生存压力”与“人性抉择”结合得非常好，非常适合做成“模拟经营+文字冒险”的混合变现手游。"
                 },
                 {
                     name: "One Turn Kill",
                     appId: "3151270",
-                    subtitle: "极速卡牌肉鸽",
+                    subtitle: "把卡牌肉鸽压缩到“单回合爽感”，是典型的碎片化现金牛胚子",
                     tag: "S级推荐",
                     tagColor: "red",
-                    radar: { commercial: 4, mobile: 5, theme: 3.5, social: 4 },
-                    insight: "将卡牌游戏的节奏推向了极致。传统卡牌游戏一局可能要10分钟，而这款游戏的核心爽感在于“一波流”。",
+                    radar: {"commercial": 4, "mobile": 5, "theme": 3.5, "social": 4},
+                    radarDetails: {
+                        commercial: { label: "卡包/角色", rating: "A", content: "经典的卡牌付费模式。可以卖强力卡牌、特色角色皮肤、关卡解锁等。" },
+                        mobile: { label: "竖屏单手", rating: "S", content: "玩法逻辑简单清晰，非常适合做成竖屏游戏，单手拖拽出牌。" },
+                        theme: { label: "通用奇幻", rating: "B+", content: "题材比较常规，但美术风格可以根据手游市场进行调整（如二次元、像素风）。" },
+                        social: { label: "残局挑战", rating: "A", content: "玩家可以上传自己的一回合杀录像，或者设计残局供他人挑战。" },
+                    },
+                    insight: "用“一回合必杀”强制约束把决策复杂度压到可控范围，反而放大了“构筑正确就碾压”的正反馈，非常适合竖屏单手与短局循环。",
                     desc: "非常符合手游用户碎片化、追求短平快爽感的需求。玩法逻辑简单清晰，非常适合做成竖屏游戏，单手拖拽出牌。"
-                }
+                },
             ],
             ideaFragments: [
-                { name: "谁是中之人", appId: "2871140", content: "<b>皮套玩法</b>：可以应用到二次元SLG的英雄系统中，英雄有“皮套”和“中之人”双重属性，中之人决定性格和技能倾向，皮套决定外观和基础数值。" },
-                { name: "Rising Front", appId: "1560250", content: "<b>极简画风</b>：如果想做一款千人同屏的SLG但受限于手机性能，可以参考这种低多边形（Low Poly）风格，将算力留给同屏人数，营造宏大的战争感。" }
             ]
         };
 
@@ -497,6 +563,7 @@
                     <!-- Radar -->
                     <div class="w-full md:w-1/2">
                         <div id="radar-gen-${item.appId}" class="w-full" style="height: 250px;"></div>
+                        <div class="mt-1 text-xs text-gray-400">提示：悬浮维度标签查看明细</div>
                     </div>
                     <!-- Text -->
                     <div class="w-full md:w-1/2 flex flex-col justify-center">
@@ -523,7 +590,65 @@
             setTimeout(() => {
                 const radar = echarts.init(document.getElementById(`radar-gen-${item.appId}`));
                 radar.setOption({
+                    tooltip: { show: false },
                     radar: { 
+                        triggerEvent: true,
+                        nameGap: 10,
+                        name: {
+                            formatter: (value) => `{pill|${value}}`,
+                            textStyle: {
+                                rich: {
+                                    pill: {
+                                        color: '#111827',
+                                        backgroundColor: 'rgba(99, 102, 241, 0.10)',
+                                        borderColor: 'rgba(99, 102, 241, 0.35)',
+                                        borderWidth: 1,
+                                        borderRadius: 999,
+                                        padding: [4, 10],
+                                        fontWeight: 700,
+                                        fontSize: 12
+                                    },
+                                    pillActive: {
+                                        color: '#111827',
+                                        backgroundColor: 'rgba(99, 102, 241, 0.18)',
+                                        borderColor: 'rgba(99, 102, 241, 0.70)',
+                                        borderWidth: 1,
+                                        borderRadius: 999,
+                                        padding: [4, 10],
+                                        fontWeight: 800,
+                                        fontSize: 12,
+                                        shadowBlur: 10,
+                                        shadowColor: 'rgba(99, 102, 241, 0.25)'
+                                    }
+                                }
+                            }
+                        },
+                        nameTextStyle: {
+                            rich: {
+                                pill: {
+                                    color: '#111827',
+                                    backgroundColor: 'rgba(99, 102, 241, 0.10)',
+                                    borderColor: 'rgba(99, 102, 241, 0.35)',
+                                    borderWidth: 1,
+                                    borderRadius: 999,
+                                    padding: [4, 10],
+                                    fontWeight: 700,
+                                    fontSize: 12
+                                },
+                                pillActive: {
+                                    color: '#111827',
+                                    backgroundColor: 'rgba(99, 102, 241, 0.18)',
+                                    borderColor: 'rgba(99, 102, 241, 0.70)',
+                                    borderWidth: 1,
+                                    borderRadius: 999,
+                                    padding: [4, 10],
+                                    fontWeight: 800,
+                                    fontSize: 12,
+                                    shadowBlur: 10,
+                                    shadowColor: 'rgba(99, 102, 241, 0.25)'
+                                }
+                            }
+                        },
                         indicator: [
                             { name: '商业化', max: 5 }, 
                             { name: '移动端', max: 5 }, 
@@ -544,6 +669,25 @@
                             symbolSize: 6
                         }] 
                     }]
+                });
+
+                attachRadarDimensionTooltip(radar, {
+                    chartTitle: item.name,
+                    badgeColor: 'indigo',
+                    axisNames: ['商业化', '移动端', '题材', '社交'],
+                    dimMap: { '商业化': 'commercial', '移动端': 'mobile', '题材': 'theme', '社交': 'social' },
+                    getDetail: (dimKey) => {
+                        const scoreMap = { commercial: item.radar.commercial, mobile: item.radar.mobile, theme: item.radar.theme, social: item.radar.social };
+                        const d = item.radarDetails && item.radarDetails[dimKey] ? item.radarDetails[dimKey] : null;
+                        return {
+                            dimTitle: '',
+                            label: d && d.label ? d.label : '',
+                            rating: d && d.rating ? d.rating : '',
+                            score: scoreMap[dimKey],
+                            max: 5,
+                            content: d && d.content ? d.content : '暂无该维度的明细评估内容。'
+                        };
+                    }
                 });
             }, 0);
         });
@@ -588,6 +732,7 @@
                     <!-- Radar -->
                     <div class="w-full md:w-1/2">
                         <div id="radar-${item.appId}" class="w-full" style="height: 250px;"></div>
+                        <div class="mt-1 text-xs text-gray-400">提示：悬浮维度标签查看明细</div>
                     </div>
                     <!-- Text -->
                     <div class="w-full md:w-1/2 flex flex-col justify-center gap-3 text-sm">
@@ -620,7 +765,65 @@
             setTimeout(() => {
                 const radar = echarts.init(document.getElementById(`radar-${item.appId}`));
                 radar.setOption({
+                    tooltip: { show: false },
                     radar: { 
+                        triggerEvent: true,
+                        nameGap: 10,
+                        name: {
+                            formatter: (value) => `{pill|${value}}`,
+                            textStyle: {
+                                rich: {
+                                    pill: {
+                                        color: '#111827',
+                                        backgroundColor: 'rgba(239, 68, 68, 0.10)',
+                                        borderColor: 'rgba(239, 68, 68, 0.35)',
+                                        borderWidth: 1,
+                                        borderRadius: 999,
+                                        padding: [4, 10],
+                                        fontWeight: 700,
+                                        fontSize: 12
+                                    },
+                                    pillActive: {
+                                        color: '#111827',
+                                        backgroundColor: 'rgba(239, 68, 68, 0.18)',
+                                        borderColor: 'rgba(239, 68, 68, 0.70)',
+                                        borderWidth: 1,
+                                        borderRadius: 999,
+                                        padding: [4, 10],
+                                        fontWeight: 800,
+                                        fontSize: 12,
+                                        shadowBlur: 10,
+                                        shadowColor: 'rgba(239, 68, 68, 0.20)'
+                                    }
+                                }
+                            }
+                        },
+                        nameTextStyle: {
+                            rich: {
+                                pill: {
+                                    color: '#111827',
+                                    backgroundColor: 'rgba(239, 68, 68, 0.10)',
+                                    borderColor: 'rgba(239, 68, 68, 0.35)',
+                                    borderWidth: 1,
+                                    borderRadius: 999,
+                                    padding: [4, 10],
+                                    fontWeight: 700,
+                                    fontSize: 12
+                                },
+                                pillActive: {
+                                    color: '#111827',
+                                    backgroundColor: 'rgba(239, 68, 68, 0.18)',
+                                    borderColor: 'rgba(239, 68, 68, 0.70)',
+                                    borderWidth: 1,
+                                    borderRadius: 999,
+                                    padding: [4, 10],
+                                    fontWeight: 800,
+                                    fontSize: 12,
+                                    shadowBlur: 10,
+                                    shadowColor: 'rgba(239, 68, 68, 0.20)'
+                                }
+                            }
+                        },
                         indicator: [
                             { name: '流量', max: 30 }, 
                             { name: '玩法', max: 30 }, 
@@ -641,6 +844,26 @@
                             symbolSize: 6
                         }] 
                     }]
+                });
+
+                attachRadarDimensionTooltip(radar, {
+                    chartTitle: item.name,
+                    badgeColor: 'red',
+                    axisNames: ['流量', '玩法', '数值', '逻辑'],
+                    dimMap: { '流量': 'traffic', '玩法': 'gameplay', '数值': 'numerical', '逻辑': 'logic' },
+                    getDetail: (dimKey) => {
+                        const idxMap = { traffic: 0, gameplay: 1, numerical: 2, logic: 3 };
+                        const maxMap = { traffic: 30, gameplay: 30, numerical: 25, logic: 15 };
+                        const d = item.dimensionDetails && item.dimensionDetails[dimKey] ? item.dimensionDetails[dimKey] : null;
+                        return {
+                            dimTitle: d && d.title ? d.title : '',
+                            label: '',
+                            rating: '',
+                            score: item.scores[idxMap[dimKey]],
+                            max: maxMap[dimKey],
+                            content: d && d.content ? d.content : '暂无该维度的明细评估内容。'
+                        };
+                    }
                 });
             }, 0);
         });
@@ -713,6 +936,142 @@
                 widgetTooltip.innerHTML = ''; // Clear iframe to stop resources
             });
         });
+
+        // ==============================
+        // Radar Dimension Tooltip Logic
+        // ==============================
+        const radarTooltip = document.getElementById('radar-tooltip');
+        const RADAR_TOOLTIP_MARGIN = 12;
+
+        function escapeHtml(s) {
+            return String(s ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function positionRadarTooltip(pageX, pageY) {
+            if (!radarTooltip || radarTooltip.style.display === 'none') return;
+            const w = radarTooltip.offsetWidth || 360;
+            const h = radarTooltip.offsetHeight || 140;
+            const vw = window.innerWidth + window.scrollX;
+            const vh = window.innerHeight + window.scrollY;
+
+            let left = pageX + RADAR_TOOLTIP_MARGIN;
+            let top = pageY + RADAR_TOOLTIP_MARGIN;
+
+            if (left + w + RADAR_TOOLTIP_MARGIN > vw) left = pageX - w - RADAR_TOOLTIP_MARGIN;
+            if (top + h + RADAR_TOOLTIP_MARGIN > vh) top = pageY - h - RADAR_TOOLTIP_MARGIN;
+
+            radarTooltip.style.left = `${Math.max(window.scrollX + 8, left)}px`;
+            radarTooltip.style.top = `${Math.max(window.scrollY + 8, top)}px`;
+        }
+
+        function showRadarTooltip(html, pageX, pageY) {
+            if (!radarTooltip) return;
+            radarTooltip.innerHTML = html;
+            radarTooltip.style.display = 'block';
+            positionRadarTooltip(pageX, pageY);
+        }
+
+        function hideRadarTooltip() {
+            if (!radarTooltip) return;
+            radarTooltip.style.display = 'none';
+            radarTooltip.innerHTML = '';
+        }
+
+        function attachRadarDimensionTooltip(chart, { chartTitle, dimMap, getDetail, badgeColor, axisNames = [] }) {
+            if (!chart || typeof chart.on !== 'function') return;
+
+            const colorClass = badgeColor === 'red' ? 'red' : '';
+            const zr = chart.getZr && chart.getZr();
+            let hoveredAxisLabel = null;
+
+            function normalizeAxisName(name) {
+                const s = String(name ?? '');
+                const m = s.match(/^\{[^|}]+\|(.+)\}$/);
+                return m ? m[1] : s;
+            }
+
+            function applyAxisHover(label) {
+                if (!axisNames || axisNames.length === 0) return;
+                chart.setOption({
+                    radar: {
+                        name: {
+                            formatter: (value) => {
+                                const key = (label && value === label) ? 'pillActive' : 'pill';
+                                return `{${key}|${value}}`;
+                            }
+                        }
+                    }
+                });
+            }
+
+            chart.on('mouseover', (params) => {
+                const axisLabel = normalizeAxisName(params && params.name);
+                const dimKey = dimMap && axisLabel ? dimMap[axisLabel] : null;
+                if (!dimKey) return;
+                if (zr && zr.setCursorStyle) zr.setCursorStyle('pointer');
+
+                hoveredAxisLabel = axisLabel;
+                applyAxisHover(hoveredAxisLabel);
+
+                const detail = getDetail ? getDetail(dimKey) : null;
+                const evt = params && params.event ? (params.event.event || params.event) : null;
+                const pageX = evt && typeof evt.pageX === 'number' ? evt.pageX : 0;
+                const pageY = evt && typeof evt.pageY === 'number' ? evt.pageY : 0;
+
+                const dimName = escapeHtml(axisLabel);
+                const title = escapeHtml(chartTitle || '');
+                const label = detail && detail.label ? ` · ${escapeHtml(detail.label)}` : '';
+                const dimTitle = detail && detail.dimTitle ? escapeHtml(detail.dimTitle) : '';
+
+                const score = (detail && typeof detail.score === 'number') ? detail.score : '';
+                const max = (detail && typeof detail.max === 'number') ? detail.max : '';
+                const rating = detail && detail.rating ? escapeHtml(detail.rating) : '';
+
+                const metaParts = [];
+                if (max !== '' && score !== '') metaParts.push(`<span class="rt-badge ${colorClass}">打分：${score}/${max}</span>`);
+                if (rating) metaParts.push(`<span class="rt-badge ${colorClass}">评级：${rating}</span>`);
+
+                const html = `
+                    <div class="rt-title">${title} · ${dimName}${label}</div>
+                    ${(dimTitle || metaParts.length)
+                        ? `<div class="rt-meta">${dimTitle ? `<span class="rt-badge ${colorClass}">${dimTitle}</span>` : ''}${metaParts.join('')}</div>`
+                        : ''
+                    }
+                    <div class="rt-content">${detail && detail.content ? detail.content : '暂无该维度的明细评估内容。'}</div>
+                `;
+
+                showRadarTooltip(html, pageX, pageY);
+            });
+
+            chart.on('mouseout', () => {
+                if (zr && zr.setCursorStyle) zr.setCursorStyle('default');
+                if (hoveredAxisLabel) {
+                    hoveredAxisLabel = null;
+                    applyAxisHover(null);
+                }
+                hideRadarTooltip();
+            });
+
+            zr && zr.on('mousemove', (evt) => {
+                if (!radarTooltip || radarTooltip.style.display === 'none') return;
+                const e = evt && evt.event ? evt.event : null;
+                if (!e) return;
+                positionRadarTooltip(e.pageX, e.pageY);
+            });
+            zr && zr.on('globalout', () => {
+                if (zr && zr.setCursorStyle) zr.setCursorStyle('default');
+                if (hoveredAxisLabel) {
+                    hoveredAxisLabel = null;
+                    applyAxisHover(null);
+                }
+                hideRadarTooltip();
+            });
+        }
 
         // ==============================
         // 3. Utilities & Navigation
@@ -867,6 +1226,12 @@
         // ==============
         (() => {
             const storeScreenshotMap = {
+                '2646320': [
+                    'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2646320/6b3c77a8b659b1c66931149b5df8d4af1c4660bd/ss_6b3c77a8b659b1c66931149b5df8d4af1c4660bd.1920x1080.jpg?t=1769139538',
+                    'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2646320/f65358e79293c280b36f7f52d35612a9684818d0/ss_f65358e79293c280b36f7f52d35612a9684818d0.1920x1080.jpg?t=1769139538',
+                    'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2646320/ec4bf66a97c7710b3df8d833ded9732b032864dd/ss_ec4bf66a97c7710b3df8d833ded9732b032864dd.1920x1080.jpg?t=1769139538',
+                    'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2646320/a84f0a00a891804fdcf59d4b5519c4f8f078de4a/ss_a84f0a00a891804fdcf59d4b5519c4f8f078de4a.1920x1080.jpg?t=1769139538'
+                ],
                 '3850560': [
                     'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3850560/b0f918a558b76471482b98f26f4155b28597bd02/ss_b0f918a558b76471482b98f26f4155b28597bd02.1920x1080.jpg',
                     'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3850560/35d978302c686a54b180626ae14d26a943699fb2/ss_35d978302c686a54b180626ae14d26a943699fb2.1920x1080.jpg',
