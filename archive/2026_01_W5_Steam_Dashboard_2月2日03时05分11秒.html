@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
-    <title>Steam新品周报可视化看板 (2026-02 W2)</title>
+    <title>Steam新品周报可视化看板 (2026-01 W4)</title>
     <link rel="icon" href="data:,">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
@@ -304,153 +304,146 @@
         // 1. Data Source (v2.0 Structure)
         // ==============================
         const reportData = {
-            title: "2026年2月第2周 Steam新品周报",
-            periodCode: "2026_02_W2",
-            date: "2026-02-02 ~ 2026-02-08",
+            title: "2026年1月第4周 Steam新品周报",
+            periodCode: "2026_01_W4",
+            date: "2026-01-22 ~ 2026-01-28",
             trends: {
-                keywords: ["#硬核战棋", "#中式梦核", "#语音整活", "#骰子构筑", "#生存建造"],
+                keywords: ["#自走棋做减法", "#打铁ASMR", "#纸片人RPG", "#丧尸生存回归"],
                 summary: `<ul class="list-disc list-inside space-y-1">
-                    <li><b>硬核策略回归</b>：本周 *Battle Brothers* 开发商新作《威赫战线 MENACE》与 *Prison Architect* 开发者新作《The Last Starship》同时登场，显示出 PC 端中重度策略/模拟玩家的强大购买力。</li>
-                    <li><b>怀旧与氛围叙事</b>：《千禧梦》凭借“中式梦核”与“阈限空间”题材大火，配合《勇者斗恶龙 VII》的重制，怀旧情绪成为本周流量密码。</li>
-                    <li><b>派对游戏新交互</b>：《YAPYAP》通过强制“语音施法”打破了传统派对游戏的操作维度，带来了极强的直播效果。</li>
+                    <li><b>自走棋+Roguelike</b>：本周《矮人军团自走棋》表现亮眼，证明了“轻量化自走棋”依然是杀时间利器。</li>
+                    <li><b>模拟经营细分</b>：从《Bladesong》的打铁模拟到《小小的岛》的微缩景观建设，模拟类游戏正在向“极致垂类”和“视觉治愈”两个方向发展。</li>
+                    <li><b>动作RPG微创新</b>：《奇怪的RPG 2》引入声控机制，虽然噱头大于实用，但显示了动作类游戏在交互层面的探索欲。</li>
                 </ul>`,
                 microInnovations: `<ul class="list-disc list-inside space-y-1">
-                    <li><b>交互维度的扩展</b>：《YAPYAP》证明了“声音”作为输入指令在多人游戏中的社交爆发力，不仅是操作，更是“社死”的表演。</li>
-                    <li><b>随机性的具象化</b>：《黑帆赌局》将抽象的概率（RNG）具象化为“快艇骰子”玩法，让数值博弈变得更有物理反馈感。</li>
+                    <li><b>“听觉反馈”的放大</b>：《Bladesong》特别强调锻造的声音反馈，ASMR元素正在成为模拟类游戏的标配。</li>
+                    <li><b>“数值爽感的视觉化”</b>：《矮人军团》将复杂的自走棋羁绊简化为满屏的特效和数字跳动，非常适合移动端移植。</li>
                 </ul>`
             },
             topGames: [
-                { rank: 1, name: '威赫战线 MENACE', appId: '2432860', reviews: 2612, rating: 86, genre: '角色扮演/策略', potential: 'C', potentialDesc: '过于硬核', potentialColor: 'blue', description: '《Battle Brothers》开发商新作，战术回合制打外星人。' },
-                { rank: 2, name: '千禧梦', appId: '3470560', reviews: 1308, rating: 94, genre: '冒险/叙事', potential: 'A', potentialDesc: '叙事体验', potentialColor: 'orange', description: '探索千禧年的中式梦核回忆，收集童年碎片。' },
-                { rank: 3, name: 'YAPYAP', appId: '3834090', reviews: 831, rating: 82, genre: '动作/合作', potential: 'S', potentialDesc: '完美适配语音', potentialColor: 'red', description: '全程靠“喊”咒语来施法的多人合作闯关游戏。' },
-                { rank: 4, name: 'HumanitZ', appId: '1766060', reviews: 813, rating: 67, genre: '动作/生存', potential: 'B', potentialDesc: '僵尸题材', potentialColor: 'blue', description: '俯视角开放世界僵尸生存，类《僵尸毁灭工程》轻量版。' },
-                { rank: 5, name: 'The Last Starship', appId: '1857080', reviews: 757, rating: 79, genre: '模拟/策略', potential: 'B+', potentialDesc: '复杂经营', potentialColor: 'blue', description: '自由建造星舰并探索宇宙，硬核工程模拟。' },
-                { rank: 6, name: '领地：种田与征战', appId: '1455910', reviews: 511, rating: 88, genre: '模拟/策略', potential: 'A-', potentialDesc: '适合模拟经营', potentialColor: 'orange', description: '极简画风下的村庄到王国发展史，种田流模拟。' },
-                { rank: 7, name: '勇者斗恶龙 VII', appId: '2499860', reviews: 523, rating: 90, genre: 'RPG', potential: 'B', potentialDesc: '移植大作', potentialColor: 'blue', description: '经典JRPG重制，石板收集与职业转职系统。' },
-                { rank: 8, name: '孤山独影', appId: '1588550', reviews: 450, rating: 86, genre: '动作/冒险', potential: 'B+', potentialDesc: '操作适配难', potentialColor: 'blue', description: '禅意生存攀岩，规划路线与资源管理。' },
-                { rank: 9, name: '女神的贴身男仆', appId: '4261980', reviews: 346, rating: 99, genre: '休闲/FMV', potential: 'A', potentialDesc: '短剧变现', potentialColor: 'orange', description: '第一人称真人恋爱模拟，爽文式剧情体验。' },
-                { rank: 10, name: '黑帆赌局', appId: '3532360', reviews: 166, rating: 94, genre: '策略/肉鸽', potential: 'S', potentialDesc: '竖屏神器', potentialColor: 'red', description: '骰子构筑+海盗题材，快节奏数值博弈。' },
+                { rank: 1, name: '矮人军团自走棋', appId: '2205850', reviews: 1875, rating: 82, genre: '冒险/自走棋', potential: 'S', potentialDesc: '完美适配', potentialColor: 'red', description: '爽快战斗+RPG成长+自走棋策略的巧妙融合' },
+                { rank: 2, name: '落逃之地 LORT', appId: '2956680', reviews: 778, rating: 75, genre: '动作/肉鸽', potential: 'B+', potentialDesc: '联机门槛高', potentialColor: 'blue', description: '1-8人联机动作Roguelite，主打搜刮与堆叠' },
+                { rank: 3, name: '真・三国无双 起源 梦幻四英杰', appId: '4038930', reviews: 597, rating: 56, genre: '动作/RPG', potential: 'B', potentialDesc: '操作太硬核', potentialColor: 'blue', description: '经典割草IP的大型DLC' },
+                { rank: 4, name: '万象群侠传', appId: '3039500', reviews: 443, rating: 86, genre: '冒险/RPG', potential: 'A', potentialDesc: '适合放置卡牌', potentialColor: 'orange', description: '轻量型单机武侠，主打轻松纯粹的江湖体验' },
+                { rank: 5, name: '咩咩启示录：羊绒仙境', appId: '3840050', reviews: 403, rating: 94, genre: '模拟/动作', potential: 'S', potentialDesc: '玩法已验证', potentialColor: 'red', description: '邪教经营+肉鸽战斗的DLC扩展' },
+                { rank: 6, name: 'Bladesong ( 铸剑吟 )', appId: '2305640', reviews: 244, rating: 96, genre: '模拟/独立', potential: 'S', potentialDesc: '适合模拟经营', potentialColor: 'red', description: '自由塑形刀刃的终极铸剑模拟器' },
+                { rank: 7, name: '奇怪的RPG 2', appId: '2516470', reviews: 207, rating: 92, genre: '动作/RPG', potential: 'A-', potentialDesc: '交互有新意', potentialColor: 'orange', description: '引入声控装备系统的第三人称ARPG' },
+                { rank: 8, name: '逃出从此以后', appId: '1996390', reviews: 104, rating: 98, genre: '冒险/RPG', potential: 'A', potentialDesc: '适合回合制', potentialColor: 'orange', description: '致敬《纸片马力欧》的童话风回合制RPG' },
+                { rank: 9, name: '小小的岛', appId: '3337180', reviews: 45, rating: 95, genre: '休闲/模拟', potential: 'A', potentialDesc: '适合休闲建设', potentialColor: 'orange', description: '经营与世隔绝的魔法小岛，画风治愈' },
+                { rank: 10, name: '黎明之前', appId: '3543120', reviews: 43, rating: 83, genre: '生存/RPG', potential: 'S', potentialDesc: '适合COK-like', potentialColor: 'red', description: '昼夜交替的丧尸生存建设' }
             ],
             slgAnalysis: {
                 overview: [
-                    { name: "HumanitZ", traffic: 25, gameplay: 15, numerical: 20, logic: 12, total: 72, tier: "S-" },
-                    { name: "领地：种田与征战", traffic: 15, gameplay: 25, numerical: 20, logic: 10, total: 70, tier: "A" },
-                    { name: "黑帆赌局", traffic: 15, gameplay: 20, numerical: 20, logic: 8, total: 63, tier: "A-" },
-                    { name: "威赫战线 MENACE", traffic: 20, gameplay: 10, numerical: 25, logic: 8, total: 63, tier: "B+" },
-                    { name: "The Last Starship", traffic: 15, gameplay: 15, numerical: 20, logic: 10, total: 60, tier: "B" },
-                    { name: "勇者斗恶龙 VII", traffic: 20, gameplay: 5, numerical: 25, logic: 5, total: 55, tier: "B" },
-                    { name: "千禧梦", traffic: 25, gameplay: 5, numerical: 5, logic: 5, total: 40, tier: "C" },
-                    { name: "YAPYAP", traffic: 15, gameplay: 10, numerical: 5, logic: 5, total: 35, tier: "C" },
-                    { name: "孤山独影", traffic: 10, gameplay: 10, numerical: 10, logic: 5, total: 35, tier: "C" },
-                    { name: "女神的贴身男仆", traffic: 20, gameplay: 5, numerical: 5, logic: 5, total: 35, tier: "C" },
+                    { name: "矮人军团自走棋", traffic: 25, gameplay: 28, numerical: 22, logic: 12, total: 87, tier: "S" },
+                    { name: "黎明之前", traffic: 28, gameplay: 20, numerical: 20, logic: 15, total: 83, tier: "S" },
+                    { name: "咩咩启示录", traffic: 25, gameplay: 20, numerical: 15, logic: 10, total: 70, tier: "A" },
+                    { name: "Bladesong", traffic: 20, gameplay: 15, numerical: 18, logic: 10, total: 63, tier: "B" },
+                    { name: "真・三国无双", traffic: 20, gameplay: 10, numerical: 15, logic: 5, total: 50, tier: "C" },
+                    { name: "小小的岛", traffic: 15, gameplay: 15, numerical: 10, logic: 8, total: 48, tier: "C" },
+                    { name: "万象群侠传", traffic: 15, gameplay: 10, numerical: 15, logic: 5, total: 45, tier: "C" },
+                    { name: "落逃之地", traffic: 15, gameplay: 10, numerical: 15, logic: 5, total: 45, tier: "C" },
+                    { name: "奇怪的RPG 2", traffic: 15, gameplay: 10, numerical: 15, logic: 5, total: 45, tier: "C" },
+                    { name: "逃出从此以后", traffic: 15, gameplay: 5, numerical: 10, logic: 5, total: 35, tier: "C" }
                 ],
                 details: [
                     {
-                        name: "HumanitZ",
-                        appId: "1766060",
-                        diagnosis: "标准的“僵尸生存SLG”底子，题材吸量但玩法需大幅简化。",
-                        scores: [25, 15, 20, 12],
-                        screenshots: ["https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1766060/4873f37f516dc207bd0f61ba5dcd16b0d2ca6070/ss_4873f37f516dc207bd0f61ba5dcd16b0d2ca6070.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1766060/4e3bc0578ec7b8ce048b7917e4bdc2b85f010095/ss_4e3bc0578ec7b8ce048b7917e4bdc2b85f010095.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1766060/42d0bf22adb348956aac4c38d7cd9c0a8d704db8/ss_42d0bf22adb348956aac4c38d7cd9c0a8d704db8.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1766060/8049afbd6b5f903d04b37eaa4c6337a0db7770f1/ss_8049afbd6b5f903d04b37eaa4c6337a0db7770f1.1920x1080.jpg"],
+                        name: "矮人军团自走棋",
+                        appId: "2205850",
+                        diagnosis: "天生的“军团战”SLG胚子，只需把关卡推图改为大地图行军。",
+                        scores: [25, 28, 22, 12],
                         dimensionDetails: {
                             traffic: {
                                 title: "🧬 流量骨架",
-                                content: "<b>得分点</b>：僵尸末日题材（Physiological Arousal）是全球通用的吸量神器，无需教育用户。    <br/><b>素材建议</b>：展示尸潮围攻避难所、搜刮物资时的紧张感。"
+                                content: "<b>得分点</b>：矮人重甲与兽人狂潮的对撞，视觉冲击力强（13分）；题材直观，无需教育成本（12分）。<br/><b>素材建议</b>：大量兽人冲锋，矮人盾墙死守，通过合成/升级瞬间反推。"
                             },
                             gameplay: {
                                 title: "🎮 玩法骨架",
-                                content: "*   *扣分点*：原版操作偏动作（Action），移动端需改为指令式（Instruction）战斗。    <br/><b>改造建议</b>：保留搜刮和建造，将战斗改为自动射击或小队回合制。"
+                                content: "<b>得分点</b>：全自动战斗 + 战前布阵策略，天然契合 SLG 战报模式（14分）；角色养成线（装备、技能）可直接复用（14分）。<br/><b>改造建议</b>：将 Roguelike 的随机获取改为 SLG 的科技树/兵营训练；将单局重置改为赛季制。"
                             },
                             numerical: {
                                 title: "📈 数值骨架",
-                                content: "<b>得分点</b>：装备、技能、基地设施都有清晰的数值成长线。"
+                                content: "<b>得分点</b>：战斗结果高度依赖数值（兵种等级、装备数值），具备极强的“伪技巧”欺骗性。"
                             },
                             logic: {
                                 title: "🔗 逻辑骨架",
-                                content: "<b>得分点</b>：为了生存必须去野外（大地图）搜刮资源，逻辑自洽。    <br/><b>转化建议</b>：将稀有建材放在大地图的高级感染区，强制社交/PVP。"
-                            },
+                                content: "<b>得分点</b>：为了对抗更强的兽人部落，必须去野外掠夺资源升级军团，逻辑自洽。<br/><b>转化建议</b>：将“下一关”包装成“攻打邻国”。"
+                            }
                         },
                         skeleton: {
-                            soul: "搜刮物资 -> 强化基地 -> 抵御尸潮 的核心循环。",
-                            flesh: "复杂的载具驾驶物理、精细的枪械操作、繁琐的饥饿/口渴生存指标。",
-                            implant: "基地建设直接套用COK/ROK模型，野外搜刮做成体力消耗副本。"
+                            soul: "多兵种同屏混战的爽快感、装备合成的随机惊喜。",
+                            flesh: "Roguelike的单局死亡重置机制（改为损兵/治疗）。",
+                            implant: "主城建设作为挂机产出点，战斗作为推图/PVP验证。"
                         }
                     },
+                    {
+                        name: "黎明之前",
+                        appId: "3543120",
+                        diagnosis: "标准的COK-like生存题材，但昼夜机制可作为微创新点。",
+                        scores: [28, 20, 20, 15],
+                        dimensionDetails: {
+                            traffic: {
+                                title: "🧬 流量骨架",
+                                content: "<b>得分点</b>：丧尸围城是 SLG 最吸量的题材之一，绝境感拉满（15分）；昼夜交替带来的安全感/恐惧感反差极大（13分）。<br/><b>素材建议</b>：夜晚尸潮来袭，玩家在最后时刻修好电网/机枪塔。"
+                            },
+                            gameplay: {
+                                title: "🎮 玩法骨架",
+                                content: "<b>得分点</b>：采集、建造、防御的核心循环天然就是 SLG（15分）。<br/><b>改造建议</b>：简化单兵操作，强化“据点防御”的整体性。"
+                            },
+                            numerical: {
+                                title: "📈 数值骨架",
+                                content: "<b>得分点</b>：资源积累与战力提升呈正相关，数值坑深（20分）。"
+                            },
+                            logic: {
+                                title: "🔗 逻辑骨架",
+                                content: "<b>得分点</b>：资源匮乏是去野外（大地图）探索的唯一且刚需的理由（15分）。<br/><b>转化建议</b>：白天外出采集，夜晚回城防守。"
+                            }
+                        },
+                        skeleton: {
+                            soul: "昼夜交替的生存压力、尸潮围城的压迫感。",
+                            flesh: "单人RPG式的剧情探索（改为任务引导）。",
+                            implant: "白天的大地图探索可做成走格子的战棋或简单的点击采集。"
+                        }
+                    }
                 ]
             },
+            // [Restored] General Deep Dives Data
             deepDives: [
                 {
-                    name: "黑帆赌局",
-                    appId: "3532360",
-                    subtitle: "将“快艇骰子”规则与Roguelike卡牌完美融合的“杀时间”利器，S级手游化潜力。",
+                    name: "矮人军团自走棋",
+                    appId: "2205850",
+                    subtitle: "现金牛级数值爽游，S级手游化潜力",
                     tag: "S级推荐",
                     tagColor: "red",
-                    radar: {"commercial": 5, "mobile": 5, "theme": 4, "social": 4},
+                    radar: { commercial: 5, mobile: 5, theme: 4.5, social: 4 },
                     radarDetails: {
-                        commercial: { label: "混合变现", rating: "S", content: "极易设计广告点（复活、重投次数、初始金币）。内购可卖新角色/骰子皮肤。" },
-                        mobile: { label: "空间压缩", rating: "S", content: "也就是一张桌子的事，天然竖屏。 <br> **[操作适配]** 仅需点击骰子和卡牌，单手操作无压力。" },
-                        theme: { label: "设定张力", rating: "A", content: "海盗+赌博，天然契合“高风险高回报”的心理预期。 <br> **[复用性]** 玩法框架可套皮（赛博黑客、魔法对决）。" },
-                        social: { label: "改造方案", rating: "A", content: "增加PVP模式，类似《Dicey Dungeons》的对战版。" },
+                        commercial: { label: "混合变现", rating: "S", content: "核心循环适合“免费抽卡 + 广告加速”。英雄碎片、装备抽取是天然的内购点。" },
+                        mobile: { label: "完美适配", rating: "S", content: "自动战斗机制天然适合触屏，竖屏操作毫无压力；UI 布局只需微调即可。" },
+                        theme: { label: "经典西幻", rating: "A+", content: "矮人 vs 兽人是全球通用题材，接受度高；画风偏卡通，受众面广。" },
+                        social: { label: "公会战", rating: "A", content: "可增加公会 BOSS 战、军团 PVP 等社交玩法，弥补单机短板。" }
                     },
-                    insight: "用“骰子重投”机制制造极强的“再来一把”上瘾循环，完美契合移动端碎片化时间。",
-                    desc: "核心玩法逻辑简单（比大小/凑顺子），但策略深度足够，非常适合改为竖屏单手操作的休闲肉鸽。",
-                    screenshots: ["https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3532360/95e97bc76f8a4d9dab5e9449cc2dff4fbcb248df/ss_95e97bc76f8a4d9dab5e9449cc2dff4fbcb248df.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3532360/882f56c9966bb3bc6f0f7fe3efda13d84abfa77e/ss_882f56c9966bb3bc6f0f7fe3efda13d84abfa77e.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3532360/8a3e4d15a824c81198e95ea319384b8c38bb60ad/ss_8a3e4d15a824c81198e95ea319384b8c38bb60ad.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3532360/af5118988167e055eec73e070772a70e7295347f/ss_af5118988167e055eec73e070772a70e7295347f.1920x1080.jpg"]
+                    insight: "对自走棋玩法进行“空间降维”，将8x8棋盘压缩为1D横向战线，完美适配竖屏。",
+                    desc: "天生的放置RPG手游胚子。将复杂的羁绊计算简化为满屏的数值爽感，核心循环天然契合“免费抽卡+广告加速”的混合变现模式。"
                 },
                 {
-                    name: "YAPYAP",
-                    appId: "3834090",
-                    subtitle: "直播时代的“掘地求升”，用“语音输入”制造节目效果的社交爆款。",
+                    name: "Bladesong ( 铸剑吟 )",
+                    appId: "2305640",
+                    subtitle: "模拟经营新蓝海，ASMR体验极致化",
                     tag: "S级推荐",
                     tagColor: "red",
-                    radar: {"commercial": 3.5, "mobile": 5, "theme": 3, "social": 5},
+                    radar: { commercial: 4, mobile: 5, theme: 4, social: 3.5 },
                     radarDetails: {
-                        commercial: { label: "皮肤付费", rating: "B+", content: "卖角色外观、施法特效、语音包。" },
-                        mobile: { label: "空间压缩", rating: "S", content: "2D横版或俯视角均可。 <br> **[操作适配]** 语音输入是移动端强项，但需解决环境噪音问题。" },
-                        theme: { label: "设定张力", rating: "B", content: "魔法学徒搞破坏，画风搞怪，适合全年龄段。" },
-                        social: { label: "改造方案", rating: "S", content: "强社交游戏，必须绑定社交关系链（微信/QQ/Discord）。" },
+                        commercial: { label: "外观付费", rating: "A", content: "稀有金属材质、剑柄装饰、特效贴图等是绝佳付费点。" },
+                        mobile: { label: "触屏交互", rating: "S", content: "手指滑动屏幕进行敲打、塑形，比鼠标操作更具沉浸感。" },
+                        theme: { label: "解压神器", rating: "A", content: "强调 ASMR 体验，符合年轻人“解压/放松”的市场需求。" },
+                        social: { label: "交易行", rating: "B+", content: "玩家打造的武器可挂牌出售，或做武器选美大赛等轻社交。" }
                     },
-                    insight: "将操作难点从“手残”转移到“嘴瓢”，极大地降低了物理操作门槛，提升了社交参与度。",
-                    desc: "移动端麦克风是标配，适合做成聚会类App或依附于社交平台的H5小游戏。",
-                    screenshots: ["https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3834090/f632edb136f771fb45d95fb61d5a48d49c3c0977/ss_f632edb136f771fb45d95fb61d5a48d49c3c0977.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3834090/677940befba6e6fb1121ae60021ef20c6790167f/ss_677940befba6e6fb1121ae60021ef20c6790167f.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3834090/0ef78d812a4ac1f6f0caeefc844a93b2f5e015e2/ss_0ef78d812a4ac1f6f0caeefc844a93b2f5e015e2.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3834090/99e00660868d4d5af668ee32dc7a3bc97b71c0dd/ss_99e00660868d4d5af668ee32dc7a3bc97b71c0dd.1920x1080.jpg"]
-                },
-                {
-                    name: "千禧梦",
-                    appId: "3470560",
-                    subtitle: "精准击中“千禧一代”怀旧情绪的步行模拟器，卖的是“氛围”而非“玩法”。",
-                    tag: "A级推荐",
-                    tagColor: "orange",
-                    radar: {"commercial": 2, "mobile": 4, "theme": 5, "social": 2},
-                    radarDetails: {
-                        commercial: { label: "买断/章节", rating: "C", content: "适合买断制或解锁章节。内购空间小。" },
-                        mobile: { label: "空间压缩", rating: "A", content: "3D步行模拟，性能要求适中。 <br> **[操作适配]** 双摇杆移动，操作简单。" },
-                        theme: { label: "设定张力", rating: "S", content: "🌟 **题材潜力股**。中式梦核/怀旧题材在短视频平台极易传播。" },
-                        social: { label: "改造方案", rating: "C", content: "弱社交，仅限于截图分享。" },
-                    },
-                    insight: "利用“阈限空间”美学（熟悉的陌生感）制造沉浸式体验，低成本高共鸣。",
-                    desc: "证明了特定时代的视觉符号（老式电脑、显像管电视、学校走廊）本身就是巨大的流量入口。",
-                    screenshots: ["https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3470560/b48c44c2079ba247c67e979f8ada6d75aa0c39aa/ss_b48c44c2079ba247c67e979f8ada6d75aa0c39aa.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3470560/6baf4d22d0027264b138f7fd12ba08a10caddd8e/ss_6baf4d22d0027264b138f7fd12ba08a10caddd8e.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3470560/80f46c2bbe13840be4a4921cb8c6d0c227655147/ss_80f46c2bbe13840be4a4921cb8c6d0c227655147.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3470560/fe7b701ee2f401900ed5651a27b01d1aad7f4639/ss_fe7b701ee2f401900ed5651a27b01d1aad7f4639.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3470560/38104a85d4a4a4d970b01e428cb10e6ec5a2ac62/ss_38104a85d4a4a4d970b01e428cb10e6ec5a2ac62.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3470560/6baf4d22d0027264b138f7fd12ba08a10caddd8e/ss_6baf4d22d0027264b138f7fd12ba08a10caddd8e.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3470560/80f46c2bbe13840be4a4921cb8c6d0c227655147/ss_80f46c2bbe13840be4a4921cb8c6d0c227655147.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3470560/fe7b701ee2f401900ed5651a27b01d1aad7f4639/ss_fe7b701ee2f401900ed5651a27b01d1aad7f4639.1920x1080.jpg"]
-                },
-                {
-                    name: "威赫战线 MENACE",
-                    appId: "2432860",
-                    subtitle: "PC端的战术盛宴，移动端的交互噩梦。",
-                    tag: "C级推荐",
-                    tagColor: "blue",
-                    radar: {"commercial": 2, "mobile": 2, "theme": 3, "social": 2},
-                    radarDetails: {
-                        commercial: { label: "硬核付费", rating: "C", content: "只能走买断或高价内购，大众市场接受度低。" },
-                        mobile: { label: "空间压缩", rating: "C", content: "战场信息密度过大，手机屏幕难以承载。 <br> **[操作适配]** 误触率高，单局时间过长（30min+）。" },
-                        theme: { label: "设定张力", rating: "B", content: "黑暗科幻/雇佣兵，题材尚可。" },
-                        social: { label: "改造方案", rating: "C", content: "异步PVP或许可行，但难以保留核心战术乐趣。" },
-                    },
-                    insight: "极高的策略深度和复杂的战场信息，依赖大屏幕和键鼠的精确操作。",
-                    desc: "作为反面教材参考。虽然品质极高（S级），但强行移植手游会面临巨大的UI灾难和操作劝退。",
-                    screenshots: ["https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2432860/dc807610328817b88ca64f62e65456c014729096/ss_dc807610328817b88ca64f62e65456c014729096.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2432860/c229cf811c77a037d3d3fbb58ebecb19b37aeaed/ss_c229cf811c77a037d3d3fbb58ebecb19b37aeaed.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2432860/00067a20b0ab6a23923668e3ca062172598ff93f/ss_00067a20b0ab6a23923668e3ca062172598ff93f.1920x1080.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2432860/61c4c4193eefee9a99e30ce824e10a14c8766411/ss_61c4c4193eefee9a99e30ce824e10a14c8766411.1920x1080.jpg"]
-                },
+                    insight: "在模拟经营赛道中找到了“锻造”这个极具表现力的切入点，视觉和听觉反馈极佳。",
+                    desc: "模拟经营赛道的垂直切入点。自定义锻造系统既可作为重度SLG的装备打造副玩法，也具备独立发展为高品质解压模拟手游的潜力。"
+                }
             ],
             ideaFragments: [
-                { name: "YAPYAP", appId: "3834090", content: "<b>语音判定</b>：可以提取出做一个“声控闯关”的小游戏，或者作为SLG中的一个趣味活动（如：全盟一起喊口号加Buff）。" },
-                { name: "黑帆赌局", appId: "3532360", content: "<b>骰子战斗</b>：这套“掷骰子-保留-重投-结算”的机制，非常适合做成RPG里的战斗系统，比单纯的卡牌对撞更有操作感。" },
-                { name: "乱剪一通", appId: "2947650", content: "<b>物理混乱</b>：多人合作中的“物理碰撞”和“队友互坑”是直播效果的源泉，做休闲竞技时可以参考这种“不可控的混乱感”。" },
+                { name: "奇怪的RPG 2", appId: "2516470", content: "<b>声控机制</b>：虽然做成核心玩法不现实，但可以做成SLG中的“喊话BUFF”或“语音社交”彩蛋，比如攻城时语音喊“冲锋”可以增加士气。" },
+                { name: "逃出从此以后", appId: "1996390", content: "<b>纸片人风格</b>：这种2.5D纸片风格在SLG中很少见，如果用来做一款轻度SLG（如蚂蚁/小人国题材），美术表现力会很突出且省资源。" },
+                { name: "Bladesong", appId: "2305640", content: "<b>自定义锻造</b>：可以将其简化为SLG装备系统的一个小游戏环节，增加装备产出的仪式感，而不是单纯的点击合成。" }
             ]
         };
 
@@ -1127,15 +1120,9 @@
         }
 
         function steamGalleryCandidates(appId) {
-            // 1. Check reportData for injected screenshots
-            if (typeof reportData !== 'undefined' && reportData.deepDives) {
-                const deepDive = reportData.deepDives.find(d => d.appId === appId);
-                if (deepDive && deepDive.screenshots && deepDive.screenshots.length > 0) {
-                    return deepDive.screenshots;
-                }
-            }
-            
             const baseA = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appId}`;
+            // Placeholder: Use header multiple times if real screenshots aren't available, to prevent broken UI
+            // In production, you would fetch real screenshot URLs from Steam API
             return [`${baseA}/header.jpg`, `${baseA}/header.jpg`, `${baseA}/header.jpg`, `${baseA}/header.jpg`];
         }
 
@@ -1267,12 +1254,6 @@
                     'https://shared.cdn.queniuqe.com/store_item_assets/steam/apps/3543120/f9c21220291bb755ac8b809ac2b95b2c8b5bb3fe/ss_f9c21220291bb755ac8b809ac2b95b2c8b5bb3fe.1920x1080.jpg?t=1769401725',
                     'https://shared.cdn.queniuqe.com/store_item_assets/steam/apps/3543120/e0a43536d39ebe89d9e033206f83403235f026cd/ss_e0a43536d39ebe89d9e033206f83403235f026cd.1920x1080.jpg?t=1769401725',
                     'https://shared.cdn.queniuqe.com/store_item_assets/steam/apps/3543120/4cd9138b70c9367f9cfd517155120216373fba0c/ss_4cd9138b70c9367f9cfd517155120216373fba0c.1920x1080.jpg?t=1769401725'
-                ],
-                '1766060': [
-                    'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1766060/4873f37f516dc207bd0f61ba5dcd16b0d2ca6070/ss_4873f37f516dc207bd0f61ba5dcd16b0d2ca6070.1920x1080.jpg',
-                    'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1766060/4e3bc0578ec7b8ce048b7917e4bdc2b85f010095/ss_4e3bc0578ec7b8ce048b7917e4bdc2b85f010095.1920x1080.jpg',
-                    'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1766060/42d0bf22adb348956aac4c38d7cd9c0a8d704db8/ss_42d0bf22adb348956aac4c38d7cd9c0a8d704db8.1920x1080.jpg',
-                    'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1766060/8049afbd6b5f903d04b37eaa4c6337a0db7770f1/ss_8049afbd6b5f903d04b37eaa4c6337a0db7770f1.1920x1080.jpg'
                 ]
             };
 
@@ -1384,7 +1365,6 @@
                 console.warn('GitHub API failed/skipped, using fallback list.');
                 // Fallback List (Manual Update Required)
                 archives = [
-                    { name: '2026_01_W5_Steam_Dashboard.html' },
                     { name: '2026_01_W4_Steam_Dashboard.html' },
                     { name: '2026_01_W3_Steam_Dashboard.html' },
                     { name: '2026_01_W2_Steam_Dashboard.html' }
